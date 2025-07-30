@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research - Brayan A. Condori</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Brayan A. Condori</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="research.html" class="active">Research</a>
+                <a href="experience.html">Experience</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Research Section -->
+        <div class="section active">
+            <h2>Research</h2>
+
+            <div class="research-item">
+                <h3>Master's Thesis</h3>
+                <div class="paper-info">[Your Thesis Title] | In Progress</div>
+                
+                <div class="project-image-placeholder">
+                    <!-- Replace with: <img src="images/thesis-image.jpg" alt="Thesis Research" class="project-image"> -->
+                    Add image related to your thesis research
+                </div>
+                
+                <div class="paper-links">
+                    <a href="#">Draft</a>
+                    <a href="#">Stata Code</a>
+                    <a href="#">Data</a>
+                </div>
+                <a href="#" class="abstract-toggle" onclick="toggleAbstract('thesis-abstract')">Abstract</a>
+                <div id="thesis-abstract" class="abstract-content">
+                    <div class="abstract">
+                        [Add your thesis abstract here. Describe your research question, methodology using Stata, main findings, and contribution to the development economics literature.]
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-subtitle">Selected Work from IPA Experience</div>
+
+            <div class="research-item">
+                <h3>Field Experiments on Intimate Partner Violence Prevention</h3>
+                <div class="paper-info">Innovations for Poverty Action | Peru</div>
+                
+                <div class="project-image-placeholder">
+                    <!-- Replace with: <img src="images/ipv-project.jpg" alt="IPV Prevention Project" class="project-image"> -->
+                    Add project image
+                </div>
+                
+                <div class="paper-links">
+                    <a href="#">Project Summary</a>
+                    <a href="#">Methodology</a>
+                    <a href="#">Data</a>
+                </div>
+                <a href="#" class="abstract-toggle" onclick="toggleAbstract('ipv-abstract')">Abstract</a>
+                <div id="ipv-abstract" class="abstract-content">
+                    <div class="abstract">
+                        Contributed to the design and implementation of randomized controlled trials evaluating interventions to prevent intimate partner violence in Peru. Responsibilities included survey design, data collection coordination, and preliminary statistical analysis using Stata. The project aimed to understand the effectiveness of community-based interventions in reducing domestic violence incidents and changing social norms around gender-based violence.
+                    </div>
+                </div>
+            </div>
+
+            <div class="research-item">
+                <h3>Impact Evaluation of School Management Interventions</h3>
+                <div class="paper-info">Innovations for Poverty Action | Peru</div>
+                
+                <div class="project-image-placeholder">
+                    <!-- Replace with: <img src="images/education-project.jpg" alt="Education Project" class="project-image"> -->
+                    Add education project image
+                </div>
+                
+                <div class="paper-links">
+                    <a href="#">Technical Report</a>
+                    <a href="#">Data Analysis</a>
+                    <a href="#">Policy Brief</a>
+                </div>
+                <a href="#" class="abstract-toggle" onclick="toggleAbstract('education-abstract')">Abstract</a>
+                <div id="education-abstract" class="abstract-content">
+                    <div class="abstract">
+                        Evaluated the impact of school management training programs on educational outcomes in rural Peru. Conducted extensive fieldwork, managed data collection processes across multiple school districts, and performed statistical analysis using advanced econometric techniques in Stata. The study focused on measuring improvements in student performance, teacher effectiveness, and administrative efficiency following the implementation of management training programs.
+                    </div>
+                </div>
+            </div>
+
+            <div class="research-item">
+                <h3>Cross-Country Evaluation of STEAM Education Programs</h3>
+                <div class="paper-info">Innovations for Poverty Action | Peru and Belize</div>
+                
+                <div class="project-image-placeholder">
+                    <!-- Replace with: <img src="images/steam-project.jpg" alt="STEAM Education Project" class="project-image"> -->
+                    Add cross-country project image
+                </div>
+                
+                <div class="paper-links">
+                    <a href="#">Cross-Country Analysis</a>
+                    <a href="#">Policy Brief</a>
+                    <a href="#">Comparative Results</a>
+                </div>
+                <a href="#" class="abstract-toggle" onclick="toggleAbstract('steam-abstract')">Abstract</a>
+                <div id="steam-abstract" class="abstract-content">
+                    <div class="abstract">
+                        Led a comparative evaluation of Science, Technology, Engineering, Arts, and Mathematics (STEAM) education programs across Peru and Belize. Coordinated data collection across multiple countries, harmonized survey instruments, and conducted cross-country statistical comparisons. The project examined the differential impacts of STEAM interventions across diverse cultural and economic contexts, providing insights for scaling educational innovations in Latin America and Central America.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-subtitle">Work in Progress</div>
+
+            <div class="research-item">
+                <h3>[Your Current Research Project]</h3>
+                <div class="paper-info">Working Paper | Expected [Date]</div>
+                
+                <div class="project-image-placeholder">
+                    <!-- Replace with: <img src="images/current-research.jpg" alt="Current Research" class="project-image"> -->
+                    Add current research image
+                </div>
+                
+                <div class="paper-links">
+                    <a href="#">Draft Available by Request</a>
+                </div>
+                <a href="#" class="abstract-toggle" onclick="toggleAbstract('wip-abstract')">Abstract</a>
+                <div id="wip-abstract" class="abstract-content">
+                    <div class="abstract">
+                        [Describe your current research project - research question, methodology, expected contributions to the literature]
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Brayan A. Condori</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
