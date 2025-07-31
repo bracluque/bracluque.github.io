@@ -11,12 +11,17 @@
     <div class="top-nav">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">Brayan A. Condori</a>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-            <div class="nav-links" id="navLinks">
-                <a href="index.html">Home</a>
-                <a href="research.html" class="active">Research</a>
-                <a href="experience.html">Experience</a>
-                <a href="contact.html">Contact</a>
+            <div style="display: flex; align-items: center;">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html">Home</a>
+                    <a href="research.html" class="active">Research</a>
+                    <a href="personal.html">Personal</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Switch to Dark Mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
             </div>
         </div>
     </div>
@@ -168,30 +173,30 @@
             <!-- OTHER RESEARCH SECTION (BRIEF FORMAT) -->
             <div class="section-subtitle">Other Research</div>
 
-            <div style="padding: 25px; background: #f7fafc; border-radius: 6px; border-left: 3px solid #4a5568; margin-bottom: 30px;">
-                <h4 style="color: #1a202c; margin-bottom: 15px; font-size: 1.1rem;">Field Experiments on Intimate Partner Violence Prevention</h4>
-                <p style="color: #4a5568; font-size: 0.95rem; margin-bottom: 8px;"><em>Innovations for Poverty Action | Peru</em></p>
-                <p style="color: #4a5568; font-size: 0.95rem; line-height: 1.5;">Contributed to the design and implementation of randomized controlled trials evaluating interventions to prevent intimate partner violence in Peru. Responsibilities included survey design, data collection coordination, and statistical analysis using Stata.</p>
+            <div style="padding: 25px; background: var(--bg-tertiary); border-radius: 6px; border-left: 3px solid var(--accent-color); margin-bottom: 30px;">
+                <h4 style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;">Field Experiments on Intimate Partner Violence Prevention</h4>
+                <p style="color: var(--text-tertiary); font-size: 0.95rem; margin-bottom: 8px;"><em>Innovations for Poverty Action | Peru</em></p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">Contributed to the design and implementation of randomized controlled trials evaluating interventions to prevent intimate partner violence in Peru. Responsibilities included survey design, data collection coordination, and statistical analysis using Stata.</p>
             </div>
 
-            <div style="padding: 25px; background: #f7fafc; border-radius: 6px; border-left: 3px solid #4a5568; margin-bottom: 30px;">
-                <h4 style="color: #1a202c; margin-bottom: 15px; font-size: 1.1rem;">Impact Evaluation of School Management Interventions</h4>
-                <p style="color: #4a5568; font-size: 0.95rem; margin-bottom: 8px;"><em>Innovations for Poverty Action | Peru</em></p>
-                <p style="color: #4a5568; font-size: 0.95rem; line-height: 1.5;">Evaluated the impact of school management training programs on educational outcomes in rural Peru. Conducted fieldwork, managed data collection processes, and performed statistical analysis using econometric techniques in Stata.</p>
+            <div style="padding: 25px; background: var(--bg-tertiary); border-radius: 6px; border-left: 3px solid var(--accent-color); margin-bottom: 30px;">
+                <h4 style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;">Impact Evaluation of School Management Interventions</h4>
+                <p style="color: var(--text-tertiary); font-size: 0.95rem; margin-bottom: 8px;"><em>Innovations for Poverty Action | Peru</em></p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">Evaluated the impact of school management training programs on educational outcomes in rural Peru. Conducted fieldwork, managed data collection processes, and performed statistical analysis using econometric techniques in Stata.</p>
             </div>
 
-            <div style="padding: 25px; background: #f7fafc; border-radius: 6px; border-left: 3px solid #4a5568; margin-bottom: 30px;">
-                <h4 style="color: #1a202c; margin-bottom: 15px; font-size: 1.1rem;">Cross-Country Evaluation of STEAM Education Programs</h4>
-                <p style="color: #4a5568; font-size: 0.95rem; margin-bottom: 8px;"><em>Innovations for Poverty Action | Peru and Belize</em></p>
-                <p style="color: #4a5568; font-size: 0.95rem; line-height: 1.5;">Led a comparative evaluation of STEAM education programs across Peru and Belize. Coordinated data collection across multiple countries and conducted cross-country statistical comparisons.</p>
+            <div style="padding: 25px; background: var(--bg-tertiary); border-radius: 6px; border-left: 3px solid var(--accent-color); margin-bottom: 30px;">
+                <h4 style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;">Cross-Country Evaluation of STEAM Education Programs</h4>
+                <p style="color: var(--text-tertiary); font-size: 0.95rem; margin-bottom: 8px;"><em>Innovations for Poverty Action | Peru and Belize</em></p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">Led a comparative evaluation of STEAM education programs across Peru and Belize. Coordinated data collection across multiple countries and conducted cross-country statistical comparisons.</p>
             </div>
 
             <!-- Add more "Other Research" items as needed -->
             <!--
-            <div style="padding: 25px; background: #f7fafc; border-radius: 6px; border-left: 3px solid #4a5568; margin-bottom: 30px;">
-                <h4 style="color: #1a202c; margin-bottom: 15px; font-size: 1.1rem;">[Additional Research Project]</h4>
-                <p style="color: #4a5568; font-size: 0.95rem; margin-bottom: 8px;"><em>[Institution/Organization] | [Location]</em></p>
-                <p style="color: #4a5568; font-size: 0.95rem; line-height: 1.5;">[Brief description of the research project, your role, and key outcomes]</p>
+            <div style="padding: 25px; background: var(--bg-tertiary); border-radius: 6px; border-left: 3px solid var(--accent-color); margin-bottom: 30px;">
+                <h4 style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;">[Additional Research Project]</h4>
+                <p style="color: var(--text-tertiary); font-size: 0.95rem; margin-bottom: 8px;"><em>[Institution/Organization] | [Location]</em></p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">[Brief description of the research project, your role, and key outcomes]</p>
             </div>
             -->
 

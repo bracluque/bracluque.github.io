@@ -11,12 +11,17 @@
     <div class="top-nav">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">Brayan A. Condori</a>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-            <div class="nav-links" id="navLinks">
-                <a href="index.html">Home</a>
-                <a href="research.html">Research</a>
-                <a href="experience.html">Experience</a>
-                <a href="contact.html" class="active">Contact</a>
+            <div style="display: flex; align-items: center;">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html">Home</a>
+                    <a href="research.html">Research</a>
+                    <a href="personal.html">Personal</a>
+                    <a href="contact.html" class="active">Contact</a>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Switch to Dark Mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
             </div>
         </div>
     </div>
@@ -43,7 +48,7 @@
                 <br>
                 
                 <p><strong>Online Presence</strong></p>
-                <p><a href="https://sites.google.com/view/bracluque/home">Current Website</a></p>
+                <p><a href="https://sites.google.com/view/bracluque/home">Previous Website</a></p>
                 <p><a href="https://bracluque.github.io/website_files/CV.pdf">Curriculum Vitae</a></p>
                 <p><a href="#">LinkedIn</a> | <a href="#">Google Scholar</a> | <a href="#">ORCID</a></p>
                 
@@ -60,32 +65,32 @@
 
             <!-- Optional: Add a simple contact form -->
             <!--
-            <div style="margin-top: 40px; padding: 30px; background: #f7fafc; border-radius: 6px;">
-                <h3 style="margin-bottom: 20px; color: #1a202c;">Get in Touch</h3>
+            <div style="margin-top: 40px; padding: 30px; background: var(--bg-tertiary); border-radius: 6px;">
+                <h3 style="margin-bottom: 20px; color: var(--text-primary);">Get in Touch</h3>
                 <form action="#" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
-                    <input type="text" name="name" placeholder="Your Name" required style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 4px;">
-                    <input type="email" name="email" placeholder="Your Email" required style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 4px;">
-                    <input type="text" name="subject" placeholder="Subject" required style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 4px;">
-                    <textarea name="message" placeholder="Your Message" rows="5" required style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 4px; resize: vertical;"></textarea>
-                    <button type="submit" style="background: #2d3748; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; align-self: flex-start;">Send Message</button>
+                    <input type="text" name="name" placeholder="Your Name" required style="padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-secondary); color: var(--text-primary);">
+                    <input type="email" name="email" placeholder="Your Email" required style="padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-secondary); color: var(--text-primary);">
+                    <input type="text" name="subject" placeholder="Subject" required style="padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-secondary); color: var(--text-primary);">
+                    <textarea name="message" placeholder="Your Message" rows="5" required style="padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; resize: vertical; background: var(--bg-secondary); color: var(--text-primary);"></textarea>
+                    <button type="submit" style="background: var(--nav-bg); color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; align-self: flex-start;">Send Message</button>
                 </form>
             </div>
             -->
 
             <!-- Optional: Office hours or availability -->
-            <div style="margin-top: 40px; padding: 30px; background: #f7fafc; border-radius: 6px;">
-                <h3 style="margin-bottom: 20px; color: #1a202c;">Availability</h3>
-                <p style="color: #4a5568; margin-bottom: 10px;"><strong>Office Hours:</strong> [Days and times] or by appointment</p>
-                <p style="color: #4a5568; margin-bottom: 10px;"><strong>Best Contact Method:</strong> Email</p>
-                <p style="color: #4a5568;"><strong>Response Time:</strong> Usually within 24-48 hours</p>
+            <div style="margin-top: 40px; padding: 30px; background: var(--bg-tertiary); border-radius: 6px;">
+                <h3 style="margin-bottom: 20px; color: var(--text-primary);">Availability</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 10px;"><strong>Office Hours:</strong> [Days and times] or by appointment</p>
+                <p style="color: var(--text-secondary); margin-bottom: 10px;"><strong>Best Contact Method:</strong> Email</p>
+                <p style="color: var(--text-secondary);"><strong>Response Time:</strong> Usually within 24-48 hours</p>
             </div>
 
             <!-- Optional: Map or location info -->
             <!--
             <div style="margin-top: 40px;">
-                <h3 style="margin-bottom: 20px; color: #1a202c;">Location</h3>
-                <p style="color: #4a5568; margin-bottom: 15px;">I am currently based in La Plata, Argentina, pursuing my Master's degree at Universidad Nacional de La Plata. I am originally from Juliaca, Peru, located in the Peruvian Andes.</p>
-                <p style="color: #4a5568;"><em>Available for virtual meetings and collaborations worldwide.</em></p>
+                <h3 style="margin-bottom: 20px; color: var(--text-primary);">Location</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">I am currently based in La Plata, Argentina, pursuing my Master's degree at Universidad Nacional de La Plata. I am originally from Juliaca, Peru, located in the Peruvian Andes.</p>
+                <p style="color: var(--text-secondary);"><em>Available for virtual meetings and collaborations worldwide.</em></p>
             </div>
             -->
         </div>
@@ -98,3 +103,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+            
