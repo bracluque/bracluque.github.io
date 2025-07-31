@@ -11,12 +11,17 @@
     <div class="top-nav">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">Brayan A. Condori</a>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-            <div class="nav-links" id="navLinks">
-                <a href="index.html" class="active">Home</a>
-                <a href="research.html">Research</a>
-                <a href="personal.html">Personal</a>
-                <a href="contact.html">Contact</a>
+            <div style="display: flex; align-items: center;">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="research.html">Research</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span class="theme-icon">🌙</span> Dark
+                </button>
             </div>
         </div>
     </div>

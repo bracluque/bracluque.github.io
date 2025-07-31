@@ -1,3 +1,38 @@
+// Theme Toggle Functionality
+function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    html.setAttribute('data-theme', newTheme);
+    
+    // Save theme preference to localStorage
+    localStorage.setItem('theme', newTheme);
+    
+    // Update button text and icon
+    updateThemeButton(newTheme);
+}
+
+function updateThemeButton(theme) {
+    const themeBtn = document.querySelector('.theme-toggle');
+    if (themeBtn) {
+        if (theme === 'dark') {
+            themeBtn.innerHTML = '<span class="theme-icon">☀️</span> Light';
+        } else {
+            themeBtn.innerHTML = '<span class="theme-icon">🌙</span> Dark';
+        }
+    }
+}
+
+// Initialize theme on page load
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const html = document.documentElement;
+    
+    html.setAttribute('data-theme', savedTheme);
+    updateThemeButton(savedTheme);
+}
+
 // Function to toggle abstracts
 function toggleAbstract(abstractId) {
     const abstract = document.getElementById(abstractId);
@@ -18,8 +53,12 @@ function toggleMobileMenu() {
     navLinks.classList.toggle('show');
 }
 
-// Initialize all abstracts as hidden when page loads
+// Initialize everything when page loads
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize theme
+    initializeTheme();
+    
+    // Initialize all abstracts as hidden
     const abstracts = document.querySelectorAll('.abstract-content');
     abstracts.forEach(abstract => {
         abstract.style.display = 'none';
@@ -64,7 +103,7 @@ function addBackToTopButton() {
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background: #2d3748;
+        background: var(--nav-bg);
         color: white;
         border: none;
         font-size: 20px;
