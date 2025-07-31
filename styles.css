@@ -278,7 +278,7 @@ body {
 }
 
 .interests-section h3,
-.awards-section h3 {
+.education-section h3 {
     font-size: 1.3rem;
     color: var(--text-primary);
     margin-bottom: 20px;
@@ -286,14 +286,14 @@ body {
 }
 
 .interests-section ul,
-.awards-section ul {
+.education-section ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
 .interests-section li,
-.awards-section li {
+.education-section li {
     margin-bottom: 12px;
     color: var(--text-secondary);
     font-size: 1.05rem;
@@ -310,12 +310,130 @@ body {
     font-weight: bold;
 }
 
-.awards-section li:before {
+.education-section li:before {
     content: "▸";
     color: var(--text-primary);
     position: absolute;
     left: 0;
     font-weight: bold;
+}
+
+/* Social Media Section */
+.social-media {
+    text-align: center;
+    margin: 40px 0;
+    padding: 30px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.social-media h3 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon span {
+    font-size: 1.5rem;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+    border-color: var(--accent-color);
+}
+
+/* Contact Section */
+.contact-section {
+    margin-top: 60px;
+    padding: 50px 0;
+    background: var(--bg-tertiary);
+    border-radius: 12px;
+    border-top: 3px solid var(--accent-color);
+}
+
+.contact-section h2 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+}
+
+.contact-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 1px;
+    background: var(--accent-color);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 0 30px;
+}
+
+.contact-card {
+    background: var(--bg-secondary);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.contact-card h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.contact-card p {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.contact-card a {
+    color: var(--text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.contact-card a:hover {
+    border-bottom-color: var(--text-primary);
 }
 
 /* Research item improvements for desktop */
@@ -651,6 +769,30 @@ body {
     .interests-awards-container {
         grid-template-columns: 1fr;
         gap: 30px;
+    }
+    
+    .social-icons {
+        gap: 15px;
+    }
+    
+    .social-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .social-icon span {
+        font-size: 1.3rem;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 15px;
+    }
+    
+    .contact-section {
+        margin-top: 40px;
+        padding: 30px 0;
     }
     
     .theme-toggle {
