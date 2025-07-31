@@ -9,17 +9,20 @@ function toggleTheme() {
     // Save theme preference to localStorage
     localStorage.setItem('theme', newTheme);
     
-    // Update button text and icon
+    // Update button icon
     updateThemeButton(newTheme);
 }
 
 function updateThemeButton(theme) {
     const themeBtn = document.querySelector('.theme-toggle');
     if (themeBtn) {
+        const icon = themeBtn.querySelector('.theme-icon');
         if (theme === 'dark') {
-            themeBtn.innerHTML = '<span class="theme-icon">☀️</span> Light';
+            icon.textContent = '☀️';
+            themeBtn.setAttribute('title', 'Switch to Light Mode');
         } else {
-            themeBtn.innerHTML = '<span class="theme-icon">🌙</span> Dark';
+            icon.textContent = '🌙';
+            themeBtn.setAttribute('title', 'Switch to Dark Mode');
         }
     }
 }
