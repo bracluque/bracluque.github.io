@@ -643,6 +643,79 @@ body {
     text-align: center;
 }
 
+/* Research Toggle Styles */
+.research-toggle {
+    margin-bottom: 30px;
+    background: var(--bg-tertiary);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.research-toggle:hover {
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.toggle-btn {
+    width: 100%;
+    padding: 20px 25px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    border-left: 3px solid var(--accent-color);
+    transition: all 0.3s ease;
+    position: relative;
+    font-family: inherit;
+}
+
+.toggle-btn:hover {
+    background: var(--bg-secondary);
+}
+
+.toggle-btn:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.toggle-btn::after {
+    content: '▼';
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.toggle-btn.expanded::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.toggle-content {
+    display: none;
+    padding: 25px;
+    background: var(--bg-tertiary);
+    border-top: 1px solid var(--border-light);
+}
+
+.toggle-content p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    text-align: justify;
+}
+
+.toggle-content p:last-child {
+    margin-bottom: 0;
+}
+
 .footer {
     margin-top: 60px;
     text-align: center;

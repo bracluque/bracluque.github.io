@@ -170,14 +170,31 @@
                 </div>
             </div>
 
-            <!-- OTHER RESEARCH SECTION (BRIEF FORMAT) -->
+            <!-- OTHER RESEARCH SECTION (TOGGLE FORMAT) -->
             <div class="section-subtitle">Other Research</div>
 
-            <div style="padding: 25px; background: var(--bg-tertiary); border-radius: 6px; border-left: 3px solid var(--accent-color); margin-bottom: 30px;">
-                <h4 style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;">The Impact of Cash Transfers on the Use of Health Services: Evidence from Peru</h4>
-                <p style="color: var(--text-tertiary); font-size: 0.95rem; margin-bottom: 8px;"><em>Joint with Erika Quevedo | 2022 Ashok Kotwal Prize for Best Senior Thesis (Universidad de Piura)</em></p>
-                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">This study examines the effects of unconditional cash transfers on the utilization of medical and pharmaceutical services. At the height of the COVID-19 crisis, the Peruvian government introduced cash  transfers to alleviate the socioeconomic burden on the most vulnerable households. Using data from the 2021 Peruvian Household Survey, we apply a causal inference approach based on propensity score  matching, which allows for the identification of households with comparable observable characteristics. Our findings suggest that the cash transfers did not significantly influence spending patterns. These results provide valuable insights into the effectiveness of cash transfer policies during periods of adversity, with implications for the design of social and economic protection policies in crisis contexts.</p>
+            <div class="research-toggle">
+                <button class="toggle-btn" onclick="toggleResearchBox('other-research-1-content')" aria-expanded="false" aria-controls="other-research-1-content">
+                    The Impact of Cash Transfers on the Use of Health Services: Evidence from Peru
+                </button>
+                <div id="other-research-1-content" class="toggle-content">
+                    <p style="color: var(--text-tertiary); font-style: italic; margin-bottom: 15px;"><em>Joint with Erika Quevedo | 2022 Ashok Kotwal Prize for Best Senior Thesis (Universidad de Piura)</em></p>
+                    <p>This study examines the effects of unconditional cash transfers on the utilization of medical and pharmaceutical services. At the height of the COVID-19 crisis, the Peruvian government introduced cash transfers to alleviate the socioeconomic burden on the most vulnerable households. Using data from the 2021 Peruvian Household Survey, we apply a causal inference approach based on propensity score matching, which allows for the identification of households with comparable observable characteristics. Our findings suggest that the cash transfers did not significantly influence spending patterns. These results provide valuable insights into the effectiveness of cash transfer policies during periods of adversity, with implications for the design of social and economic protection policies in crisis contexts.</p>
+                </div>
             </div>
+
+            <!-- Example of how to add additional research items (commented out for future use) -->
+            <!--
+            <div class="research-toggle">
+                <button class="toggle-btn" onclick="toggleResearchBox('other-research-2-content')" aria-expanded="false" aria-controls="other-research-2-content">
+                    [Additional Research Project Title]
+                </button>
+                <div id="other-research-2-content" class="toggle-content">
+                    <p style="color: var(--text-tertiary); font-style: italic; margin-bottom: 15px;"><em>[Institution/Organization] | [Location]</em></p>
+                    <p>[Brief description of the research project, your role, and key outcomes]</p>
+                </div>
+            </div>
+            -->
 
             <!-- Add more "Other Research" items as needed -->
             <!--

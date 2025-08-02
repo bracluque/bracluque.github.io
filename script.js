@@ -50,6 +50,22 @@ function toggleAbstract(abstractId) {
     }
 }
 
+// Function to toggle research boxes
+function toggleResearchBox(contentId) {
+    const content = document.getElementById(contentId);
+    const toggle = event.target;
+    
+    if (content.style.display === 'none' || content.style.display === '') {
+        content.style.display = 'block';
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.classList.add('expanded');
+    } else {
+        content.style.display = 'none';
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.classList.remove('expanded');
+    }
+}
+
 // Function to toggle mobile menu
 function toggleMobileMenu() {
     const navLinks = document.getElementById('navLinks');
@@ -65,6 +81,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const abstracts = document.querySelectorAll('.abstract-content');
     abstracts.forEach(abstract => {
         abstract.style.display = 'none';
+    });
+    
+    // Initialize all research toggle content as hidden
+    const toggleContents = document.querySelectorAll('.toggle-content');
+    toggleContents.forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    // Set initial aria-expanded state for toggle buttons
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
+    toggleButtons.forEach(button => {
+        button.setAttribute('aria-expanded', 'false');
     });
 });
 
