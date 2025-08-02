@@ -50,6 +50,25 @@ function toggleAbstract(abstractId) {
     }
 }
 
+// Function to toggle research items (NEW)
+function toggleResearchItem(contentId, iconId) {
+    const content = document.getElementById(contentId);
+    const icon = document.getElementById(iconId);
+    const item = content.closest('.research-toggle-item');
+    
+    const isExpanded = content.classList.contains('expanded');
+    
+    if (isExpanded) {
+        content.classList.remove('expanded');
+        icon.classList.remove('expanded');
+        item.classList.remove('expanded');
+    } else {
+        content.classList.add('expanded');
+        icon.classList.add('expanded');
+        item.classList.add('expanded');
+    }
+}
+
 // Function to toggle mobile menu
 function toggleMobileMenu() {
     const navLinks = document.getElementById('navLinks');
