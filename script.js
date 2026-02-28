@@ -18,10 +18,10 @@ function updateThemeButton(theme) {
     if (themeBtn) {
         const icon = themeBtn.querySelector('.theme-icon');
         if (theme === 'dark') {
-            icon.textContent = '☀️';
+            icon.textContent = '○';
             themeBtn.setAttribute('title', 'Switch to Light Mode');
         } else {
-            icon.textContent = '🌙';
+            icon.textContent = '●';
             themeBtn.setAttribute('title', 'Switch to Dark Mode');
         }
     }

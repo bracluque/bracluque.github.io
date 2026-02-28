@@ -9,37 +9,37 @@
 :root {
     /* Light mode colors */
     --bg-primary: #fafafa;
-    --bg-secondary: white;
-    --bg-tertiary: #f7fafc;
-    --text-primary: #1a2332;
-    --text-secondary: #4a5568;
-    --text-tertiary: #718096;
-    --border-color: #e2e8f0;
-    --border-light: #f1f5f9;
-    --accent-color: #2b6cb0;
-    --accent-gold: #d69e2e;
-    --accent-green: #38a169;
-    --nav-bg: #1a2332;
-    --shadow-color: rgba(0,0,0,0.1);
-    --link-color: #2b6cb0;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f4f4f4;
+    --text-primary: #111111;
+    --text-secondary: #444444;
+    --text-tertiary: #888888;
+    --border-color: #dddddd;
+    --border-light: #eeeeee;
+    --accent-color: #1a1a1a;
+    --accent-gold: #555555;
+    --accent-green: #777777;
+    --nav-bg: #111111;
+    --shadow-color: rgba(0,0,0,0.08);
+    --link-color: #1a1a1a;
 }
 
 [data-theme="dark"] {
     /* Dark mode colors */
-    --bg-primary: #1a202c;
-    --bg-secondary: #2d3748;
-    --bg-tertiary: #4a5568;
-    --text-primary: #f7fafc;
-    --text-secondary: #e2e8f0;
-    --text-tertiary: #cbd5e0;
-    --border-color: #4a5568;
-    --border-light: #4a5568;
-    --accent-color: #63b3ed;
-    --accent-gold: #f6e05e;
-    --accent-green: #68d391;
-    --nav-bg: #1a202c;
-    --shadow-color: rgba(0,0,0,0.3);
-    --link-color: #63b3ed;
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2a2a2a;
+    --bg-tertiary: #333333;
+    --text-primary: #f0f0f0;
+    --text-secondary: #cccccc;
+    --text-tertiary: #999999;
+    --border-color: #444444;
+    --border-light: #3a3a3a;
+    --accent-color: #d4d4d4;
+    --accent-gold: #aaaaaa;
+    --accent-green: #999999;
+    --nav-bg: #111111;
+    --shadow-color: rgba(0,0,0,0.4);
+    --link-color: #d4d4d4;
 }
 
 body {
@@ -99,7 +99,7 @@ h1, h2, h3, h4, h5, h6,
 .nav-links a:hover,
 .nav-links a.active {
     color: white;
-    border-bottom-color: var(--accent-color);
+    border-bottom-color: white;
 }
 
 /* Theme Toggle Button */
@@ -1058,9 +1058,9 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .status-wip {
-    background: rgba(214, 158, 46, 0.12);
-    color: #b7791f;
-    border: 1px solid rgba(214, 158, 46, 0.3);
+    background: rgba(0, 0, 0, 0.05);
+    color: #555555;
+    border: 1px solid rgba(0, 0, 0, 0.18);
 }
 
 [data-theme="dark"] .status-wip {
@@ -1068,9 +1068,9 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .status-thesis {
-    background: rgba(56, 161, 105, 0.12);
-    color: #276749;
-    border: 1px solid rgba(56, 161, 105, 0.3);
+    background: rgba(0, 0, 0, 0.04);
+    color: #666666;
+    border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 [data-theme="dark"] .status-thesis {
@@ -1119,7 +1119,7 @@ h1, h2, h3, h4, h5, h6,
 .paper-award {
     font-family: 'Source Sans 3', sans-serif;
     font-size: 0.88rem;
-    color: #b7791f;
+    color: #444444;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -1379,12 +1379,16 @@ h1, h2, h3, h4, h5, h6,
 .experience-card-image-placeholder {
     width: 100%;
     height: 200px;
-    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--border-color) 100%);
+    background: var(--bg-tertiary);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-tertiary);
-    font-size: 2.5rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .experience-card-body {
