@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brayan A. Condori - Economist</title>
-    <meta name="description" content="Brayan A. Condori is a Research Fellow at GRADE and the Wyss Academy for Nature, working at the intersection of development economics and political economy.">
+    <title>CV - Brayan A. Condori</title>
+    <meta name="description" content="Curriculum Vitae of Brayan A. Condori, Research Fellow at GRADE and the Wyss Academy for Nature.">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,11 +15,11 @@
             <div style="display: flex; align-items: center;">
                 <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
                 <div class="nav-links" id="navLinks">
-                    <a href="index.html" class="active">Home</a>
+                    <a href="index.html">Home</a>
                     <a href="research.html">Research</a>
                     <a href="resources.html">Resources</a>
                     <a href="personal.html">Personal</a>
-                    <a href="cv.html">CV</a>
+                    <a href="cv.html" class="active">CV</a>
                 </div>
                 <button class="theme-toggle" onclick="toggleTheme()" title="Switch to Dark Mode">
                     <span class="theme-icon">🌙</span>
@@ -29,65 +29,32 @@
     </div>
 
     <div class="container">
-        <!-- Header with Photo -->
-        <div class="header">
-            <div class="profile-section">
-                <div class="profile-card">
-                    <div class="profile-photo">
-                        <img src="images/bray2.jpeg" alt="Brayan A. Condori" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                    </div>
-                    <div class="profile-info">
-                        <h1>Brayan A. Condori</h1>
-                        <div class="subtitle">Research Fellow</div>
-                        <div class="affiliation">
-                            GRADE &amp; Wyss Academy for Nature<br>
-                            University of Bern<br>
-                            <a href="mailto:alexcluque@gmail.com" class="email-link">alexcluque@gmail.com</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="intro-text">
-                    <p>Hi, I'm Brayan from <a href="https://en.wikipedia.org/wiki/Juliaca" target="_blank">Juliaca, Peru</a>.</p>
-
-                    <p>Brayan A. Condori is a Research Fellow at <a href="https://www.grade.org.pe/" target="_blank">GRADE</a> and the <a href="https://www.wyssacademy.org/" target="_blank">Wyss Academy for Nature</a>, where he works with the Political Economy and Sustainable Development team. His research lies at the intersection of development economics and political economy, with a focus on text-as-data methods and large language models.</p>
-
-                    <p>Prior to joining GRADE and the Wyss Academy, he worked at <a href="https://www.poverty-action.org/" target="_blank">Innovations for Poverty Action</a> and collaborated on projects with institutions including Harvard Graduate School of Education, New York University, and the Inter-American Development Bank.</p>
-
-                    <p>He holds a Bachelor's degree in Economics from Universidad de Piura and a Master's degree in Economics from Universidad Nacional de La Plata.</p>
-                </div>
+        <div class="cv-page-header">
+            <div>
+                <h1>Curriculum Vitae</h1>
+                <p>Last updated: February 2026</p>
             </div>
+            <a href="docs/CV_Condori_Brayan.pdf" download class="btn-cv-download">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                </svg>
+                Download PDF
+            </a>
         </div>
 
-        <!-- Home Section -->
-        <div class="section active">
-            <div class="research-interests">
-                <div class="interests-awards-container">
-                    <div class="interests-section">
-                        <h3>Research Interests</h3>
-                        <ul>
-                            <li>Public Economics</li>
-                            <li>Labor Economics</li>
-                            <li>Political Economy</li>
-                        </ul>
-                    </div>
-
-                    <div class="education-section">
-                        <h3>Education</h3>
-                        <ul>
-                            <li>M.A. in Economics, Universidad Nacional de La Plata &mdash; 2025</li>
-                            <li>B.A. in Economics, Universidad de Piura &mdash; 2023</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cv-link">
-                <a href="cv.html">Curriculum Vitae</a>
-            </div>
+        <div class="cv-embed-container">
+            <embed src="docs/CV_Condori_Brayan.pdf"
+                   type="application/pdf"
+                   width="100%"
+                   height="850px"
+                   title="Brayan A. Condori - Curriculum Vitae" />
         </div>
 
-        <div class="footer">
+        <p style="margin-top: 20px; text-align: center; font-size: 0.9rem; color: var(--text-tertiary); font-family: 'Source Sans 3', sans-serif;">
+            If the PDF does not display, <a href="docs/CV_Condori_Brayan.pdf" target="_blank" style="color: var(--accent-color);">click here to open it</a>.
+        </p>
+
+        <div class="footer" style="margin-top: 50px;">
             <div class="footer-content">
                 <p>&copy; 2026 Brayan A. Condori</p>
                 <div class="social-footer">

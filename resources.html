@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - Brayan A. Condori</title>
+    <meta name="description" content="Tools, guides, and workflows for economic research using Claude Code and AI-powered coding assistants.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Brayan A. Condori</a>
+            <div style="display: flex; align-items: center;">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html">Home</a>
+                    <a href="research.html">Research</a>
+                    <a href="resources.html" class="active">Resources</a>
+                    <a href="personal.html">Personal</a>
+                    <a href="cv.html">CV</a>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Switch to Dark Mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section active">
+            <h2 class="page-title">Resources</h2>
+            <div class="page-subtitle-line"></div>
+
+            <div class="resources-intro">
+                Welcome to my Resources page. Here I share tools, guides, and workflows I've developed for economic research using AI-powered coding assistants. These resources are designed to help researchers automate data analysis, improve coding efficiency, and leverage large language models for research tasks.
+            </div>
+
+            <!-- Section 1: Getting Started -->
+            <div class="resources-section">
+                <h2>1. Getting Started with Claude Code</h2>
+
+                <h3>What is Claude Code?</h3>
+                <p>Claude Code is a command-line AI coding assistant built by Anthropic. It lets you interact with an AI directly in your terminal, making it especially powerful for researchers who spend time writing scripts, cleaning data, and running statistical analyses.</p>
+                <ul>
+                    <li><strong>Why it's useful for economic research:</strong> Claude Code can read your data files, write Stata or R code, explain errors, and automate repetitive tasks &mdash; all without leaving your workflow.</li>
+                    <li><strong>Key capabilities:</strong> Data cleaning and wrangling, statistical analysis (OLS, IV, DiD, RDD), visualization, replication package preparation, and text analysis using LLMs.</li>
+                </ul>
+
+                <h3>Installation Guide</h3>
+                <ol style="padding-left: 20px; color: var(--text-secondary); line-height: 1.8;">
+                    <li>Ensure you have <strong>Node.js 18+</strong> installed (<a href="https://nodejs.org" target="_blank" rel="noopener" style="color: var(--accent-color);">nodejs.org</a>)</li>
+                    <li>Install Claude Code globally via npm:</li>
+                </ol>
+                <div class="code-block">npm install -g @anthropic-ai/claude-code</div>
+                <ol start="3" style="padding-left: 20px; color: var(--text-secondary); line-height: 1.8;">
+                    <li>Run <code style="font-family: 'Fira Code', monospace; background: var(--bg-tertiary); padding: 2px 6px; border-radius: 3px;">claude</code> in any project directory to start a session.</li>
+                    <li>On first run, authenticate with your Anthropic account.</li>
+                </ol>
+
+                <h3>Your First Project</h3>
+                <p>A simple example: loading and describing a dataset in Stata.</p>
+                <div class="code-block">$ cd my-research-project
+$ claude
+> Load the file data/household_survey.dta and give me summary statistics
+  for income, age, and education. Then run a simple OLS regression of
+  log income on years of schooling and age.</div>
+                <p>Claude Code will read your files, understand the context, write the Stata code, and explain the results &mdash; all in one conversation.</p>
+            </div>
+
+            <!-- Section 2: Claude Code for Economic Research -->
+            <div class="resources-section">
+                <h2>2. Claude Code for Economic Research</h2>
+
+                <h3>A. Data Management &amp; Cleaning</h3>
+                <ul>
+                    <li>Automated data cleaning pipelines for survey and administrative data</li>
+                    <li>Handling missing values, outliers, and inconsistent coding</li>
+                    <li>Merging datasets from multiple sources (ENAHO, INEI, World Bank)</li>
+                    <li>Creating analysis-ready datasets with proper variable labels</li>
+                </ul>
+
+                <h3>B. Statistical Analysis</h3>
+                <ul>
+                    <li>Running regressions: OLS, IV (2SLS), Difference-in-Differences, RDD</li>
+                    <li>Generating publication-ready summary statistics tables</li>
+                    <li>Robustness checks, specification curves, and sensitivity analyses</li>
+                    <li>Working with panel data and high-dimensional fixed effects</li>
+                </ul>
+
+                <h3>C. Visualization &amp; Tables</h3>
+                <ul>
+                    <li>Publication-ready figures using ggplot2 or Stata's coefplot</li>
+                    <li>Event study plots and coefficient plots</li>
+                    <li>Regression tables in esttab / outreg2 style</li>
+                    <li>Choropleth maps for spatial data (shapefiles, GADM)</li>
+                </ul>
+
+                <h3>D. Text Analysis &amp; LLM Integration</h3>
+                <ul>
+                    <li>Processing open-ended survey responses at scale</li>
+                    <li>Classifying administrative text data (legal documents, policy texts)</li>
+                    <li>Topic modeling and sentiment analysis</li>
+                    <li>Calling OpenAI / Anthropic APIs from within Stata or Python scripts</li>
+                </ul>
+
+                <h3>E. Reproducible Research</h3>
+                <ul>
+                    <li>Creating AEA-style replication packages</li>
+                    <li>Documentation best practices and inline commenting</li>
+                    <li>Version control with Git and GitHub</li>
+                    <li>Automated testing and validation of do-files</li>
+                </ul>
+            </div>
+
+            <!-- Section 3: Downloadable Skills -->
+            <div class="resources-section">
+                <h2>3. Downloadable Skills &amp; Agents</h2>
+                <p>These Claude Code skills are <code style="font-family: 'Fira Code', monospace; background: var(--bg-tertiary); padding: 2px 6px; border-radius: 3px;">.md</code> files you place in your <code style="font-family: 'Fira Code', monospace; background: var(--bg-tertiary); padding: 2px 6px; border-radius: 3px;">.claude/skills/</code> directory. Once installed, activate any skill by typing <code style="font-family: 'Fira Code', monospace; background: var(--bg-tertiary); padding: 2px 6px; border-radius: 3px;">/skill-name</code> in a Claude Code session.</p>
+
+                <div class="skill-grid">
+                    <!-- Skill 1 -->
+                    <div class="skill-card">
+                        <div class="skill-card-icon">📊</div>
+                        <h4>Stata Regression Skill</h4>
+                        <p>Automate regression analysis with proper diagnostics, clustered standard errors, and publication-ready tables.</p>
+                        <div class="skill-card-actions">
+                            <a href="docs/skills/stata-regression-skill.md" download class="btn-download">Download</a>
+                            <button class="btn-howto" onclick="toggleHowto('howto-1', this)">How to Use</button>
+                        </div>
+                        <div id="howto-1" class="howto-content">
+                            Place the file in <code>.claude/skills/</code>. In Claude Code, type <code>/stata-regression</code> and describe your regression setup. The skill will generate Stata code with proper clustering, fixed effects, and esttab output.
+                        </div>
+                    </div>
+
+                    <!-- Skill 2 -->
+                    <div class="skill-card">
+                        <div class="skill-card-icon">📈</div>
+                        <h4>R Econometrics Skill</h4>
+                        <p>Causal inference workflows including IV, DiD, and RDD using the fixest package for high-dimensional fixed effects.</p>
+                        <div class="skill-card-actions">
+                            <a href="docs/skills/r-econometrics-skill.md" download class="btn-download">Download</a>
+                            <button class="btn-howto" onclick="toggleHowto('howto-2', this)">How to Use</button>
+                        </div>
+                        <div id="howto-2" class="howto-content">
+                            Place the file in <code>.claude/skills/</code>. Type <code>/r-econometrics</code> and specify your identification strategy. The skill generates R code using fixest, lfe, or rdrobust as appropriate.
+                        </div>
+                    </div>
+
+                    <!-- Skill 3 -->
+                    <div class="skill-card">
+                        <div class="skill-card-icon">🧹</div>
+                        <h4>Data Cleaning Agent</h4>
+                        <p>Automated data cleaning pipeline for survey and administrative data &mdash; handles missing values, outliers, and merges.</p>
+                        <div class="skill-card-actions">
+                            <a href="docs/skills/data-cleaning-agent.md" download class="btn-download">Download</a>
+                            <button class="btn-howto" onclick="toggleHowto('howto-3', this)">How to Use</button>
+                        </div>
+                        <div id="howto-3" class="howto-content">
+                            Activate with <code>/data-cleaning</code>. Point it at your raw data files and describe the target analysis. It will produce a documented cleaning do-file or R script with a full data audit.
+                        </div>
+                    </div>
+
+                    <!-- Skill 4 -->
+                    <div class="skill-card">
+                        <div class="skill-card-icon">📚</div>
+                        <h4>Literature Review Assistant</h4>
+                        <p>Organize research papers, extract key findings, and create synthesis tables for your literature review.</p>
+                        <div class="skill-card-actions">
+                            <a href="docs/skills/lit-review-assistant.md" download class="btn-download">Download</a>
+                            <button class="btn-howto" onclick="toggleHowto('howto-4', this)">How to Use</button>
+                        </div>
+                        <div id="howto-4" class="howto-content">
+                            Use <code>/lit-review</code> then paste or link a list of papers. The agent reads abstracts, extracts key findings, and outputs a structured synthesis table in Markdown or LaTeX.
+                        </div>
+                    </div>
+
+                    <!-- Skill 5 -->
+                    <div class="skill-card">
+                        <div class="skill-card-icon">💡</div>
+                        <h4>Research Ideation Skill</h4>
+                        <p>Generate and refine research questions from a phenomenon, dataset, or policy change.</p>
+                        <div class="skill-card-actions">
+                            <a href="docs/skills/research-ideation-skill.md" download class="btn-download">Download</a>
+                            <button class="btn-howto" onclick="toggleHowto('howto-5', this)">How to Use</button>
+                        </div>
+                        <div id="howto-5" class="howto-content">
+                            Type <code>/research-ideation</code> and describe a policy, dataset, or empirical puzzle. The skill generates potential research questions, identification strategies, and relevant literature pointers.
+                        </div>
+                    </div>
+
+                    <!-- Skill 6 -->
+                    <div class="skill-card">
+                        <div class="skill-card-icon">✍️</div>
+                        <h4>Academic Paper Writer</h4>
+                        <p>Draft and structure economics papers with proper academic style for introduction, results, or conclusion sections.</p>
+                        <div class="skill-card-actions">
+                            <a href="docs/skills/academic-paper-writer.md" download class="btn-download">Download</a>
+                            <button class="btn-howto" onclick="toggleHowto('howto-6', this)">How to Use</button>
+                        </div>
+                        <div id="howto-6" class="howto-content">
+                            Activate with <code>/academic-writer</code>. Provide your results, identification strategy, and target journal. The skill drafts the section in AER/JPE style with proper economic writing conventions.
+                        </div>
+                    </div>
+
+                    <!-- Skill 7 -->
+                    <div class="skill-card">
+                        <div class="skill-card-icon">✅</div>
+                        <h4>Replication Package Linter</h4>
+                        <p>Automated checking and validation of replication packages &mdash; ensures code runs and produces expected results.</p>
+                        <div class="skill-card-actions">
+                            <a href="docs/skills/replication-linter.md" download class="btn-download">Download</a>
+                            <button class="btn-howto" onclick="toggleHowto('howto-7', this)">How to Use</button>
+                        </div>
+                        <div id="howto-7" class="howto-content">
+                            Use <code>/replication-lint</code> on your project directory. The agent checks file structure, verifies all referenced datasets exist, tests script execution order, and generates an AEA-compliant README.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Tutorials -->
+            <div class="resources-section">
+                <h2>4. Tutorials &amp; Examples</h2>
+
+                <div class="tutorial-card">
+                    <h4>Tutorial 1: Cleaning and Analyzing Household Survey Data</h4>
+                    <p>Step-by-step guide to importing raw ENAHO/ENNIV data, handling complex survey weights, recoding variables, and producing a clean analysis dataset ready for regression.</p>
+                </div>
+
+                <div class="tutorial-card">
+                    <h4>Tutorial 2: Running a Difference-in-Differences Analysis</h4>
+                    <p>Setting up panel data, testing parallel trends, specifying event-study regressions, and creating publication-ready coefficient plots with confidence intervals.</p>
+                </div>
+
+                <div class="tutorial-card">
+                    <h4>Tutorial 3: Creating Publication-Ready Figures</h4>
+                    <p>ggplot2 and Stata graph styling for academic journals &mdash; color schemes, font sizes, aspect ratios, and exporting at correct DPI.</p>
+                </div>
+
+                <div class="tutorial-card">
+                    <h4>Tutorial 4: Building a Research Pipeline</h4>
+                    <p>Organizing scripts from raw data to final tables, documenting intermediate outputs, and setting up a master do-file that runs the entire analysis end-to-end.</p>
+                </div>
+
+                <div class="tutorial-card">
+                    <h4>Tutorial 5: Using LLMs for Survey Categorization</h4>
+                    <p>Setting up Anthropic API access, writing prompts for open-ended response classification, validating outputs, and optimizing cost with prompt caching.</p>
+                </div>
+            </div>
+
+            <!-- Section 5: Best Practices -->
+            <div class="resources-section">
+                <h2>5. Best Practices</h2>
+
+                <h3>Prompt Engineering for Research Tasks</h3>
+                <ul>
+                    <li><strong>Be specific about context:</strong> Tell Claude Code which dataset, variables, and estimator you're using.</li>
+                    <li><strong>Iterate:</strong> Start with a simple specification and ask Claude to add complexity (clustering, FE, controls) step by step.</li>
+                    <li><strong>Show, don't just tell:</strong> Paste a few rows of your data or the output of <code style="font-family: 'Fira Code', monospace;">describe</code> so Claude understands the structure.</li>
+                </ul>
+
+                <h3>Reproducibility Checklist</h3>
+                <ul>
+                    <li>All scripts run sequentially from a single master file</li>
+                    <li>Random seeds are set for any stochastic procedures</li>
+                    <li>Package/ado versions are documented</li>
+                    <li>Raw data is preserved and never overwritten</li>
+                    <li>All file paths are relative, not absolute</li>
+                    <li>A clear README explains folder structure and how to replicate tables</li>
+                </ul>
+
+                <h3>Debugging Tips</h3>
+                <ul>
+                    <li>Paste the full error message into Claude Code &mdash; it reads Stata error output accurately.</li>
+                    <li>Ask Claude to explain what the error means before asking for a fix.</li>
+                    <li>Run <code style="font-family: 'Fira Code', monospace;">set trace on</code> (Stata) or <code style="font-family: 'Fira Code', monospace;">options(error = traceback)</code> (R) and share the trace.</li>
+                </ul>
+            </div>
+
+            <!-- Section 6: Links -->
+            <div class="resources-section">
+                <h2>6. Useful Links</h2>
+                <ul>
+                    <li><a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener" style="color: var(--accent-color);">Official Claude Code Documentation</a></li>
+                    <li><a href="https://www.aeaweb.org/journals/data/data-code-policy" target="_blank" rel="noopener" style="color: var(--accent-color);">AEA Data and Code Availability Policy</a></li>
+                    <li><a href="https://github.com/J-PAL/stata-IE-visual-library" target="_blank" rel="noopener" style="color: var(--accent-color);">J-PAL Stata IE Visual Library</a></li>
+                    <li><a href="https://lrberge.github.io/fixest/" target="_blank" rel="noopener" style="color: var(--accent-color);">fixest R Package (Fast High-Dimensional FE)</a></li>
+                    <li><a href="https://mixtape.scunning.com/" target="_blank" rel="noopener" style="color: var(--accent-color);">Causal Inference: The Mixtape (Scott Cunningham)</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <div class="footer-content">
+                <p>&copy; 2026 Brayan A. Condori</p>
+                <div class="social-footer">
+                    <a href="mailto:alexcluque@gmail.com" title="Email" class="social-footer-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/alexcluque/" title="LinkedIn" class="social-footer-icon" target="_blank" rel="noopener">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/bracluque" title="GitHub" class="social-footer-icon" target="_blank" rel="noopener">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://x.com/bracluque" title="X (Twitter)" class="social-footer-icon" target="_blank" rel="noopener">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                        </svg>
+                    </a>
+                    <a href="https://bsky.app/profile/bracluque.bsky.social" title="Bluesky" class="social-footer-icon" target="_blank" rel="noopener">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 2.105c-.659.84-.133 2.168.718 3.08 1.718 1.838 4.382 5.382 5.38 7.615-1.087-2.114-4.046-6.053-6.798-7.995C-2.434.944-3.439 1.266-4.098 2.105c-.659.84-.133 2.168.718 3.08 1.718 1.838 4.382 5.382 5.38 7.615.5 1.113.843 2.162.843 3.2 0 1.765-.706 3.4-1.96 4.5-1.254 1.1-2.94 1.7-4.64 1.7 1.7 0 3.386-.6 4.64-1.7 1.254-1.1 1.96-2.735 1.96-4.5 0-1.038-.343-2.087-.843-3.2z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -36,17 +36,31 @@ function initializeTheme() {
     updateThemeButton(savedTheme);
 }
 
-// Function to toggle abstracts
-function toggleAbstract(abstractId) {
+// Function to toggle abstracts (works with both old anchor links and new buttons)
+function toggleAbstract(abstractId, btn) {
     const abstract = document.getElementById(abstractId);
-    const toggle = event.target;
-    
+    const toggle = btn || event.target;
+
     if (abstract.style.display === 'none' || abstract.style.display === '') {
         abstract.style.display = 'block';
         toggle.textContent = 'Hide Abstract';
     } else {
         abstract.style.display = 'none';
         toggle.textContent = 'Abstract';
+    }
+}
+
+// Function to toggle "How to Use" sections on resources page
+function toggleHowto(contentId, btn) {
+    const content = document.getElementById(contentId);
+    const button = btn || event.target;
+
+    if (content.style.display === 'none' || content.style.display === '') {
+        content.style.display = 'block';
+        button.textContent = 'Hide Details';
+    } else {
+        content.style.display = 'none';
+        button.textContent = 'How to Use';
     }
 }
 

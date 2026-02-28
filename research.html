@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research - Brayan A. Condori</title>
+    <meta name="description" content="Research papers and work in progress by Brayan A. Condori, focusing on development economics and political economy.">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,7 +17,9 @@
                 <div class="nav-links" id="navLinks">
                     <a href="index.html">Home</a>
                     <a href="research.html" class="active">Research</a>
+                    <a href="resources.html">Resources</a>
                     <a href="personal.html">Personal</a>
+                    <a href="cv.html">CV</a>
                 </div>
                 <button class="theme-toggle" onclick="toggleTheme()" title="Switch to Dark Mode">
                     <span class="theme-icon">🌙</span>
@@ -26,195 +29,155 @@
     </div>
 
     <div class="container">
-        <!-- Research Section -->
         <div class="section active">
-            <h2>Research</h2>
+            <h2 class="page-title">Research</h2>
+            <div class="page-subtitle-line"></div>
 
-            <!-- PUBLISHED PAPERS SECTION (COMMENTED OUT - UNCOMMENT WHEN PAPERS ARE PUBLISHED) -->
-            <!--
-            <div class="section-subtitle">Published Papers</div>
-
-            <div class="research-item">
-                <h3>[Paper Title]</h3>
-                <div class="paper-info">[Journal Name] | [Year] | [Volume/Issue]</div>
-                
-                <div class="project-image-placeholder">
-                    Add published paper image
-                </div>
-                
-                <div class="paper-links">
-                    <a href="#">Published Version</a>
-                    <a href="#">Working Paper</a>
-                    <a href="#">Stata Code</a>
-                    <a href="#">Data</a>
-                </div>
-                <a href="#" class="abstract-toggle" onclick="toggleAbstract('published-1-abstract')">Abstract</a>
-                <div id="published-1-abstract" class="abstract-content">
-                    <div class="abstract">
-                        [Add your published paper abstract here]
-                    </div>
-                </div>
-            </div>
-            -->
-
-            <!-- WORKING PAPERS SECTION (COMMENTED OUT - UNCOMMENT WHEN WORKING PAPERS ARE READY) -->
-            <!--
+            <!-- WORKING PAPERS -->
             <div class="section-subtitle">Working Papers</div>
 
-            <div class="research-item">
-                <h3>[Working Paper Title]</h3>
-                <div class="paper-info">Under Review | [Date]</div>
-                
-                <div class="project-image-placeholder">
-                    Add working paper image
+            <!-- Paper 1: Land Reform -->
+            <div class="research-paper">
+                <div class="research-paper-thumbnail">
+                    <img src="images/LR_image.png" alt="Land Reform and Income Distribution in Peru">
                 </div>
-                
-                <div class="paper-links">
-                    <a href="#">PDF</a>
-                    <a href="#">Stata Code</a>
-                    <a href="#">Data</a>
-                    <a href="#">Slides</a>
-                </div>
-                <a href="#" class="abstract-toggle" onclick="toggleAbstract('wp-1-abstract')">Abstract</a>
-                <div id="wp-1-abstract" class="abstract-content">
-                    <div class="abstract">
-                        [Add your working paper abstract here]
+                <div class="research-paper-content">
+                    <h3>Long-Term Effects of Land Reform on Perceived Income Distribution: Evidence from Peru</h3>
+                    <div class="paper-coauthors">Joint with Emiliano Bohorquez and Agust&iacute;n Deniard</div>
+                    <p class="paper-summary">This paper analyzes the long-run impact of Peru's agrarian reform on contemporary beliefs about income distribution. Using an instrumental variables strategy, we identify how historical land redistribution shaped the gap between perceived and actual economic inequality at the district level.</p>
+                    <div class="paper-presented">
+                        <strong>Presented at:</strong> 2025 Annual Meeting of the Peruvian Economic Association
+                    </div>
+                    <div class="paper-meta-row">
+                        <span class="status-badge status-working-paper">Working Paper</span>
+                        <span class="paper-coauthors" style="font-style:normal; font-size:0.88rem;">Draft available upon request</span>
+                    </div>
+                    <div class="paper-meta-row">
+                        <button class="abstract-btn" onclick="toggleAbstract('abstract-1', this)">Abstract</button>
+                    </div>
+                    <div id="abstract-1" class="abstract-content">
+                        This paper analyzes the impact of Peru's agrarian reform on perceptions of income distribution. Using historical data and household surveys, an instrumental variables approach is employed to identify the causal effect of land redistribution on the gap between perceived and actual economic inequality. The results show that in areas with greater reform intensity, the absolute difference between perception and reality is more pronounced. Specifically, a 1-percentage-point increase in redistributed land reduces perceptual bias by an average of 0.127 points, indicating a tendency to underestimate one's actual position in the income distribution. Transmission mechanisms such as changes in income structure, labor formality, and perceived stability are explored, providing relevant evidence for the design of redistributive policies.
                     </div>
                 </div>
             </div>
 
-            <div class="research-item">
-                <h3>[Second Working Paper Title]</h3>
-                <div class="paper-info">Working Paper | [Date]</div>
-                
-                <div class="project-image-placeholder">
-                    Add working paper image
+            <!-- Paper 3: Domestic Violence -->
+            <div class="research-paper">
+                <div class="research-paper-thumbnail">
+                    <div class="thumb-placeholder">Image coming soon</div>
                 </div>
-                
-                <div class="paper-links">
-                    <a href="#">PDF</a>
-                    <a href="#">Stata Code</a>
-                </div>
-                <a href="#" class="abstract-toggle" onclick="toggleAbstract('wp-2-abstract')">Abstract</a>
-                <div id="wp-2-abstract" class="abstract-content">
-                    <div class="abstract">
-                        [Add your second working paper abstract here]
+                <div class="research-paper-content">
+                    <h3>Effects of Domestic Violence Laws on Women's Economic and Social Decisions: Evidence from Peru</h3>
+                    <div class="paper-coauthors">Joint with Gustavo Acosta</div>
+                    <p class="paper-summary">[Short summary to be added &mdash; 2&ndash;3 sentences describing the paper's question, methodology, and main findings.]</p>
+                    <div class="paper-meta-row">
+                        <span class="status-badge status-working-paper">Working Paper</span>
+                    </div>
+                    <div class="paper-meta-row">
+                        <button class="abstract-btn" onclick="toggleAbstract('abstract-3', this)">Abstract</button>
+                    </div>
+                    <div id="abstract-3" class="abstract-content">
+                        [Abstract to be added.]
                     </div>
                 </div>
             </div>
-            -->
 
-            <!-- WORK IN PROGRESS SECTION (ACTIVE) -->
+            <!-- WORK IN PROGRESS -->
             <div class="section-subtitle">Work in Progress</div>
- <!--
-            <div class="research-item">
-                <h3>Master's Thesis: [Your Thesis Title]</h3>
-                <div class="paper-info">In Progress | Expected [Date]</div>
-                
-                <div class="project-image-placeholder">
-                    <!-- Replace with: <img src="images/thesis-image.jpg" alt="Thesis Research" class="project-image"> -->
-<!--                    Add image related to your thesis research
+
+            <!-- Paper 2: Robots Argentina (M.A. Thesis) -->
+            <div class="research-paper">
+                <div class="research-paper-thumbnail">
+                    <div class="thumb-placeholder">Image coming soon</div>
                 </div>
-                
-                <div class="paper-links">
-                    <a href="#">Draft</a>
-                    <a href="#">Stata Code</a>
-                    <a href="#">Data</a>
-                </div>
-                <a href="#" class="abstract-toggle" onclick="toggleAbstract('thesis-abstract')">Abstract</a>
-                <div id="thesis-abstract" class="abstract-content">
-                    <div class="abstract">
-                        [Add your thesis abstract here. Describe your research question, methodology using Stata, main findings, and contribution to the development economics literature.]
+                <div class="research-paper-content">
+                    <h3>When Robots Arrive: Causal Evidence on Worker Transitions in Argentina's Segmented Labor Market</h3>
+                    <p class="paper-summary">This thesis examines how automation affects worker transitions in Argentina's dual labor market, focusing on the different impacts across formal and informal sectors.</p>
+                    <div class="paper-meta-row">
+                        <span class="status-badge status-thesis">M.A. Thesis</span>
                     </div>
-                </div>
-            </div>
-             -->
-            <div class="research-item">
-                <h3>Long-Term Effects of Land Reform on Perceived Income Distribution: Evidence from Peru </h3>
-                <div class="paper-info"> Joint with Emiliano Bohorquez and Agustín Deniard | Draft available upon request</div>
-                
-                <div class="project-image-placeholder">
-                    <img src="images/LR_image.png" alt="Current Research" class="project-image"> 
-                </div>
-                
-                <div class="paper-links">
-                    <a href="#">Presented at: 2025 Annual meeting of the Peruvian Economic Association</a>
-                </div>
-                <a href="#" class="abstract-toggle" onclick="toggleAbstract('wip-1-abstract')">Abstract</a>
-                <div id="wip-1-abstract" class="abstract-content">
-                    <div class="abstract">
-                        This paper analyzes the impact of Peru’s agrarian reform on perceptions of income distribution. Using historical data and household surveys, an instrumental variables approach is employed to identify the causal effect of land redistribution on the gap between perceived and actual economic inequality. The results show that in areas with greater reform intensity, the absolute difference between perception and reality is more pronounced. Specifically, a 1-percentage-point increase in redistributed land reduces perceptual bias by an average of 0.127 points, indicating a tendency to underestimate one’s actual position in the income distribution. Transmission mechanisms such as changes in income structure, labor formality, and perceived stability are explored, providing relevant evidence for the design of redistributive policies.
+                    <div class="paper-meta-row">
+                        <button class="abstract-btn" onclick="toggleAbstract('abstract-2', this)">Abstract</button>
                     </div>
-                </div>
-            </div>
-<!--
-            <div class="research-item">
-                <h3>[Current Research Project 2]</h3>
-                <div class="paper-info">In Progress | Expected [Date]</div>
-                
-                <div class="project-image-placeholder">
-                    <!-- Replace with: <img src="images/current-research-2.jpg" alt="Current Research" class="project-image"> -->
-<!--
-                    Add current research image
-                </div>
-<!--
-                
-                <div class="paper-links">
-                    <a href="#">Draft Available by Request</a>
-                </div>
-                <a href="#" class="abstract-toggle" onclick="toggleAbstract('wip-2-abstract')">Abstract</a>
-                <div id="wip-2-abstract" class="abstract-content">
-                    <div class="abstract">
-                        [Describe your second current research project]
+                    <div id="abstract-2" class="abstract-content">
+                        [Abstract to be added.]
                     </div>
                 </div>
             </div>
 
-            <!-- OTHER RESEARCH SECTION (BRIEF FORMAT) -->
+            <!-- Paper 4: State Authority & Indigenous Resistance -->
+            <div class="research-paper">
+                <div class="research-paper-thumbnail">
+                    <div class="thumb-placeholder">Image coming soon</div>
+                </div>
+                <div class="research-paper-content">
+                    <h3>State Authority, Indigenous Resistance, and Political Change in Peru</h3>
+                    <div class="paper-coauthors">Joint with Ronny Condor</div>
+                    <p class="paper-summary">[Short summary to be added &mdash; 2&ndash;3 sentences describing the paper.]</p>
+                    <div class="paper-meta-row">
+                        <span class="status-badge status-wip">Work in Progress</span>
+                    </div>
+                    <div class="paper-meta-row">
+                        <button class="abstract-btn" onclick="toggleAbstract('abstract-4', this)">Abstract</button>
+                    </div>
+                    <div id="abstract-4" class="abstract-content">
+                        [Abstract to be added.]
+                    </div>
+                </div>
+            </div>
+
+            <!-- OTHER RESEARCH -->
             <div class="section-subtitle">Other Research</div>
 
-            <div style="padding: 25px; background: var(--bg-tertiary); border-radius: 6px; border-left: 3px solid var(--accent-color); margin-bottom: 30px;">
-                <h4 style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;">The Impact of Cash Transfers on the Use of Health Services: Evidence from Peru</h4>
-                <p style="color: var(--text-tertiary); font-size: 0.95rem; margin-bottom: 8px;"><em>Joint with Erika Quevedo | 2022 Ashok Kotwal Prize for Best Senior Thesis (Universidad de Piura)</em></p>
-              <!--   <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">This study examines the effects of unconditional cash transfers on the utilization of medical and pharmaceutical services. At the height of the COVID-19 crisis, the Peruvian government introduced cash  transfers to alleviate the socioeconomic burden on the most vulnerable households. Using data from the 2021 Peruvian Household Survey, we apply a causal inference approach based on propensity score  matching, which allows for the identification of households with comparable observable characteristics. Our findings suggest that the cash transfers did not significantly influence spending patterns. These results provide valuable insights into the effectiveness of cash transfer policies during periods of adversity, with implications for the design of social and economic protection policies in crisis contexts.</p>  -->
+            <!-- Paper 5: Cash Transfers -->
+            <div class="research-paper">
+                <div class="research-paper-thumbnail">
+                    <div class="thumb-placeholder">Image coming soon</div>
+                </div>
+                <div class="research-paper-content">
+                    <h3>The Impact of Cash Transfers on the Use of Health Services: Evidence from Peru</h3>
+                    <div class="paper-coauthors">Joint with Erika Quevedo</div>
+                    <p class="paper-summary">This study examines the effects of unconditional cash transfers on the utilization of medical and pharmaceutical services during the COVID-19 crisis in Peru, using propensity score matching to identify households with comparable observable characteristics.</p>
+                    <div class="paper-meta-row">
+                        <span class="status-badge status-other">Senior Thesis</span>
+                        <span class="paper-award">&#9733; 2022 Ashok Kotwal Prize for Best Senior Thesis, Universidad de Piura</span>
+                    </div>
+                    <div class="paper-meta-row">
+                        <button class="abstract-btn" onclick="toggleAbstract('abstract-5', this)">Abstract</button>
+                    </div>
+                    <div id="abstract-5" class="abstract-content">
+                        This study examines the effects of unconditional cash transfers on the utilization of medical and pharmaceutical services. At the height of the COVID-19 crisis, the Peruvian government introduced cash transfers to alleviate the socioeconomic burden on the most vulnerable households. Using data from the 2021 Peruvian Household Survey, we apply a causal inference approach based on propensity score matching, which allows for the identification of households with comparable observable characteristics. Our findings suggest that the cash transfers did not significantly influence spending patterns. These results provide valuable insights into the effectiveness of cash transfer policies during periods of adversity, with implications for the design of social and economic protection policies in crisis contexts.
+                    </div>
+                </div>
             </div>
-
-            <!-- Add more "Other Research" items as needed -->
-            <!--
-            <div style="padding: 25px; background: var(--bg-tertiary); border-radius: 6px; border-left: 3px solid var(--accent-color); margin-bottom: 30px;">
-                <h4 style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;">[Additional Research Project]</h4>
-                <p style="color: var(--text-tertiary); font-size: 0.95rem; margin-bottom: 8px;"><em>[Institution/Organization] | [Location]</em></p>
-                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">[Brief description of the research project, your role, and key outcomes]</p>
-            </div>
-            -->
 
         </div>
 
-          <div class="footer">
+        <div class="footer">
             <div class="footer-content">
-                <p>© 2025 Brayan A. Condori</p>
+                <p>&copy; 2026 Brayan A. Condori</p>
                 <div class="social-footer">
                     <a href="mailto:alexcluque@gmail.com" title="Email" class="social-footer-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                         </svg>
                     </a>
-                    <a href="https://www.linkedin.com/in/alexcluque/" title="LinkedIn" class="social-footer-icon" target="_blank">
+                    <a href="https://www.linkedin.com/in/alexcluque/" title="LinkedIn" class="social-footer-icon" target="_blank" rel="noopener">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                         </svg>
                     </a>
-                    <a href="https://github.com/bracluque" title="GitHub" class="social-footer-icon" target="_blank">
+                    <a href="https://github.com/bracluque" title="GitHub" class="social-footer-icon" target="_blank" rel="noopener">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                         </svg>
                     </a>
-                    <a href="https://x.com/bracluque" title="X (Twitter)" class="social-footer-icon" target="_blank">
+                    <a href="https://x.com/bracluque" title="X (Twitter)" class="social-footer-icon" target="_blank" rel="noopener">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
                         </svg>
                     </a>
-                    <a href="https://bsky.app/profile/bracluque.bsky.social" title="Bluesky" class="social-footer-icon" target="_blank">
+                    <a href="https://bsky.app/profile/bracluque.bsky.social" title="Bluesky" class="social-footer-icon" target="_blank" rel="noopener">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 2.105c-.659.84-.133 2.168.718 3.08 1.718 1.838 4.382 5.382 5.38 7.615-1.087-2.114-4.046-6.053-6.798-7.995C-2.434.944-3.439 1.266-4.098 2.105c-.659.84-.133 2.168.718 3.08 1.718 1.838 4.382 5.382 5.38 7.615.5 1.113.843 2.162.843 3.2 0 1.765-.706 3.4-1.96 4.5-1.254 1.1-2.94 1.7-4.64 1.7 1.7 0 3.386-.6 4.64-1.7 1.254-1.1 1.96-2.735 1.96-4.5 0-1.038-.343-2.087-.843-3.2z"/>
                         </svg>
