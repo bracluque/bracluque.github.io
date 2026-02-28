@@ -168,19 +168,13 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .profile-photo {
-    width: 200px;
-    height: 240px;
-    border-radius: 12px;
+    width: 100%;
+    height: 230px;
+    border-radius: 8px;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-tertiary);
-    font-size: 0.9rem;
-    text-align: center;
     overflow: hidden;
-    margin: 0 auto 20px auto;
+    margin-bottom: 20px;
 }
 
 .profile-info {
@@ -825,8 +819,8 @@ h1, h2, h3, h4, h5, h6,
     }
     
     .profile-photo {
-        width: 150px;
-        height: 180px;
+        width: 100%;
+        height: 200px;
     }
     
     .profile-info h1 {
