@@ -1097,6 +1097,12 @@ h1, h2, h3, h4, h5, h6,
     color: white;
 }
 
+.paper-available {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
 .abstract-content {
     display: none;
     margin-top: 15px;
