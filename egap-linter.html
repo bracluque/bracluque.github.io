@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EGAP Linter - Brayan A. Condori</title>
+    <meta name="description" content="AI-assisted replication package linter for social science — repro-lint">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Brayan A. Condori</a>
+            <div style="display: flex; align-items: center;">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">&#9776;</button>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html">Home</a>
+                    <a href="research.html">Research</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="egap-linter.html" class="active">EGAP Linter</a>
+                    <a href="personal.html">Personal</a>
+                    <a href="cv.html">CV</a>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Switch to Dark Mode">
+                    <span class="theme-icon">&#9679;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section active">
+            <h2 class="page-title">EGAP Linter</h2>
+            <div class="page-subtitle-line"></div>
+
+            <!-- Section 1: Hero / Introduction -->
+            <div class="resources-section">
+                <h2>AI-assisted replication package linter for social science</h2>
+                <p><code style="font-family: 'Fira Code', monospace; background: var(--bg-tertiary); padding: 2px 6px; border-radius: 3px;">repro-lint</code> is an open-source Python tool that audits replication packages before journal submission. It checks folder structure, data management, PII safety, and code quality for R and Stata &mdash; producing a concise, human-readable report that tells researchers exactly what to fix. It runs fully offline and never modifies your files.</p>
+
+                <div class="resources-intro" style="font-size: 0.9rem; margin-top: 20px;">
+                    Developed under an EGAP Innovation Grant &middot; Open Science and Reproducibility &middot; Co-PIs: Brayan A. Condori (GRADE) and Ronny M. Condor (Wyss Academy for Nature) &middot; Research Assistant: Valeria Gonzales Torres
+                </div>
+            </div>
+
+            <!-- Section 2: Quick Start -->
+            <div class="resources-section">
+                <h2>Quick start</h2>
+                <div class="code-block"># Install
+pip install replication-linter
+
+# Run on your project
+repro-lint /path/to/your/replication-package
+
+# Pre-submission check (strict mode)
+repro-lint . --strict</div>
+                <p>Requires Python 3.10+. Works on macOS, Linux, and Windows.</p>
+            </div>
+
+            <!-- Section 3: The reproducibility problem -->
+            <div class="resources-section">
+                <h2>The reproducibility problem</h2>
+                <div class="skill-grid">
+                    <div class="skill-card">
+                        <h4>33%</h4>
+                        <p>of economics papers reproducible without author contact</p>
+                        <p style="font-size: 0.82rem; color: var(--text-tertiary); margin-top: 8px;">Chang &amp; Li (2022)</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>10%</h4>
+                        <p>of AJPS packages pass first-round verification</p>
+                        <p style="font-size: 0.82rem; color: var(--text-tertiary); margin-top: 8px;">Odum Institute data</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>58%</h4>
+                        <p>of successfully running packages produced results different from the paper</p>
+                        <p style="font-size: 0.82rem; color: var(--text-tertiary); margin-top: 8px;">Eubank (2016)</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>1.7</h4>
+                        <p>average resubmissions to pass AJPS verification</p>
+                        <p style="font-size: 0.82rem; color: var(--text-tertiary); margin-top: 8px;">AJPS editorial data</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: What it checks -->
+            <div class="resources-section">
+                <h2>What it checks</h2>
+                <div class="skill-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+                    <div class="skill-card">
+                        <h4>Module 1 &mdash; Folder structure</h4>
+                        <p>Detects missing README files, absent standard directories, duplicate files, and orphan files. Verifies the README contains all seven sections required by the SSDE Template README v1.1 (endorsed by AEA, JPE, APSR, AJPS).</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Module 2 &mdash; Data &amp; PII safety</h4>
+                        <p>Opens CSV, Stata .dta, and Excel files and flags columns whose names or values suggest personally identifiable information. Supports Spanish and English identifiers (DNI, c&eacute;dula, CPF, RUT, CURP, SSN, nombre, email, phone). Uses Stata variable labels &mdash; not just column names.</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Module 3 &mdash; Code quality (R + Stata)</h4>
+                        <p>Static analysis only &mdash; never executes code. Flags absolute paths, missing random seeds, unpinned R packages, absent Stata version declarations, and dead file references across all .R, .Rmd, .do, and .ado files.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: All checks -->
+            <div class="resources-section">
+                <h2>All checks</h2>
+                <p>Severity levels: <strong>ERROR</strong> (blocks compliance), <strong>WARNING</strong> (causes first-round rejection), <strong>INFO</strong> (best-practice suggestion).</p>
+
+                <h3>Folder checks (F)</h3>
+                <div style="overflow-x: auto;">
+                    <table class="egap-check-table">
+                        <thead>
+                            <tr><th>Code</th><th>Severity</th><th>Description</th><th>Fix</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>F001</td><td><span class="severity-error">ERROR</span></td><td>No README file found at project root</td><td>Add README.md or README.pdf</td></tr>
+                            <tr><td>F002</td><td><span class="severity-error">ERROR</span></td><td>README is empty or whitespace only</td><td>Add content: data sources, software, run order</td></tr>
+                            <tr><td>F003</td><td><span class="severity-warning">WARNING</span></td><td>README is not PDF or Markdown</td><td>Convert to README.pdf or README.md</td></tr>
+                            <tr><td>F004</td><td><span class="severity-error">ERROR</span></td><td>SSDE Template README section missing</td><td>Add the missing heading (7 sections required)</td></tr>
+                            <tr><td>F005</td><td><span class="severity-warning">WARNING</span></td><td>No master script found</td><td>Add master.do or run_all.R</td></tr>
+                            <tr><td>F006</td><td><span class="severity-warning">WARNING</span></td><td>Expected standard directory missing</td><td>Create 00_admin/, 01_data/, 02_code/, 03_output/</td></tr>
+                            <tr><td>F007</td><td><span class="severity-info">INFO</span></td><td>Duplicate file (same SHA-256 hash)</td><td>Remove the duplicate</td></tr>
+                            <tr><td>F008</td><td><span class="severity-info">INFO</span></td><td>Orphan file at project root</td><td>Move into a standard subfolder</td></tr>
+                            <tr><td>F009</td><td><span class="severity-warning">WARNING</span></td><td>No data dictionary / codebook</td><td>Add codebook.md (required by APSR and AJPS)</td></tr>
+                            <tr><td>F011</td><td><span class="severity-warning">WARNING</span></td><td>Fewer than 3 of 7 SSDE sections in README</td><td>Expand README using SSDE Template v1.1</td></tr>
+                            <tr><td>F012</td><td><span class="severity-info">INFO</span></td><td>No LICENSE file</td><td>Add LICENSE &mdash; MIT or CC-BY 4.0</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>PII checks (P)</h3>
+                <div style="overflow-x: auto;">
+                    <table class="egap-check-table">
+                        <thead>
+                            <tr><th>Code</th><th>Severity</th><th>Description</th><th>Fix</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>P001</td><td><span class="severity-error">ERROR</span></td><td>Column name matches PII identifier list</td><td>Verify and pseudonymise or drop</td></tr>
+                            <tr><td>P002</td><td><span class="severity-warning">WARNING</span></td><td>Column name partially matches PII pattern</td><td>Review column for sensitive identifiers</td></tr>
+                            <tr><td>P003</td><td><span class="severity-warning">WARNING</span></td><td>Column values match PII regex (&ge;5 % of sampled rows)</td><td>Review values for email, phone, ID patterns</td></tr>
+                            <tr><td>P004</td><td><span class="severity-warning">WARNING</span></td><td>Free-text column detected (mean length &gt;40 chars)</td><td>Review for identifiable text; consider redaction</td></tr>
+                            <tr><td>P005</td><td><span class="severity-warning">WARNING</span></td><td>No codebook for this data file</td><td>Add codebook describing all variables</td></tr>
+                            <tr><td>P006</td><td><span class="severity-info">INFO</span></td><td>File could not be read &mdash; format or encoding error</td><td>Verify file is valid and not password-protected</td></tr>
+                            <tr><td>P007</td><td><span class="severity-info">INFO</span></td><td>.dta file without a CSV equivalent</td><td>Export CSV alongside .dta (JPE requirement)</td></tr>
+                            <tr><td>P008</td><td><span class="severity-error">ERROR</span></td><td>Column matches Latin American national ID pattern</td><td>Remove or replace with anonymous key</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Code checks (C)</h3>
+                <div style="overflow-x: auto;">
+                    <table class="egap-check-table">
+                        <thead>
+                            <tr><th>Code</th><th>Severity</th><th>Description</th><th>Fix</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>C001</td><td><span class="severity-error">ERROR</span></td><td>Absolute path in R file</td><td>Replace with here::here()</td></tr>
+                            <tr><td>C002</td><td><span class="severity-warning">WARNING</span></td><td>Random call without set.seed()</td><td>Add set.seed() before first random call</td></tr>
+                            <tr><td>C003</td><td><span class="severity-warning">WARNING</span></td><td>library() call for package not in renv.lock</td><td>Run renv::snapshot()</td></tr>
+                            <tr><td>C004</td><td><span class="severity-warning">WARNING</span></td><td>No renv.lock file in project</td><td>Run renv::init() then renv::snapshot()</td></tr>
+                            <tr><td>C005</td><td><span class="severity-info">INFO</span></td><td>Output file written by script not present</td><td>Run the script and include the output</td></tr>
+                            <tr><td>C006</td><td><span class="severity-warning">WARNING</span></td><td>source() references non-existent file</td><td>Verify file exists relative to script or root</td></tr>
+                            <tr><td>C007</td><td><span class="severity-info">INFO</span></td><td>setwd() call detected</td><td>Replace with here::here()</td></tr>
+                            <tr><td>C010</td><td><span class="severity-error">ERROR</span></td><td>Hard-coded cd with absolute path in Stata</td><td>Use global root macro instead</td></tr>
+                            <tr><td>C011</td><td><span class="severity-warning">WARNING</span></td><td>No version statement in .do file</td><td>Add version 17.0 as first command</td></tr>
+                            <tr><td>C012</td><td><span class="severity-warning">WARNING</span></td><td>Random command without set seed in Stata</td><td>Add set seed before first random command</td></tr>
+                            <tr><td>C013</td><td><span class="severity-error">ERROR</span></td><td>Absolute path literal in Stata code</td><td>Use "$root/subdir/file.dta"</td></tr>
+                            <tr><td>C014</td><td><span class="severity-info">INFO</span></td><td>No log using in long do-file (&gt;50 lines)</td><td>Add log using "logs/run.log", replace</td></tr>
+                            <tr><td>C015</td><td><span class="severity-warning">WARNING</span></td><td>do "file" references non-existent .do file</td><td>Verify file exists relative to $root</td></tr>
+                            <tr><td>C020</td><td><span class="severity-warning">WARNING</span></td><td>No master script with &gt;3 code files</td><td>Add master.do or run_all.R</td></tr>
+                            <tr><td>C021</td><td><span class="severity-info">INFO</span></td><td>Output name closely matches input name in another script</td><td>Verify consistent naming</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section 6: Journal coverage -->
+            <div class="resources-section">
+                <h2>Journal coverage</h2>
+                <div style="overflow-x: auto;">
+                    <table class="egap-check-table">
+                        <thead>
+                            <tr><th>Journal</th><th>Mandatory</th><th>Repository</th><th>Verified</th><th>repro-lint covers</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>AER (all AEA journals)</td><td>Yes</td><td>openICPSR</td><td>Computational</td><td>Full</td></tr>
+                            <tr><td>Journal of Political Economy</td><td>Yes</td><td>JPE Dataverse</td><td>Computational</td><td>Full + P007, C016</td></tr>
+                            <tr><td>Quarterly Journal of Economics</td><td>Yes</td><td>QJE Dataverse</td><td>None</td><td>Full</td></tr>
+                            <tr><td>Review of Economics and Statistics</td><td>Yes</td><td>ReStat Dataverse</td><td>None</td><td>Full</td></tr>
+                            <tr><td>Journal of Development Economics</td><td>Yes</td><td>Mendeley Data</td><td>None</td><td>Full</td></tr>
+                            <tr><td>American Political Science Review</td><td>Yes</td><td>APSR Dataverse</td><td>Computational</td><td>Full</td></tr>
+                            <tr><td>American Journal of Political Science</td><td>Yes</td><td>AJPS Dataverse</td><td>Computational</td><td>Full</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section 7: Configuration -->
+            <div class="resources-section">
+                <h2>Configuration</h2>
+                <p>Create a <code style="font-family: 'Fira Code', monospace; background: var(--bg-tertiary); padding: 2px 6px; border-radius: 3px;">.linterrc</code> file in TOML format at the project root to customise behaviour.</p>
+                <div class="code-block">[linter]
+pii_sample_rows = 300
+suppressed_codes = ["F008", "C014"]
+ignore_patterns = ["*.log", "*.tmp"]
+
+[linter.folder]
+expected_top_dirs = ["00_admin", "01_data", "02_code", "03_output"]
+
+[linter.pii]
+pii_deep_scan = false</div>
+
+                <h3>Common CLI flags</h3>
+                <div style="overflow-x: auto;">
+                    <table class="egap-check-table">
+                        <thead>
+                            <tr><th>Flag</th><th>Effect</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code style="font-family: 'Fira Code', monospace;">--strict</code></td><td>Exit 1 on any WARNING (recommended for CI)</td></tr>
+                            <tr><td><code style="font-family: 'Fira Code', monospace;">--no-pii</code></td><td>Skip PII scanning (faster)</td></tr>
+                            <tr><td><code style="font-family: 'Fira Code', monospace;">--suppress CODE</code></td><td>Suppress a specific finding globally</td></tr>
+                            <tr><td><code style="font-family: 'Fira Code', monospace;">--output-dir PATH</code></td><td>Custom report destination</td></tr>
+                            <tr><td><code style="font-family: 'Fira Code', monospace;">--json</code></td><td>JSON report instead of HTML</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section 8: Resources -->
+            <div class="resources-section">
+                <h2>Resources</h2>
+                <ul>
+                    <li><a href="https://github.com/bracluque/replication-linter" target="_blank" rel="noopener" style="color: var(--accent-color);">GitHub repository</a></li>
+                    <li><a href="https://doi.org/10.5281/zenodo.7293838" target="_blank" rel="noopener" style="color: var(--accent-color);">SSDE Template README v1.1</a></li>
+                    <li><a href="https://aeadataeditor.github.io/" target="_blank" rel="noopener" style="color: var(--accent-color);">AEA Data Editor guidance</a></li>
+                    <li><a href="https://ajps.org/ajps-verification-policy/" target="_blank" rel="noopener" style="color: var(--accent-color);">AJPS Verification Policy</a></li>
+                    <li><a href="https://egap.org" target="_blank" rel="noopener" style="color: var(--accent-color);">EGAP</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <div class="footer-content">
+                <p>&copy; 2026 Brayan A. Condori</p>
+                <div class="social-footer">
+                    <a href="mailto:alexcluque@gmail.com" title="Email" class="social-footer-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/alexcluque/" title="LinkedIn" class="social-footer-icon" target="_blank" rel="noopener">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/bracluque" title="GitHub" class="social-footer-icon" target="_blank" rel="noopener">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://x.com/bracluque" title="X (Twitter)" class="social-footer-icon" target="_blank" rel="noopener">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                        </svg>
+                    </a>
+                    <a href="https://bsky.app/profile/bracluque.bsky.social" title="Bluesky" class="social-footer-icon" target="_blank" rel="noopener">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 2.105c-.659.84-.133 2.168.718 3.08 1.718 1.838 4.382 5.382 5.38 7.615-1.087-2.114-4.046-6.053-6.798-7.995C-2.434.944-3.439 1.266-4.098 2.105c-.659.84-.133 2.168.718 3.08 1.718 1.838 4.382 5.382 5.38 7.615.5 1.113.843 2.162.843 3.2 0 1.765-.706 3.4-1.96 4.5-1.254 1.1-2.94 1.7-4.64 1.7 1.7 0 3.386-.6 4.64-1.7 1.254-1.1 1.96-2.735 1.96-4.5 0-1.038-.343-2.087-.843-3.2z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
