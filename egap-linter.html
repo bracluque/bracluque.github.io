@@ -9,15 +9,15 @@
 <style>
 /* ── EGAP Linter page variables ─────────────────────── */
 .egap-page {
-  --ebg:         #faf8f5;
-  --ebg2:        #f0ece4;
-  --ebg3:        #e8e2d8;
+  --ebg:         #ffffff;
+  --ebg2:        #f5f5f5;
+  --ebg3:        #e8e8e8;
   --eink:        #1c1917;
   --eink2:       #44403c;
   --eink3:       #78716c;
-  --eteal:       #1d4e5f;
-  --eteal-light: #2d7a96;
-  --eteal-pale:  #e0f0f5;
+  --eteal:       #1a4a52;
+  --eteal-light: #267a8a;
+  --eteal-pale:  #e4f0f2;
   --eamber:      #c2680a;
   --eamber-pale: #fef3e2;
   --ered:        #b91c1c;
@@ -39,15 +39,15 @@
 
 /* ── Dark mode overrides ─────────────────────────────── */
 [data-theme="dark"] .egap-page {
-  --ebg:         #1a1a1a;
-  --ebg2:        #242420;
-  --ebg3:        #3a3a34;
-  --eink:        #f0ece4;
-  --eink2:       #c8c3b8;
-  --eink3:       #8a857c;
-  --eteal:       #4a9ab5;
-  --eteal-light: #6ab4cc;
-  --eteal-pale:  rgba(74,154,181,0.12);
+  --ebg:         #121212;
+  --ebg2:        #1a1a1a;
+  --ebg3:        #333333;
+  --eink:        #e8e8e8;
+  --eink2:       #b0b0b0;
+  --eink3:       #808080;
+  --eteal:       #3da5b5;
+  --eteal-light: #5bbfcc;
+  --eteal-pale:  rgba(61,165,181,0.12);
   --eamber:      #e8a030;
   --eamber-pale: rgba(232,160,48,0.12);
   --ered:        #f87171;
@@ -118,29 +118,29 @@
   max-width: 480px;
 }
 .egap-hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-.egap-btn-primary {
+.egap-page a.egap-btn-primary {
   font-family: 'DM Mono', monospace;
   font-size: .85rem;
   background: var(--eteal);
-  color: #fff;
+  color: #fff !important;
   padding: .7rem 1.5rem;
   border-radius: var(--eradius);
   transition: background .15s, transform .1s;
   display: inline-flex; align-items: center; gap: .5rem;
 }
-.egap-btn-primary:hover { background: var(--eteal-light); text-decoration: none; transform: translateY(-1px); }
-.egap-btn-ghost {
+.egap-page a.egap-btn-primary:hover { background: var(--eteal-light); color: #fff !important; text-decoration: none; transform: translateY(-1px); }
+.egap-page a.egap-btn-ghost {
   font-family: 'DM Mono', monospace;
   font-size: .85rem;
   background: transparent;
-  color: var(--eteal);
+  color: var(--eteal) !important;
   padding: .7rem 1.5rem;
   border-radius: var(--eradius);
   border: 1.5px solid var(--eteal);
   transition: background .15s;
   display: inline-flex; align-items: center; gap: .5rem;
 }
-.egap-btn-ghost:hover { background: var(--eteal-pale); text-decoration: none; }
+.egap-page a.egap-btn-ghost:hover { background: var(--eteal-pale); text-decoration: none; }
 
 /* ── Terminal ──────────────────────────────────────── */
 .egap-terminal {
