@@ -6,6 +6,8 @@
 <title>EGAP Linter - Brayan A. Condori</title>
 <meta name="description" content="An open-source, offline Python tool that audits social-science replication packages and tells researchers exactly what to fix before journal submission.">
 <link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&display=swap" rel="stylesheet">
 <style>
 /* ── EGAP Linter page variables ─────────────────────── */
 .egap-page {
@@ -35,31 +37,6 @@
   --eradius:     6px;
   --eshadow:     0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.05);
   --eshadow-lg:  0 4px 6px rgba(0,0,0,.07), 0 10px 30px rgba(0,0,0,.1);
-}
-
-/* ── Dark mode overrides ─────────────────────────────── */
-[data-theme="dark"] .egap-page {
-  --ebg:         #1a1a1a;
-  --ebg2:        #242420;
-  --ebg3:        #3a3a34;
-  --eink:        #f0ece4;
-  --eink2:       #c8c3b8;
-  --eink3:       #8a857c;
-  --eteal:       #4a9ab5;
-  --eteal-light: #6ab4cc;
-  --eteal-pale:  rgba(74,154,181,0.12);
-  --eamber:      #e8a030;
-  --eamber-pale: rgba(232,160,48,0.12);
-  --ered:        #f87171;
-  --ered-pale:   rgba(248,113,113,0.12);
-  --egold:       #fbbf24;
-  --egold-pale:  rgba(251,191,36,0.12);
-  --egreen:      #4ade80;
-  --egreen-pale: rgba(74,222,128,0.12);
-  --ecode-bg:    #0f1219;
-  --ecode-fg:    #e2e8f0;
-  --eshadow:     0 1px 3px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.2);
-  --eshadow-lg:  0 4px 6px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.25);
 }
 
 .egap-page {
@@ -529,7 +506,7 @@
 
 /* ── EGAP Footer ──────────────────────────────────── */
 .egap-footer {
-  background: #1c1917;
+  background: var(--eink);
   color: rgba(255,255,255,.5);
   padding: 2.5rem 2rem;
   text-align: center;
@@ -542,12 +519,6 @@
   font-size: .9rem;
   margin-bottom: .5rem;
   display: block;
-}
-
-/* ── Dark mode: code inline ──────────────────────────── */
-[data-theme="dark"] .egap-page code {
-  background: var(--ebg3);
-  color: var(--eteal);
 }
 
 /* ── Animations ────────────────────────────────────── */
