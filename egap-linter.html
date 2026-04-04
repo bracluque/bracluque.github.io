@@ -1,11 +1,556 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EGAP Linter - Brayan A. Condori</title>
-    <meta name="description" content="AI-assisted replication package linter for social science — repro-lint">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGAP Linter - Brayan A. Condori</title>
+<meta name="description" content="An open-source, offline Python tool that audits social-science replication packages and tells researchers exactly what to fix before journal submission.">
+<link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+/* ── EGAP Linter page variables ─────────────────────── */
+.egap-page {
+  --ebg:         #faf8f5;
+  --ebg2:        #f0ece4;
+  --ebg3:        #e8e2d8;
+  --eink:        #1c1917;
+  --eink2:       #44403c;
+  --eink3:       #78716c;
+  --eteal:       #1d4e5f;
+  --eteal-light: #2d7a96;
+  --eteal-pale:  #e0f0f5;
+  --eamber:      #c2680a;
+  --eamber-pale: #fef3e2;
+  --ered:        #b91c1c;
+  --ered-pale:   #fef2f2;
+  --egold:       #d97706;
+  --egold-pale:  #fffbeb;
+  --egreen:      #166534;
+  --egreen-pale: #f0fdf4;
+  --ecode-bg:    #1e2433;
+  --ecode-fg:    #e2e8f0;
+  --ecode-cm:    #94a3b8;
+  --ecode-kw:    #7dd3fc;
+  --ecode-str:   #86efac;
+  --ecode-fn:    #fda4af;
+  --eradius:     6px;
+  --eshadow:     0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.05);
+  --eshadow-lg:  0 4px 6px rgba(0,0,0,.07), 0 10px 30px rgba(0,0,0,.1);
+}
+
+.egap-page {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--ebg);
+  color: var(--eink);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.egap-page a { color: var(--eteal); text-decoration: none; }
+.egap-page a:hover { text-decoration: underline; }
+
+/* ── Hero ──────────────────────────────────────────── */
+.egap-hero {
+  padding: 5rem 2rem 4rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.egap-hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--eteal);
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.egap-hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 20px; height: 1px;
+  background: var(--eteal);
+}
+.egap-page h1 {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.03em;
+  color: var(--eink);
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+.egap-page h1::after { display: none; }
+.egap-page h1 .accent { color: var(--eteal); }
+.egap-hero-sub {
+  font-size: 1.1rem;
+  color: var(--eink2);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+.egap-hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.egap-btn-primary {
+  font-family: 'DM Mono', monospace;
+  font-size: .85rem;
+  background: var(--eteal);
+  color: #fff;
+  padding: .7rem 1.5rem;
+  border-radius: var(--eradius);
+  transition: background .15s, transform .1s;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.egap-btn-primary:hover { background: var(--eteal-light); text-decoration: none; transform: translateY(-1px); }
+.egap-btn-ghost {
+  font-family: 'DM Mono', monospace;
+  font-size: .85rem;
+  background: transparent;
+  color: var(--eteal);
+  padding: .7rem 1.5rem;
+  border-radius: var(--eradius);
+  border: 1.5px solid var(--eteal);
+  transition: background .15s;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.egap-btn-ghost:hover { background: var(--eteal-pale); text-decoration: none; }
+
+/* ── Terminal ──────────────────────────────────────── */
+.egap-terminal {
+  background: var(--ecode-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--eshadow-lg);
+}
+.egap-terminal-bar {
+  background: #2d3748;
+  padding: .7rem 1rem;
+  display: flex; align-items: center; gap: .4rem;
+}
+.egap-terminal-dot { width: 11px; height: 11px; border-radius: 50%; }
+.edot-r { background: #fc605c; }
+.edot-y { background: #fdbc40; }
+.edot-g { background: #34c749; }
+.egap-terminal-title {
+  font-family: 'DM Mono', monospace;
+  font-size: .72rem;
+  color: #718096;
+  margin-left: .5rem;
+}
+.egap-terminal-body {
+  padding: 1.4rem 1.6rem;
+  font-family: 'DM Mono', monospace;
+  font-size: .82rem;
+  line-height: 1.8;
+  color: var(--ecode-fg);
+}
+.et-prompt { color: #68d391; }
+.et-cmd    { color: #fff; }
+.et-path   { color: var(--ecode-kw); }
+.et-ok     { color: #68d391; }
+.et-warn   { color: #fbd38d; }
+.et-err    { color: #fc8181; }
+.et-dim    { color: var(--ecode-cm); }
+.et-header { color: #a78bfa; font-weight: 500; }
+.et-sep    { color: #4a5568; }
+
+/* ── Stats strip ───────────────────────────────────── */
+.egap-stats-strip {
+  background: var(--eteal);
+  color: #fff;
+  padding: 3rem 2rem;
+}
+.egap-stats-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem;
+}
+.egap-stat { text-align: center; }
+.egap-stat-num {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  display: block; margin-bottom: .4rem;
+}
+.egap-stat-label {
+  font-size: .83rem;
+  color: rgba(255,255,255,.7);
+  line-height: 1.4;
+}
+.egap-stat-source {
+  font-family: 'DM Mono', monospace;
+  font-size: .68rem;
+  color: rgba(255,255,255,.45);
+  display: block; margin-top: .3rem;
+}
+
+/* ── Sections ──────────────────────────────────────── */
+.egap-section { padding: 5rem 2rem; }
+.egap-section-inner { max-width: 1100px; margin: 0 auto; }
+.egap-section-alt { background: var(--ebg2); }
+
+.egap-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--eteal);
+  margin-bottom: .75rem;
+}
+.egap-page .egap-h2 {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -.025em;
+  line-height: 1.2;
+  color: var(--eink);
+  margin-bottom: .75rem;
+  text-align: left;
+}
+.egap-page .egap-h2::after { display: none; }
+.egap-page .egap-h3 {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--eink);
+  margin-bottom: .6rem;
+}
+.egap-section-lead {
+  font-size: 1.05rem;
+  color: var(--eink2);
+  max-width: 640px;
+  margin-bottom: 3rem;
+  line-height: 1.65;
+}
+
+/* ── Quick start ───────────────────────────────────── */
+.egap-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+.egap-step-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 3rem;
+  font-weight: 500;
+  color: var(--ebg3);
+  line-height: 1;
+  margin-bottom: .75rem;
+}
+.egap-step .egap-h3 { font-size: 1rem; margin-bottom: .4rem; }
+.egap-step p { font-size: .9rem; color: var(--eink2); }
+.egap-code-block {
+  background: var(--ecode-bg);
+  color: var(--ecode-fg);
+  font-family: 'DM Mono', monospace;
+  font-size: .82rem;
+  padding: 1.1rem 1.4rem;
+  border-radius: var(--eradius);
+  overflow-x: auto;
+  line-height: 1.7;
+  margin: .75rem 0;
+  white-space: pre;
+}
+.egap-code-block .kw  { color: var(--ecode-kw); }
+.egap-code-block .str { color: var(--ecode-str); }
+.egap-code-block .cm  { color: var(--ecode-cm); }
+.egap-code-block .fn  { color: var(--ecode-fn); }
+.egap-code-block .num { color: #fcd34d; }
+
+/* ── Modules ───────────────────────────────────────── */
+.egap-modules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+.egap-module-card {
+  background: var(--ebg);
+  border: 1.5px solid var(--ebg3);
+  border-radius: 10px;
+  padding: 1.75rem;
+  box-shadow: var(--eshadow);
+}
+.egap-module-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  font-weight: 500;
+  padding: .25rem .6rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+.ebadge-m1 { background: var(--eteal-pale); color: var(--eteal); }
+.ebadge-m2 { background: var(--eamber-pale); color: var(--eamber); }
+.ebadge-m3 { background: var(--egreen-pale); color: var(--egreen); }
+.egap-module-card .egap-h3 { font-size: 1.05rem; margin-bottom: .4rem; }
+.egap-module-card p { font-size: .88rem; color: var(--eink2); line-height: 1.6; margin-bottom: 1.25rem; }
+
+/* ── Check items ───────────────────────────────────── */
+.egap-checks-section { margin-bottom: 3rem; }
+.egap-checks-section .egap-h3 {
+  font-size: .9rem;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--eink2);
+  margin-bottom: 1rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--ebg3);
+}
+.egap-check-list { display: flex; flex-direction: column; gap: .5rem; }
+.egap-check-item {
+  display: grid;
+  grid-template-columns: 52px 52px 1fr;
+  gap: .6rem;
+  align-items: start;
+  font-size: .82rem;
+}
+.egap-check-code {
+  font-family: 'DM Mono', monospace;
+  font-size: .75rem;
+  font-weight: 500;
+  color: var(--eteal);
+  padding-top: .1rem;
+}
+.egap-sev-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: .65rem;
+  font-weight: 500;
+  padding: .15rem .35rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  display: inline-block;
+  white-space: nowrap;
+}
+.esev-e { background: var(--ered-pale);   color: var(--ered); }
+.esev-w { background: var(--egold-pale);  color: var(--egold); }
+.esev-i { background: var(--eteal-pale);  color: var(--eteal); }
+.egap-check-text { color: var(--eink2); line-height: 1.5; }
+.egap-check-fix  { color: var(--eink3); font-size: .78rem; margin-top: .15rem; }
+
+/* ── Journal table ─────────────────────────────────── */
+.egap-journal-table-wrap { overflow-x: auto; margin-bottom: 2rem; }
+.egap-page table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .85rem;
+}
+.egap-page thead tr {
+  background: var(--eteal);
+  color: #fff;
+}
+.egap-page thead th {
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  font-size: .72rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: .75rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+}
+.egap-page tbody tr { border-bottom: 1px solid var(--ebg3); }
+.egap-page tbody tr:hover { background: var(--eteal-pale); }
+.egap-page tbody td {
+  padding: .7rem 1rem;
+  color: var(--eink2);
+  vertical-align: top;
+}
+.egap-page tbody td:first-child {
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  color: var(--eink);
+  font-size: .9rem;
+}
+.egap-pill {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: .68rem;
+  padding: .15rem .45rem;
+  border-radius: 3px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.epill-yes   { background: var(--egreen-pale); color: var(--egreen); }
+.epill-no    { background: var(--ered-pale);   color: var(--ered); }
+
+/* ── Checklist ─────────────────────────────────────── */
+.egap-checklist-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.egap-check-row {
+  display: flex; align-items: flex-start; gap: .75rem;
+  background: var(--ebg);
+  border: 1px solid var(--ebg3);
+  border-radius: var(--eradius);
+  padding: .85rem 1rem;
+  font-size: .87rem;
+}
+.egap-check-row .eicon {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem;
+  flex-shrink: 0;
+  margin-top: .1rem;
+  font-weight: 700;
+}
+.eicon-e { background: var(--ered-pale);   color: var(--ered); }
+.eicon-w { background: var(--egold-pale);  color: var(--egold); }
+.eicon-i { background: var(--eteal-pale);  color: var(--eteal); }
+.egap-check-row-text { line-height: 1.45; color: var(--eink2); }
+.egap-check-row-code {
+  font-family: 'DM Mono', monospace;
+  font-size: .7rem;
+  color: var(--eink3);
+  margin-top: .2rem;
+}
+
+/* ── Config ────────────────────────────────────────── */
+.egap-config-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.egap-config-col .egap-h3 { font-size: 1rem; margin-bottom: 1rem; }
+.egap-flag-list { display: flex; flex-direction: column; gap: .6rem; }
+.egap-flag-item { display: flex; flex-direction: column; gap: .15rem; }
+.egap-flag-name {
+  font-family: 'DM Mono', monospace;
+  font-size: .8rem;
+  color: var(--eteal);
+  font-weight: 500;
+}
+.egap-flag-desc { font-size: .83rem; color: var(--eink2); }
+
+/* ── About ─────────────────────────────────────────── */
+.egap-about-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.egap-pi-card {
+  background: var(--ebg);
+  border: 1.5px solid var(--ebg3);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.egap-pi-name {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: .2rem;
+}
+.egap-pi-affil {
+  font-size: .82rem;
+  color: var(--eink3);
+  margin-bottom: .5rem;
+}
+.egap-pi-email {
+  font-family: 'DM Mono', monospace;
+  font-size: .75rem;
+  color: var(--eteal);
+}
+.egap-badge-box {
+  background: var(--eteal);
+  color: #fff;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  font-size: .85rem;
+  line-height: 1.6;
+}
+.egap-badge-box strong {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: .4rem;
+}
+
+/* ── Inline code ───────────────────────────────────── */
+.egap-page code {
+  font-family: 'DM Mono', monospace;
+  font-size: .82em;
+  background: var(--ebg3);
+  color: var(--eteal);
+  padding: .1em .35em;
+  border-radius: 3px;
+}
+
+/* ── Callout ──────────────────────────────────────── */
+.egap-callout {
+  border-left: 3px solid var(--eteal);
+  background: var(--eteal-pale);
+  padding: 1rem 1.25rem;
+  border-radius: 0 var(--eradius) var(--eradius) 0;
+  font-size: .9rem;
+  color: var(--eink2);
+  margin: 1.5rem 0;
+}
+.egap-callout strong { color: var(--eteal); }
+
+/* ── EGAP Footer ──────────────────────────────────── */
+.egap-footer {
+  background: var(--eink);
+  color: rgba(255,255,255,.5);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  font-size: .82rem;
+}
+.egap-footer a { color: rgba(255,255,255,.7); }
+.egap-footer-brand {
+  font-family: 'DM Mono', monospace;
+  color: rgba(255,255,255,.9);
+  font-size: .9rem;
+  margin-bottom: .5rem;
+  display: block;
+}
+
+/* ── Animations ────────────────────────────────────── */
+@keyframes egapFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.egap-hero-text > * {
+  animation: egapFadeUp .6s ease both;
+}
+.egap-hero-text > *:nth-child(1) { animation-delay: .05s; }
+.egap-hero-text > *:nth-child(2) { animation-delay: .12s; }
+.egap-hero-text > *:nth-child(3) { animation-delay: .2s; }
+.egap-hero-text > *:nth-child(4) { animation-delay: .28s; }
+.egap-hero-terminal {
+  animation: egapFadeUp .7s .3s ease both;
+}
+@keyframes egapBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+.egap-cursor { animation: egapBlink 1.1s step-end infinite; }
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 900px) {
+  .egap-hero { grid-template-columns: 1fr; gap: 2.5rem; }
+  .egap-page h1 { font-size: 2.2rem; }
+  .egap-stats-inner { grid-template-columns: 1fr 1fr; }
+  .egap-steps { grid-template-columns: 1fr; }
+  .egap-modules-grid { grid-template-columns: 1fr; }
+  .egap-checklist-grid { grid-template-columns: 1fr; }
+  .egap-config-grid { grid-template-columns: 1fr; }
+  .egap-about-grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
     <!-- Top Navigation Bar -->
@@ -18,9 +563,9 @@
                     <a href="index.html">Home</a>
                     <a href="research.html">Research</a>
                     <a href="resources.html">Resources</a>
-                    <a href="egap-linter.html" class="active">EGAP Linter</a>
                     <a href="personal.html">Personal</a>
                     <a href="cv.html">CV</a>
+                    <a href="egap-linter.html" class="active">EGAP Linter</a>
                 </div>
                 <button class="theme-toggle" onclick="toggleTheme()" title="Switch to Dark Mode">
                     <span class="theme-icon">&#9679;</span>
@@ -29,255 +574,619 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="section active">
-            <h2 class="page-title">EGAP Linter</h2>
-            <div class="page-subtitle-line"></div>
+<div class="egap-page">
 
-            <!-- Section 1: Hero / Introduction -->
-            <div class="resources-section">
-                <h2>AI-assisted replication package linter for social science</h2>
-                <p><code style="font-family: 'Fira Code', monospace; background: var(--bg-tertiary); padding: 2px 6px; border-radius: 3px;">repro-lint</code> is an open-source Python tool that audits replication packages before journal submission. It checks folder structure, data management, PII safety, and code quality for R and Stata &mdash; producing a concise, human-readable report that tells researchers exactly what to fix. It runs fully offline and never modifies your files.</p>
+<!-- ── HERO ────────────────────────────────────────── -->
+<div class="egap-hero">
+  <div class="egap-hero-text">
+    <div class="egap-hero-eyebrow">EGAP Innovation Grant &middot; Open Science</div>
+    <h1>Fix your replication package <span class="accent">before</span> submission</h1>
+    <p class="egap-hero-sub">
+      <code>repro-lint</code> audits social-science replication packages offline,
+      maps every problem to a journal requirement, and tells you exactly what
+      to fix &mdash; without touching or uploading your files.
+    </p>
+    <div class="egap-hero-actions">
+      <a href="#quickstart" class="egap-btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Get started
+      </a>
+      <a href="#modules" class="egap-btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        See all checks
+      </a>
+    </div>
+  </div>
+  <div class="egap-hero-terminal">
+    <div class="egap-terminal">
+      <div class="egap-terminal-bar">
+        <div class="egap-terminal-dot edot-r"></div>
+        <div class="egap-terminal-dot edot-y"></div>
+        <div class="egap-terminal-dot edot-g"></div>
+        <span class="egap-terminal-title">bash</span>
+      </div>
+      <div class="egap-terminal-body">
+<span class="et-prompt">$</span> <span class="et-cmd">repro-lint</span> <span class="et-path">./my_paper</span>
+<br>
+<span class="et-dim">repro-lint v0.1.0-alpha</span>
+<span class="et-sep">&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;</span>
+<span class="et-dim">Scanning: ./my_paper  (52 files &middot; 340 MB)</span>
+<span class="et-err">  [folder] &#10007; 2 errors &middot; 1 warning        (0.09s)</span>
+<span class="et-warn">  [pii]    &#10007; 0 errors &middot; 3 warnings       (1.21s)</span>
+<span class="et-err">  [code]   &#10007; 1 error  &middot; 4 warnings       (0.18s)</span>
+<span class="et-sep">&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;</span>
+<span class="et-err">  ERRORS (3)</span>
+<span class="et-err">  [F001] No README found at project root</span>
+<span class="et-dim">         &rarr; Add a README.md describing data</span>
+<span class="et-dim">           sources and run order</span>
+<br>
+<span class="et-err">  [C010] Hard-coded cd in master.do:3</span>
+<span class="et-dim">         cd "/Users/brayan/Dropbox/paper"</span>
+<span class="et-dim">         &rarr; Use global root macro instead</span>
+<br>
+<span class="et-warn">  WARNINGS (8)  &middot;&middot;&middot;</span>
+<br>
+<span class="et-dim">  Report:   ./my_paper/00_admin/</span>
+<span class="et-dim">            replication_audit.html</span>
+<span class="et-sep">&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;</span>
+<span class="et-err">  RESULT: FAILED &mdash; 3 errors to fix</span>
+<span class="egap-cursor">&#9612;</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-                <div class="resources-intro" style="font-size: 0.9rem; margin-top: 20px;">
-                    Developed under an EGAP Innovation Grant &middot; Open Science and Reproducibility &middot; Co-PIs: Brayan A. Condori (GRADE) and Ronny M. Condor (Wyss Academy for Nature) &middot; Research Assistant: Valeria Gonzales Torres
-                </div>
-            </div>
+<!-- ── STATS ────────────────────────────────────────── -->
+<div class="egap-stats-strip">
+  <div class="egap-stats-inner">
+    <div class="egap-stat">
+      <span class="egap-stat-num">33%</span>
+      <span class="egap-stat-label">of economics papers reproducible without author contact</span>
+      <span class="egap-stat-source">Chang &amp; Li (2022)</span>
+    </div>
+    <div class="egap-stat">
+      <span class="egap-stat-num">10%</span>
+      <span class="egap-stat-label">of AJPS packages pass first-round verification</span>
+      <span class="egap-stat-source">Odum Institute data</span>
+    </div>
+    <div class="egap-stat">
+      <span class="egap-stat-num">58%</span>
+      <span class="egap-stat-label">of running packages produced results different from the paper</span>
+      <span class="egap-stat-source">Eubank (2016)</span>
+    </div>
+    <div class="egap-stat">
+      <span class="egap-stat-num">1.7&times;</span>
+      <span class="egap-stat-label">average resubmissions to pass AJPS verification</span>
+      <span class="egap-stat-source">AJPS editorial data</span>
+    </div>
+  </div>
+</div>
 
-            <!-- Section 2: Quick Start -->
-            <div class="resources-section">
-                <h2>Quick start</h2>
-                <div class="code-block"># Install
-pip install replication-linter
+<!-- ── QUICK START ──────────────────────────────────── -->
+<div class="egap-section" id="quickstart">
+  <div class="egap-section-inner">
+    <div class="egap-section-label">Installation</div>
+    <h2 class="egap-h2">Up and running in three steps</h2>
+    <p class="egap-section-lead">
+      Requires Python 3.10 or later. Works on macOS, Linux, and Windows.
+      Runs fully offline &mdash; no data leaves your machine.
+    </p>
 
-# Run on your project
-repro-lint /path/to/your/replication-package
-
-# Pre-submission check (strict mode)
-repro-lint . --strict</div>
-                <p>Requires Python 3.10+. Works on macOS, Linux, and Windows.</p>
-            </div>
-
-            <!-- Section 3: The reproducibility problem -->
-            <div class="resources-section">
-                <h2>The reproducibility problem</h2>
-                <div class="skill-grid">
-                    <div class="skill-card">
-                        <h4>33%</h4>
-                        <p>of economics papers reproducible without author contact</p>
-                        <p style="font-size: 0.82rem; color: var(--text-tertiary); margin-top: 8px;">Chang &amp; Li (2022)</p>
-                    </div>
-                    <div class="skill-card">
-                        <h4>10%</h4>
-                        <p>of AJPS packages pass first-round verification</p>
-                        <p style="font-size: 0.82rem; color: var(--text-tertiary); margin-top: 8px;">Odum Institute data</p>
-                    </div>
-                    <div class="skill-card">
-                        <h4>58%</h4>
-                        <p>of successfully running packages produced results different from the paper</p>
-                        <p style="font-size: 0.82rem; color: var(--text-tertiary); margin-top: 8px;">Eubank (2016)</p>
-                    </div>
-                    <div class="skill-card">
-                        <h4>1.7</h4>
-                        <p>average resubmissions to pass AJPS verification</p>
-                        <p style="font-size: 0.82rem; color: var(--text-tertiary); margin-top: 8px;">AJPS editorial data</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 4: What it checks -->
-            <div class="resources-section">
-                <h2>What it checks</h2>
-                <div class="skill-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
-                    <div class="skill-card">
-                        <h4>Module 1 &mdash; Folder structure</h4>
-                        <p>Detects missing README files, absent standard directories, duplicate files, and orphan files. Verifies the README contains all seven sections required by the SSDE Template README v1.1 (endorsed by AEA, JPE, APSR, AJPS).</p>
-                    </div>
-                    <div class="skill-card">
-                        <h4>Module 2 &mdash; Data &amp; PII safety</h4>
-                        <p>Opens CSV, Stata .dta, and Excel files and flags columns whose names or values suggest personally identifiable information. Supports Spanish and English identifiers (DNI, c&eacute;dula, CPF, RUT, CURP, SSN, nombre, email, phone). Uses Stata variable labels &mdash; not just column names.</p>
-                    </div>
-                    <div class="skill-card">
-                        <h4>Module 3 &mdash; Code quality (R + Stata)</h4>
-                        <p>Static analysis only &mdash; never executes code. Flags absolute paths, missing random seeds, unpinned R packages, absent Stata version declarations, and dead file references across all .R, .Rmd, .do, and .ado files.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 5: All checks -->
-            <div class="resources-section">
-                <h2>All checks</h2>
-                <p>Severity levels: <strong>ERROR</strong> (blocks compliance), <strong>WARNING</strong> (causes first-round rejection), <strong>INFO</strong> (best-practice suggestion).</p>
-
-                <h3>Folder checks (F)</h3>
-                <div style="overflow-x: auto;">
-                    <table class="egap-check-table">
-                        <thead>
-                            <tr><th>Code</th><th>Severity</th><th>Description</th><th>Fix</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>F001</td><td><span class="severity-error">ERROR</span></td><td>No README file found at project root</td><td>Add README.md or README.pdf</td></tr>
-                            <tr><td>F002</td><td><span class="severity-error">ERROR</span></td><td>README is empty or whitespace only</td><td>Add content: data sources, software, run order</td></tr>
-                            <tr><td>F003</td><td><span class="severity-warning">WARNING</span></td><td>README is not PDF or Markdown</td><td>Convert to README.pdf or README.md</td></tr>
-                            <tr><td>F004</td><td><span class="severity-error">ERROR</span></td><td>SSDE Template README section missing</td><td>Add the missing heading (7 sections required)</td></tr>
-                            <tr><td>F005</td><td><span class="severity-warning">WARNING</span></td><td>No master script found</td><td>Add master.do or run_all.R</td></tr>
-                            <tr><td>F006</td><td><span class="severity-warning">WARNING</span></td><td>Expected standard directory missing</td><td>Create 00_admin/, 01_data/, 02_code/, 03_output/</td></tr>
-                            <tr><td>F007</td><td><span class="severity-info">INFO</span></td><td>Duplicate file (same SHA-256 hash)</td><td>Remove the duplicate</td></tr>
-                            <tr><td>F008</td><td><span class="severity-info">INFO</span></td><td>Orphan file at project root</td><td>Move into a standard subfolder</td></tr>
-                            <tr><td>F009</td><td><span class="severity-warning">WARNING</span></td><td>No data dictionary / codebook</td><td>Add codebook.md (required by APSR and AJPS)</td></tr>
-                            <tr><td>F011</td><td><span class="severity-warning">WARNING</span></td><td>Fewer than 3 of 7 SSDE sections in README</td><td>Expand README using SSDE Template v1.1</td></tr>
-                            <tr><td>F012</td><td><span class="severity-info">INFO</span></td><td>No LICENSE file</td><td>Add LICENSE &mdash; MIT or CC-BY 4.0</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3>PII checks (P)</h3>
-                <div style="overflow-x: auto;">
-                    <table class="egap-check-table">
-                        <thead>
-                            <tr><th>Code</th><th>Severity</th><th>Description</th><th>Fix</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>P001</td><td><span class="severity-error">ERROR</span></td><td>Column name matches PII identifier list</td><td>Verify and pseudonymise or drop</td></tr>
-                            <tr><td>P002</td><td><span class="severity-warning">WARNING</span></td><td>Column name partially matches PII pattern</td><td>Review column for sensitive identifiers</td></tr>
-                            <tr><td>P003</td><td><span class="severity-warning">WARNING</span></td><td>Column values match PII regex (&ge;5 % of sampled rows)</td><td>Review values for email, phone, ID patterns</td></tr>
-                            <tr><td>P004</td><td><span class="severity-warning">WARNING</span></td><td>Free-text column detected (mean length &gt;40 chars)</td><td>Review for identifiable text; consider redaction</td></tr>
-                            <tr><td>P005</td><td><span class="severity-warning">WARNING</span></td><td>No codebook for this data file</td><td>Add codebook describing all variables</td></tr>
-                            <tr><td>P006</td><td><span class="severity-info">INFO</span></td><td>File could not be read &mdash; format or encoding error</td><td>Verify file is valid and not password-protected</td></tr>
-                            <tr><td>P007</td><td><span class="severity-info">INFO</span></td><td>.dta file without a CSV equivalent</td><td>Export CSV alongside .dta (JPE requirement)</td></tr>
-                            <tr><td>P008</td><td><span class="severity-error">ERROR</span></td><td>Column matches Latin American national ID pattern</td><td>Remove or replace with anonymous key</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3>Code checks (C)</h3>
-                <div style="overflow-x: auto;">
-                    <table class="egap-check-table">
-                        <thead>
-                            <tr><th>Code</th><th>Severity</th><th>Description</th><th>Fix</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>C001</td><td><span class="severity-error">ERROR</span></td><td>Absolute path in R file</td><td>Replace with here::here()</td></tr>
-                            <tr><td>C002</td><td><span class="severity-warning">WARNING</span></td><td>Random call without set.seed()</td><td>Add set.seed() before first random call</td></tr>
-                            <tr><td>C003</td><td><span class="severity-warning">WARNING</span></td><td>library() call for package not in renv.lock</td><td>Run renv::snapshot()</td></tr>
-                            <tr><td>C004</td><td><span class="severity-warning">WARNING</span></td><td>No renv.lock file in project</td><td>Run renv::init() then renv::snapshot()</td></tr>
-                            <tr><td>C005</td><td><span class="severity-info">INFO</span></td><td>Output file written by script not present</td><td>Run the script and include the output</td></tr>
-                            <tr><td>C006</td><td><span class="severity-warning">WARNING</span></td><td>source() references non-existent file</td><td>Verify file exists relative to script or root</td></tr>
-                            <tr><td>C007</td><td><span class="severity-info">INFO</span></td><td>setwd() call detected</td><td>Replace with here::here()</td></tr>
-                            <tr><td>C010</td><td><span class="severity-error">ERROR</span></td><td>Hard-coded cd with absolute path in Stata</td><td>Use global root macro instead</td></tr>
-                            <tr><td>C011</td><td><span class="severity-warning">WARNING</span></td><td>No version statement in .do file</td><td>Add version 17.0 as first command</td></tr>
-                            <tr><td>C012</td><td><span class="severity-warning">WARNING</span></td><td>Random command without set seed in Stata</td><td>Add set seed before first random command</td></tr>
-                            <tr><td>C013</td><td><span class="severity-error">ERROR</span></td><td>Absolute path literal in Stata code</td><td>Use "$root/subdir/file.dta"</td></tr>
-                            <tr><td>C014</td><td><span class="severity-info">INFO</span></td><td>No log using in long do-file (&gt;50 lines)</td><td>Add log using "logs/run.log", replace</td></tr>
-                            <tr><td>C015</td><td><span class="severity-warning">WARNING</span></td><td>do "file" references non-existent .do file</td><td>Verify file exists relative to $root</td></tr>
-                            <tr><td>C020</td><td><span class="severity-warning">WARNING</span></td><td>No master script with &gt;3 code files</td><td>Add master.do or run_all.R</td></tr>
-                            <tr><td>C021</td><td><span class="severity-info">INFO</span></td><td>Output name closely matches input name in another script</td><td>Verify consistent naming</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Section 6: Journal coverage -->
-            <div class="resources-section">
-                <h2>Journal coverage</h2>
-                <div style="overflow-x: auto;">
-                    <table class="egap-check-table">
-                        <thead>
-                            <tr><th>Journal</th><th>Mandatory</th><th>Repository</th><th>Verified</th><th>repro-lint covers</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>AER (all AEA journals)</td><td>Yes</td><td>openICPSR</td><td>Computational</td><td>Full</td></tr>
-                            <tr><td>Journal of Political Economy</td><td>Yes</td><td>JPE Dataverse</td><td>Computational</td><td>Full + P007, C016</td></tr>
-                            <tr><td>Quarterly Journal of Economics</td><td>Yes</td><td>QJE Dataverse</td><td>None</td><td>Full</td></tr>
-                            <tr><td>Review of Economics and Statistics</td><td>Yes</td><td>ReStat Dataverse</td><td>None</td><td>Full</td></tr>
-                            <tr><td>Journal of Development Economics</td><td>Yes</td><td>Mendeley Data</td><td>None</td><td>Full</td></tr>
-                            <tr><td>American Political Science Review</td><td>Yes</td><td>APSR Dataverse</td><td>Computational</td><td>Full</td></tr>
-                            <tr><td>American Journal of Political Science</td><td>Yes</td><td>AJPS Dataverse</td><td>Computational</td><td>Full</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Section 7: Configuration -->
-            <div class="resources-section">
-                <h2>Configuration</h2>
-                <p>Create a <code style="font-family: 'Fira Code', monospace; background: var(--bg-tertiary); padding: 2px 6px; border-radius: 3px;">.linterrc</code> file in TOML format at the project root to customise behaviour.</p>
-                <div class="code-block">[linter]
-pii_sample_rows = 300
-suppressed_codes = ["F008", "C014"]
-ignore_patterns = ["*.log", "*.tmp"]
-
-[linter.folder]
-expected_top_dirs = ["00_admin", "01_data", "02_code", "03_output"]
-
-[linter.pii]
-pii_deep_scan = false</div>
-
-                <h3>Common CLI flags</h3>
-                <div style="overflow-x: auto;">
-                    <table class="egap-check-table">
-                        <thead>
-                            <tr><th>Flag</th><th>Effect</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code style="font-family: 'Fira Code', monospace;">--strict</code></td><td>Exit 1 on any WARNING (recommended for CI)</td></tr>
-                            <tr><td><code style="font-family: 'Fira Code', monospace;">--no-pii</code></td><td>Skip PII scanning (faster)</td></tr>
-                            <tr><td><code style="font-family: 'Fira Code', monospace;">--suppress CODE</code></td><td>Suppress a specific finding globally</td></tr>
-                            <tr><td><code style="font-family: 'Fira Code', monospace;">--output-dir PATH</code></td><td>Custom report destination</td></tr>
-                            <tr><td><code style="font-family: 'Fira Code', monospace;">--json</code></td><td>JSON report instead of HTML</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Section 8: Resources -->
-            <div class="resources-section">
-                <h2>Resources</h2>
-                <ul>
-                    <li><a href="https://github.com/bracluque/replication-linter" target="_blank" rel="noopener" style="color: var(--accent-color);">GitHub repository</a></li>
-                    <li><a href="https://doi.org/10.5281/zenodo.7293838" target="_blank" rel="noopener" style="color: var(--accent-color);">SSDE Template README v1.1</a></li>
-                    <li><a href="https://aeadataeditor.github.io/" target="_blank" rel="noopener" style="color: var(--accent-color);">AEA Data Editor guidance</a></li>
-                    <li><a href="https://ajps.org/ajps-verification-policy/" target="_blank" rel="noopener" style="color: var(--accent-color);">AJPS Verification Policy</a></li>
-                    <li><a href="https://egap.org" target="_blank" rel="noopener" style="color: var(--accent-color);">EGAP</a></li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="footer">
-            <div class="footer-content">
-                <p>&copy; 2026 Brayan A. Condori</p>
-                <div class="social-footer">
-                    <a href="mailto:alexcluque@gmail.com" title="Email" class="social-footer-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                        </svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/alexcluque/" title="LinkedIn" class="social-footer-icon" target="_blank" rel="noopener">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                    </a>
-                    <a href="https://github.com/bracluque" title="GitHub" class="social-footer-icon" target="_blank" rel="noopener">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                    </a>
-                    <a href="https://x.com/bracluque" title="X (Twitter)" class="social-footer-icon" target="_blank" rel="noopener">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
-                        </svg>
-                    </a>
-                    <a href="https://bsky.app/profile/bracluque.bsky.social" title="Bluesky" class="social-footer-icon" target="_blank" rel="noopener">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 2.105c-.659.84-.133 2.168.718 3.08 1.718 1.838 4.382 5.382 5.38 7.615-1.087-2.114-4.046-6.053-6.798-7.995C-2.434.944-3.439 1.266-4.098 2.105c-.659.84-.133 2.168.718 3.08 1.718 1.838 4.382 5.382 5.38 7.615.5 1.113.843 2.162.843 3.2 0 1.765-.706 3.4-1.96 4.5-1.254 1.1-2.94 1.7-4.64 1.7 1.7 0 3.386-.6 4.64-1.7 1.254-1.1 1.96-2.735 1.96-4.5 0-1.038-.343-2.087-.843-3.2z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
+    <div class="egap-steps">
+      <div class="egap-step">
+        <div class="egap-step-num">01</div>
+        <h3 class="egap-h3">Install the package</h3>
+        <p>From PyPI using pip:</p>
+        <div class="egap-code-block">pip install replication-linter</div>
+        <p style="font-size:.82rem;color:var(--eink3);margin-top:.5rem">Or install the dev version from source:</p>
+        <div class="egap-code-block">git clone https://github.com/bracluque/replication-linter
+pip install -e .</div>
+      </div>
+      <div class="egap-step">
+        <div class="egap-step-num">02</div>
+        <h3 class="egap-h3">Point it at your project</h3>
+        <p>Run from anywhere &mdash; pass the path to your replication package folder:</p>
+        <div class="egap-code-block">repro-lint /path/to/your/project</div>
+        <p style="font-size:.82rem;color:var(--eink3);margin-top:.5rem">Or from inside the folder:</p>
+        <div class="egap-code-block">cd my_paper/
+repro-lint .</div>
+      </div>
+      <div class="egap-step">
+        <div class="egap-step-num">03</div>
+        <h3 class="egap-h3">Read the report</h3>
+        <p>Open the HTML report in any browser &mdash; no internet required:</p>
+        <div class="egap-code-block">open my_paper/00_admin/replication_audit.html</div>
+        <p style="font-size:.82rem;color:var(--eink3);margin-top:.5rem">The report maps every finding to a specific journal requirement and fix.</p>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="egap-callout">
+      <strong>Pre-submission one-liner:</strong>
+      Run <code>repro-lint . --strict</code> from inside your replication package.
+      Exit code 0 = clean. Exit code 1 = fix before submitting.
+      Add this to your CI pipeline or run it manually before each submission round.
+    </div>
+
+    <h3 class="egap-h3" style="margin-bottom:1rem;margin-top:2.5rem">Common invocations</h3>
+    <div class="egap-code-block"><span class="cm"># Basic audit</span>
+repro-lint ./my_paper
+
+<span class="cm"># Strict mode &mdash; warnings count as failures (good for CI)</span>
+repro-lint ./my_paper <span class="kw">--strict</span>
+
+<span class="cm"># Skip PII scan (much faster, use for quick structure checks)</span>
+repro-lint ./my_paper <span class="kw">--no-pii</span>
+
+<span class="cm"># Suppress codes you've consciously accepted</span>
+repro-lint ./my_paper <span class="kw">--suppress</span> F008 <span class="kw">--suppress</span> C014
+
+<span class="cm"># Output to a custom directory</span>
+repro-lint ./my_paper <span class="kw">--output-dir</span> /tmp/audit_results
+
+<span class="cm"># JSON report for programmatic use</span>
+repro-lint ./my_paper <span class="kw">--json</span>
+
+<span class="cm"># Check only folder structure (fastest)</span>
+repro-lint ./my_paper <span class="kw">--no-pii</span> <span class="kw">--no-code</span></div>
+  </div>
+</div>
+
+<!-- ── MODULES ──────────────────────────────────────── -->
+<div class="egap-section egap-section-alt" id="modules">
+  <div class="egap-section-inner">
+    <div class="egap-section-label">Check modules</div>
+    <h2 class="egap-h2">Three layers of reproducibility checks</h2>
+    <p class="egap-section-lead">
+      Every finding has a stable code, a severity level, and a one-line fix instruction
+      mapped to a specific journal requirement. Nothing is a vague suggestion.
+    </p>
+
+    <div class="egap-modules-grid">
+
+      <!-- M1 -->
+      <div class="egap-module-card">
+        <span class="egap-module-badge ebadge-m1">Module 1 &middot; Folder</span>
+        <h3 class="egap-h3">Folder structure checker</h3>
+        <p>Audits your project directory against the DCAS standard and SSDE Template
+        README v1.1. Detects missing README files, absent standard directories,
+        duplicate files, and orphaned files.</p>
+
+        <div class="egap-checks-section">
+          <h3 class="egap-h3">F &mdash; Folder checks</h3>
+          <div class="egap-check-list">
+            <div class="egap-check-item"><span class="egap-check-code">F001</span><span class="egap-sev-badge esev-e">error</span><div class="egap-check-text">No README file found at project root<div class="egap-check-fix">Add a README.md &mdash; required by AEA, AJPS, APSR, QJE</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">F002</span><span class="egap-sev-badge esev-e">error</span><div class="egap-check-text">README is empty or whitespace only<div class="egap-check-fix">Add content &mdash; at minimum: data sources, software, run order</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">F003</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">README is not a PDF or Markdown file<div class="egap-check-fix">Convert to README.pdf or README.md (AEA requires PDF)</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">F004</span><span class="egap-sev-badge esev-e">error</span><div class="egap-check-text">SSDE Template README section missing<div class="egap-check-fix">Add the missing heading &mdash; required by DCAS v1.0</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">F005</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">No master script found<div class="egap-check-fix">Add master.do or run_all.R (required when &gt;4 steps)</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">F006</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">Expected standard directory missing<div class="egap-check-fix">Create 00_admin/, 01_data/, 02_code/, 03_output/</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">F007</span><span class="egap-sev-badge esev-i">info</span><div class="egap-check-text">Duplicate file detected (same SHA-256)<div class="egap-check-fix">Remove the duplicate to reduce confusion</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">F008</span><span class="egap-sev-badge esev-i">info</span><div class="egap-check-text">Orphan file at project root<div class="egap-check-fix">Move into 01_data/, 02_code/, or 03_output/</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">F009</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">No data dictionary / codebook found<div class="egap-check-fix">Add codebook.md &mdash; required by APSR and AJPS</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">F011</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">README has fewer than 3 of 7 SSDE required sections<div class="egap-check-fix">Expand README using the SSDE Template README v1.1</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">F012</span><span class="egap-sev-badge esev-i">info</span><div class="egap-check-text">No LICENSE file found<div class="egap-check-fix">Add LICENSE &mdash; MIT or CC-BY 4.0 recommended by AEA</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- M2 -->
+      <div class="egap-module-card">
+        <span class="egap-module-badge ebadge-m2">Module 2 &middot; PII</span>
+        <h3 class="egap-h3">Data management &amp; PII safety</h3>
+        <p>Opens CSV, Stata .dta, and Excel files and flags columns or values that
+        suggest personally identifiable information. Uses Stata variable labels, not
+        just column names. Conservative &mdash; only flags likely risks.</p>
+
+        <div class="egap-checks-section">
+          <h3 class="egap-h3">P &mdash; PII checks</h3>
+          <div class="egap-check-list">
+            <div class="egap-check-item"><span class="egap-check-code">P001</span><span class="egap-sev-badge esev-e">error</span><div class="egap-check-text">Column name exactly matches PII identifier<div class="egap-check-fix">Verify column doesn't contain real IDs; pseudonymise or drop</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">P002</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">Column name partially matches PII pattern<div class="egap-check-fix">Review column &mdash; likely contains sensitive identifiers</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">P003</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">Column values match PII pattern (&ge;5% of sampled rows)<div class="egap-check-fix">Review values for email, phone, national ID patterns</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">P004</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">Free-text column detected (mean length &gt;40 chars)<div class="egap-check-fix">Review for identifiable text; consider redaction</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">P005</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">No codebook found for this data file<div class="egap-check-fix">Add a codebook describing all variables in this file</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">P006</span><span class="egap-sev-badge esev-i">info</span><div class="egap-check-text">File could not be read (format or encoding error)<div class="egap-check-fix">Verify file is a valid CSV/DTA/XLSX and not password-protected</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">P007</span><span class="egap-sev-badge esev-i">info</span><div class="egap-check-text">.dta file without a CSV equivalent<div class="egap-check-fix">Export a CSV alongside the .dta (JPE requires non-proprietary formats)</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">P008</span><span class="egap-sev-badge esev-e">error</span><div class="egap-check-text">Column matches national ID pattern (DNI, cedula, CPF, RUT, CURP, SSN)<div class="egap-check-fix">Remove or replace with an anonymous key before deposit</div></div></div>
+          </div>
+        </div>
+
+        <div class="egap-callout" style="margin-top:1rem">
+          <strong>Supports Spanish &amp; English.</strong>
+          PII patterns cover Latin American IDs (DNI/Peru, c&eacute;dula/Colombia, CPF/Brazil,
+          RUT/Chile, CURP/Mexico) alongside US and European identifiers.
+        </div>
+      </div>
+
+      <!-- M3 -->
+      <div class="egap-module-card">
+        <span class="egap-module-badge ebadge-m3">Module 3 &middot; Code</span>
+        <h3 class="egap-h3">Code checker &mdash; R &amp; Stata</h3>
+        <p>Static analysis of .R, .Rmd, .do, and .ado files. Detects absolute paths,
+        missing seeds, unpinned packages, absent version declarations, dead file
+        references, and more. Never executes your code.</p>
+
+        <div class="egap-checks-section">
+          <h3 class="egap-h3">C &mdash; R checks</h3>
+          <div class="egap-check-list">
+            <div class="egap-check-item"><span class="egap-check-code">C001</span><span class="egap-sev-badge esev-e">error</span><div class="egap-check-text">Absolute path in R file<div class="egap-check-fix">Replace with here::here() or a relative path</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C002</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">Random call without set.seed() in same file<div class="egap-check-fix">Add set.seed(&lt;integer&gt;) before first random call</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C003</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">library() call for package not in renv.lock<div class="egap-check-fix">Run renv::snapshot() to pin the package</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C004</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">No renv.lock file found in project<div class="egap-check-fix">Run renv::init() then renv::snapshot()</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C005</span><span class="egap-sev-badge esev-i">info</span><div class="egap-check-text">Output file written by script not present in project<div class="egap-check-fix">Run the script to generate the file, then include it</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C006</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">source() references a non-existent file<div class="egap-check-fix">Verify the file exists relative to the script or project root</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C007</span><span class="egap-sev-badge esev-i">info</span><div class="egap-check-text">setwd() call detected<div class="egap-check-fix">Replace with here::here() for cross-machine compatibility</div></div></div>
+          </div>
+        </div>
+
+        <div class="egap-checks-section" style="margin-top:1.25rem">
+          <h3 class="egap-h3">C &mdash; Stata checks</h3>
+          <div class="egap-check-list">
+            <div class="egap-check-item"><span class="egap-check-code">C010</span><span class="egap-sev-badge esev-e">error</span><div class="egap-check-text">Hard-coded cd with absolute path<div class="egap-check-fix">global root "path" then cd "$root"</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C011</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">No version statement in .do file<div class="egap-check-fix">Add version 17.0 as the first command</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C012</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">Random command without set seed in same file<div class="egap-check-fix">Add set seed &lt;integer&gt; before first random command</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C013</span><span class="egap-sev-badge esev-e">error</span><div class="egap-check-text">Absolute path literal in Stata code<div class="egap-check-fix">Use "$root/subdir/file.dta" with a root global</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C014</span><span class="egap-sev-badge esev-i">info</span><div class="egap-check-text">No log using in long do-file (&gt;50 lines)<div class="egap-check-fix">Add log using "logs/run.log", replace for audit trail</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C015</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">do "file" references a non-existent .do file<div class="egap-check-fix">Verify the file exists relative to $root</div></div></div>
+          </div>
+        </div>
+
+        <div class="egap-checks-section" style="margin-top:1.25rem">
+          <h3 class="egap-h3">C &mdash; Cross-file checks</h3>
+          <div class="egap-check-list">
+            <div class="egap-check-item"><span class="egap-check-code">C020</span><span class="egap-sev-badge esev-w">warn</span><div class="egap-check-text">No master script with &gt;3 code files<div class="egap-check-fix">Add master.do or run_all.R calling all scripts in order</div></div></div>
+            <div class="egap-check-item"><span class="egap-check-code">C021</span><span class="egap-sev-badge esev-i">info</span><div class="egap-check-text">Output name closely matches input name in another script<div class="egap-check-fix">Verify these are the same file with consistent naming</div></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <h3 class="egap-h3" style="margin-bottom:.75rem">Suppressing individual findings</h3>
+    <p style="color:var(--eink2);font-size:.9rem;margin-bottom:1rem">
+      Add an inline comment to silence a specific finding on a single line.
+      Suppressed findings are computed but not emitted and don't affect pass/fail.
+    </p>
+    <div class="egap-code-block"><span class="cm"># R &mdash; suppress C001 on this line</span>
+setwd(<span class="str">"/home/ronny/special_path"</span>)  <span class="cm"># repro-lint: ignore C001</span>
+
+<span class="cm">/* Stata &mdash; suppress C010 on this line */</span>
+cd <span class="str">"/Users/brayan/project"</span>  <span class="cm">/* repro-lint: ignore C010 */</span></div>
+  </div>
+</div>
+
+<!-- ── JOURNALS ─────────────────────────────────────── -->
+<div class="egap-section" id="journals">
+  <div class="egap-section-inner">
+    <div class="egap-section-label">Journal compatibility</div>
+    <h2 class="egap-h2">Mapped to real journal requirements</h2>
+    <p class="egap-section-lead">
+      Every check code derives from at least one published journal policy.
+      Passing <code>repro-lint --strict</code> means you satisfy the requirements of all
+      journals that perform computational verification.
+    </p>
+
+    <div class="egap-journal-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Journal</th>
+            <th>Mandatory policy</th>
+            <th>Repository</th>
+            <th>Data editor</th>
+            <th>Verification</th>
+            <th>README standard</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>American Economic Review &amp; all AEA</td>
+            <td><span class="egap-pill epill-yes">Yes</span></td>
+            <td>openICPSR</td>
+            <td>Vilhuber (Cornell)</td>
+            <td><span class="egap-pill epill-yes">Computational</span></td>
+            <td>SSDE Template v1.1</td>
+          </tr>
+          <tr>
+            <td>Journal of Political Economy</td>
+            <td><span class="egap-pill epill-yes">Yes</span></td>
+            <td>JPE Dataverse</td>
+            <td>In-house</td>
+            <td><span class="egap-pill epill-yes">Computational</span></td>
+            <td>Own + DAS</td>
+          </tr>
+          <tr>
+            <td>Quarterly Journal of Economics</td>
+            <td><span class="egap-pill epill-yes">Yes</span></td>
+            <td>QJE Dataverse</td>
+            <td>None</td>
+            <td><span class="egap-pill epill-no">None</span></td>
+            <td>SSDE recommended</td>
+          </tr>
+          <tr>
+            <td>Review of Economics and Statistics</td>
+            <td><span class="egap-pill epill-yes">Yes</span></td>
+            <td>ReStat Dataverse</td>
+            <td>None</td>
+            <td><span class="egap-pill epill-no">None</span></td>
+            <td>Unspecified</td>
+          </tr>
+          <tr>
+            <td>Journal of Development Economics</td>
+            <td><span class="egap-pill epill-yes">Yes</span></td>
+            <td>Mendeley Data</td>
+            <td>None</td>
+            <td><span class="egap-pill epill-no">None</span></td>
+            <td>Own (PDF)</td>
+          </tr>
+          <tr>
+            <td>World Development</td>
+            <td><span class="egap-pill epill-no">Encouraged</span></td>
+            <td>None required</td>
+            <td>None</td>
+            <td><span class="egap-pill epill-no">None</span></td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>American Political Science Review</td>
+            <td><span class="egap-pill epill-yes">Yes</span></td>
+            <td>APSR Dataverse</td>
+            <td>In-house</td>
+            <td><span class="egap-pill epill-yes">Computational</span></td>
+            <td>SSDE recommended</td>
+          </tr>
+          <tr>
+            <td>American Journal of Political Science</td>
+            <td><span class="egap-pill epill-yes">Yes</span></td>
+            <td>AJPS Dataverse</td>
+            <td>Cornell (2024)</td>
+            <td><span class="egap-pill epill-yes">Computational</span></td>
+            <td>Own (plain text)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="egap-callout">
+      <strong>JPE note:</strong> The Journal of Political Economy requires data in
+      plain ASCII / non-proprietary formats only (CSV preferred over .dta) and
+      synthetic data when restricted data cannot be shared. <code>repro-lint</code>
+      flags these as <code>P007</code> and <code>C016</code> (INFO level) so you can
+      assess whether they apply to your submission.
+    </div>
+  </div>
+</div>
+
+<!-- ── CHECKLIST ─────────────────────────────────────── -->
+<div class="egap-section egap-section-alt" id="checklist">
+  <div class="egap-section-inner">
+    <div class="egap-section-label">DCAS compliance</div>
+    <h2 class="egap-h2">Replication Readiness Checklist</h2>
+    <p class="egap-section-lead">
+      The HTML report auto-populates this checklist from your findings.
+      A green checkmark means no finding triggered that item.
+      These 17 items cover the full DCAS v1.0 specification endorsed by all AEA,
+      JPE, APSR, and AJPS journals.
+    </p>
+
+    <div class="egap-checklist-grid">
+      <div class="egap-check-row"><div class="eicon eicon-e">E</div><div><div class="egap-check-row-text">README present and non-empty</div><div class="egap-check-row-code">Fails if: F001, F002</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-w">W</div><div><div class="egap-check-row-text">README in compliant format (PDF or Markdown)</div><div class="egap-check-row-code">Fails if: F003</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-e">E</div><div><div class="egap-check-row-text">All 7 SSDE Template README sections present</div><div class="egap-check-row-code">Fails if: F004, F011</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-w">W</div><div><div class="egap-check-row-text">Master script present (when &gt;4 steps needed)</div><div class="egap-check-row-code">Fails if: F005, C020</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-w">W</div><div><div class="egap-check-row-text">Standard folder structure in place</div><div class="egap-check-row-code">Fails if: F006</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-i">I</div><div><div class="egap-check-row-text">License file present</div><div class="egap-check-row-code">Fails if: F012</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-e">E</div><div><div class="egap-check-row-text">No absolute paths in R code</div><div class="egap-check-row-code">Fails if: C001, C007</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-e">E</div><div><div class="egap-check-row-text">No absolute paths in Stata code</div><div class="egap-check-row-code">Fails if: C010, C013</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-w">W</div><div><div class="egap-check-row-text">Random seed set and documented</div><div class="egap-check-row-code">Fails if: C002, C012</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-w">W</div><div><div class="egap-check-row-text">R packages pinned with renv.lock</div><div class="egap-check-row-code">Fails if: C003, C004</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-w">W</div><div><div class="egap-check-row-text">Stata version declaration present</div><div class="egap-check-row-code">Fails if: C011</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-w">W</div><div><div class="egap-check-row-text">No dead file references in code</div><div class="egap-check-row-code">Fails if: C006, C015</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-e">E</div><div><div class="egap-check-row-text">No likely PII in column names or labels</div><div class="egap-check-row-code">Fails if: P001, P002, P008</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-w">W</div><div><div class="egap-check-row-text">No likely PII in column values</div><div class="egap-check-row-code">Fails if: P003</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-w">W</div><div><div class="egap-check-row-text">Data dictionary / codebook present</div><div class="egap-check-row-code">Fails if: P005, F009</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-i">I</div><div><div class="egap-check-row-text">Non-proprietary format available for .dta files</div><div class="egap-check-row-code">Fails if: P007, C016</div></div></div>
+      <div class="egap-check-row"><div class="eicon eicon-i">I</div><div><div class="egap-check-row-text">All referenced output files present in package</div><div class="egap-check-row-code">Fails if: C005, C021</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONFIG ───────────────────────────────────────── -->
+<div class="egap-section" id="config">
+  <div class="egap-section-inner">
+    <div class="egap-section-label">Configuration</div>
+    <h2 class="egap-h2">Customise with .linterrc</h2>
+    <p class="egap-section-lead">
+      Create a <code>.linterrc</code> file in TOML format at your project root to
+      override defaults. Config is merged with CLI flags &mdash; flags take precedence.
+    </p>
+
+    <div class="egap-config-grid">
+      <div class="egap-config-col">
+        <h3 class="egap-h3">Example .linterrc</h3>
+        <div class="egap-code-block"><span class="cm"># .linterrc &mdash; TOML format</span>
+
+[linter]
+pii_sample_rows = <span class="num">300</span>
+max_file_size_mb = <span class="num">100.0</span>
+suppressed_codes = [<span class="str">"F008"</span>, <span class="str">"C014"</span>]
+ignore_patterns = [<span class="str">"*.log"</span>, <span class="str">"*.tmp"</span>]
+
+[linter.folder]
+expected_top_dirs = [
+  <span class="str">"00_admin"</span>, <span class="str">"01_data"</span>,
+  <span class="str">"02_code"</span>,  <span class="str">"03_output"</span>,
+  <span class="str">"04_docs"</span>
+]
+
+[linter.pii]
+pii_deep_scan = <span class="kw">false</span>
+
+[linter.code]
+check_seed = <span class="kw">true</span>
+check_renv = <span class="kw">true</span>
+check_dead_refs = <span class="kw">true</span></div>
+
+        <h3 class="egap-h3" style="margin-top:1.75rem">Recommended folder structure</h3>
+        <div class="egap-code-block">my_paper/
+&#9500;&#9472;&#9472; README.pdf          <span class="cm"># all 7 SSDE sections</span>
+&#9500;&#9472;&#9472; LICENSE
+&#9500;&#9472;&#9472; .linterrc
+&#9500;&#9472;&#9472; 00_admin/           <span class="cm"># admin &amp; reports</span>
+&#9500;&#9472;&#9472; 01_data/
+&#9474;   &#9500;&#9472;&#9472; raw/            <span class="cm"># original data, untouched</span>
+&#9474;   &#9500;&#9472;&#9472; clean/          <span class="cm"># processed analysis data</span>
+&#9474;   &#9492;&#9472;&#9472; codebook.md     <span class="cm"># variable descriptions</span>
+&#9500;&#9472;&#9472; 02_code/
+&#9474;   &#9500;&#9472;&#9472; master.do       <span class="cm"># or run_all.R</span>
+&#9474;   &#9500;&#9472;&#9472; 01_clean.do
+&#9474;   &#9500;&#9472;&#9472; 02_analysis.do
+&#9474;   &#9492;&#9472;&#9472; renv.lock       <span class="cm"># for R projects</span>
+&#9492;&#9472;&#9472; 03_output/
+    &#9500;&#9472;&#9472; table1.tex
+    &#9492;&#9472;&#9472; fig1.pdf</div>
+      </div>
+
+      <div class="egap-config-col">
+        <h3 class="egap-h3">CLI flags reference</h3>
+        <div class="egap-flag-list">
+          <div class="egap-flag-item"><span class="egap-flag-name">--output-dir PATH</span><span class="egap-flag-desc">Where to write the HTML report and manifest. Default: <code>project/00_admin/</code></span></div>
+          <div class="egap-flag-item"><span class="egap-flag-name">--no-folder</span><span class="egap-flag-desc">Skip the folder structure agent (Module 1)</span></div>
+          <div class="egap-flag-item"><span class="egap-flag-name">--no-pii</span><span class="egap-flag-desc">Skip PII scanning (Module 2). Faster; use for quick code checks</span></div>
+          <div class="egap-flag-item"><span class="egap-flag-name">--no-code</span><span class="egap-flag-desc">Skip code analysis (Module 3)</span></div>
+          <div class="egap-flag-item"><span class="egap-flag-name">--suppress CODE</span><span class="egap-flag-desc">Suppress a finding code globally. Repeatable. e.g. <code>--suppress F008</code></span></div>
+          <div class="egap-flag-item"><span class="egap-flag-name">--strict</span><span class="egap-flag-desc">Exit code 1 on any WARNING (not just ERROR). Recommended for CI</span></div>
+          <div class="egap-flag-item"><span class="egap-flag-name">--quiet</span><span class="egap-flag-desc">Print only errors and the final summary line</span></div>
+          <div class="egap-flag-item"><span class="egap-flag-name">--json</span><span class="egap-flag-desc">Write a JSON report instead of HTML</span></div>
+          <div class="egap-flag-item"><span class="egap-flag-name">--version</span><span class="egap-flag-desc">Show version and exit</span></div>
+        </div>
+
+        <h3 class="egap-h3" style="margin-top:1.75rem">Exit codes</h3>
+        <div class="egap-flag-list">
+          <div class="egap-flag-item"><span class="egap-flag-name">0 &mdash; Passed</span><span class="egap-flag-desc">No errors found (warnings present unless <code>--strict</code>)</span></div>
+          <div class="egap-flag-item"><span class="egap-flag-name">1 &mdash; Failed</span><span class="egap-flag-desc">Errors found, or warnings with <code>--strict</code></span></div>
+          <div class="egap-flag-item"><span class="egap-flag-name">2 &mdash; Config error</span><span class="egap-flag-desc">Bad path, unreadable config, or conflicting flags</span></div>
+          <div class="egap-flag-item"><span class="egap-flag-name">3 &mdash; Internal error</span><span class="egap-flag-desc">Unrecoverable crash. Please open a GitHub issue</span></div>
+        </div>
+
+        <h3 class="egap-h3" style="margin-top:1.75rem">Use in GitHub Actions</h3>
+        <div class="egap-code-block"><span class="cm"># .github/workflows/repro.yml</span>
+<span class="kw">name:</span> Replication check
+<span class="kw">on:</span> [push, pull_request]
+<span class="kw">jobs:</span>
+  <span class="kw">lint:</span>
+    <span class="kw">runs-on:</span> ubuntu-latest
+    <span class="kw">steps:</span>
+      - <span class="kw">uses:</span> actions/checkout@v4
+      - <span class="kw">run:</span> pip install replication-linter
+      - <span class="kw">run:</span> repro-lint . <span class="str">--strict --no-pii</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ABOUT ──────────────────────────────���──────────── -->
+<div class="egap-section egap-section-alt" id="about">
+  <div class="egap-section-inner">
+    <div class="egap-section-label">Project</div>
+    <h2 class="egap-h2">About repro-lint</h2>
+    <div class="egap-about-grid">
+      <div>
+        <p style="color:var(--eink2);margin-bottom:1.5rem;line-height:1.7">
+          <code>repro-lint</code> is an open-source tool developed under an
+          <strong>EGAP Innovation Grant</strong> in the Open Science and Reproducibility
+          category. It is built by researchers who routinely submit to AEA journals,
+          AJPS, and APSR, and who have experienced first-hand the friction of
+          first-round rejection for avoidable technical issues.
+        </p>
+        <p style="color:var(--eink2);margin-bottom:1.5rem;line-height:1.7">
+          The tool operationalises the
+          <a href="https://social-science-data-editors.github.io/">DCAS v1.0 standard</a>
+          and the
+          <a href="https://doi.org/10.5281/zenodo.7293838">SSDE Template README v1.1</a>
+          into machine-readable checks. Every finding maps to a published journal
+          requirement &mdash; not to the authors' preferences.
+        </p>
+        <p style="color:var(--eink2);margin-bottom:2rem;line-height:1.7">
+          The tool is fully offline, never executes user code, and never modifies
+          project files. It is designed to work in research computing environments
+          that may be air-gapped or have restricted software installations.
+        </p>
+
+        <h3 class="egap-h3" style="margin-bottom:1.25rem">Co-Principal Investigators</h3>
+        <div class="egap-pi-card">
+          <div class="egap-pi-name">Brayan A. Condori</div>
+          <div class="egap-pi-affil">Research Fellow &mdash; GRADE &amp; Wyss Academy for Nature, University of Bern</div>
+          <div class="egap-pi-email">alexcluque@gmail.com</div>
+        </div>
+        <div class="egap-pi-card">
+          <div class="egap-pi-name">Ronny M. Condor</div>
+          <div class="egap-pi-affil">Research Associate &mdash; Wyss Academy for Nature, University of Bern</div>
+          <div class="egap-pi-email">ronny.condor@wyssacademy.org</div>
+        </div>
+        <div class="egap-pi-card">
+          <div class="egap-pi-name">Valeria Gonzales Torres</div>
+          <div class="egap-pi-affil">Research Assistant</div>
+        </div>
+
+        <h3 class="egap-h3" style="margin-bottom:1rem;margin-top:2rem">Key references</h3>
+        <ul style="font-size:.85rem;color:var(--eink2);line-height:2;padding-left:1.2rem">
+          <li>Chang &amp; Li (2022). "Is Economics Research Replicable?" <em>AER P&amp;P</em></li>
+          <li>Brodeur et al. (2025). "Mass Reproducibility and Replicability." <em>IZA DP 16912</em></li>
+          <li>Vilhuber (2024). "Report of the AEA Data Editor." <em>AEA P&amp;P</em></li>
+          <li>Social Science Data Editors. DCAS v1.0 &amp; Template README v1.1. <em>DOI: 10.5281/zenodo.7293838</em></li>
+          <li>Eubank (2016). "Lessons from a Decade of Replications at the QJPS." <em>PS</em></li>
+          <li>Koren, Pflueger &amp; Reif (2023). "require: Package dependencies for reproducible research." <em>arXiv 2309.11058</em></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="egap-badge-box">
+          <strong>Funding</strong>
+          EGAP Innovation Grant<br>
+          Open Science and Reproducibility<br>
+          January &ndash; December 2026<br>
+          Budget: USD 10,000
+        </div>
+
+        <div style="margin-top:1.5rem;background:var(--ebg);border:1.5px solid var(--ebg3);border-radius:10px;padding:1.25rem">
+          <h3 class="egap-h3" style="font-size:.9rem;margin-bottom:.75rem">Quick links</h3>
+          <ul style="list-style:none;font-size:.85rem;display:flex;flex-direction:column;gap:.6rem">
+            <li><a href="https://github.com/bracluque/replication-linter">&rarr; GitHub repository</a></li>
+            <li><a href="https://github.com/bracluque/replication-linter/issues">&rarr; Report an issue</a></li>
+            <li><a href="https://pypi.org/project/replication-linter">&rarr; PyPI package</a></li>
+            <li><a href="https://social-science-data-editors.github.io/template_README/">&rarr; SSDE Template README</a></li>
+            <li><a href="https://aeadataeditor.github.io/">&rarr; AEA Data Editor guidance</a></li>
+            <li><a href="https://ajps.org/ajps-verification-policy/">&rarr; AJPS verification policy</a></li>
+            <li><a href="https://www.aeaweb.org/journals/data/data-code-policy">&rarr; AEA data policy</a></li>
+          </ul>
+        </div>
+
+        <div style="margin-top:1.5rem;background:var(--ebg);border:1.5px solid var(--ebg3);border-radius:10px;padding:1.25rem">
+          <h3 class="egap-h3" style="font-size:.9rem;margin-bottom:.75rem">Contributing</h3>
+          <p style="font-size:.82rem;color:var(--eink2);line-height:1.6">
+            Issues and pull requests are welcome. The project uses
+            <code>ruff</code> for linting, <code>mypy --strict</code> for types,
+            and <code>pytest</code> for tests. CI runs on Python 3.10&ndash;3.12
+            across Ubuntu and macOS.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ────────────────────────────────────────── -->
+<div class="egap-footer">
+  <span class="egap-footer-brand">repro-lint v0.1.0-alpha</span>
+  MIT License &middot;
+  <a href="https://github.com/bracluque/replication-linter">GitHub</a> &middot;
+  Built with an <a href="https://egap.org">EGAP</a> Innovation Grant &middot;
+  &copy; 2026 Brayan A. Condori
+</div>
+
+</div><!-- /.egap-page -->
+
+<script src="script.js"></script>
 </body>
 </html>
