@@ -1,186 +1,121 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research - Brayan A. Condori</title>
-    <meta name="description" content="Research papers and work in progress by Brayan A. Condori, focusing on development economics and political economy.">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Research — Brayan A. Condori</title>
+<meta name="description" content="Working papers, work in progress, and other research by Brayan A. Condori." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- Top Navigation Bar -->
-    <div class="top-nav">
-        <div class="nav-container">
-            <a href="index.html" class="nav-brand">Brayan A. Condori</a>
-            <div style="display: flex; align-items: center;">
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-                <div class="nav-links" id="navLinks">
-                    <a href="index.html">Home</a>
-                    <a href="research.html" class="active">Research</a>
-                    <a href="resources.html">Resources</a>
-                    <a href="personal.html">Personal</a>
-                    <a href="cv.html">CV</a>
-                    <a href="egap-linter.html">EGAP Linter</a>
-                </div>
-                <button class="theme-toggle" onclick="toggleTheme()" title="Switch to Dark Mode">
-                    <span class="theme-icon">●</span>
-                </button>
-            </div>
+<header class="navbar"><div class="navbar-inner">
+  <a class="nav-name" href="index.html">BRAYAN A. CONDORI</a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a class="active" href="research.html">Research</a>
+    <a href="personal.html">Personal</a>
+    <a href="cv.html">CV</a>
+  </nav>
+</div></header>
+
+<main class="container">
+  <header class="page-header">
+    <h1 class="page-title">Research</h1>
+    <span class="page-note">· UPDATED MAY 2026</span>
+  </header>
+  <p class="intro">My work sits at the intersection of development economics and political economy, with a focus on text-as-data methods and large language models. Below are working papers, ongoing projects, and earlier research.</p>
+
+  <!-- Working Papers -->
+  <div class="section-head">
+    <div class="section-label">§ 01</div>
+    <h2 class="section-title">Working Papers</h2>
+  </div>
+  <div class="paper-list">
+    <article class="paper-card">
+      <div class="thumb"><img src="images/LR_image.png" alt="" /></div>
+      <div>
+        <div class="chips">
+          <span class="chip-accent">Working Paper</span>
+          <span class="chip-muted">Available upon request</span>
         </div>
+        <h3 class="paper-title">Long-Term Effects of Land Reform on Perceived Income Distribution: Evidence from Peru</h3>
+        <p class="coauthors">with Emiliano Bohorquez &amp; Agustín Deniard</p>
+        <p class="summary">We analyze the long-run impact of Peru's agrarian reform on contemporary beliefs about income distribution, using an instrumental variables strategy to identify how historical land redistribution shaped the gap between perceived and actual inequality at the district level.</p>
+        <p class="meta-line"><span class="label">Presented at:</span> 2025 Annual Meeting of the Peruvian Economic Association</p>
+        <div class="actions">
+          <button class="btn-link" type="button" data-toggle="abs-land">+ Read abstract</button>
+          <a class="btn-link" href="mailto:alexcluque@gmail.com?subject=Land%20Reform%20Paper%20Request">Request paper</a>
+        </div>
+        <div class="abstract" id="abs-land" hidden>
+          <div class="abstract-label">Abstract</div>
+          This paper analyzes the impact of Peru's agrarian reform on perceptions of income distribution. Using historical data and household surveys, an instrumental variables approach is employed to identify the causal effect of land redistribution on the gap between perceived and actual economic inequality. The results show that in areas with greater reform intensity, the absolute difference between perception and reality is more pronounced. Specifically, a 1-percentage-point increase in redistributed land reduces perceptual bias by an average of 0.127 points, indicating a tendency to underestimate one's actual position in the income distribution. Transmission mechanisms such as changes in income structure, labor formality, and perceived stability are explored, providing relevant evidence for the design of redistributive policies.
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Work in Progress -->
+  <div class="section-head">
+    <div class="section-label">§ 02</div>
+    <h2 class="section-title">Work in Progress</h2>
+  </div>
+  <ul class="line-list">
+    <li>
+      <div><span class="lt">Effects of Domestic Violence Laws on Women's Economic and Social Decisions: Evidence from Peru</span><span class="la">with Gustavo Acosta</span></div>
+      <span class="chip">In Progress</span>
+    </li>
+    <li>
+      <div><span class="lt">Beyond Mano Dura: Can Information about Democratic Costs Shift Voter Preferences on Security Policies?</span><span class="la">with Fernando Fernandez &amp; Martín Valdivia</span></div>
+      <span class="chip">In Progress</span>
+    </li>
+    <li>
+      <div><span class="lt">State Authority, Indigenous Resistance, and Political Change in Peru</span><span class="la">with Ronny Condor</span></div>
+      <span class="chip">In Progress</span>
+    </li>
+  </ul>
+
+  <!-- Other Research -->
+  <div class="section-head">
+    <div class="section-label">§ 03</div>
+    <h2 class="section-title">Other Research</h2>
+  </div>
+  <ul class="line-list">
+    <li>
+      <div>
+        <span class="lt">The Impact of Cash Transfers on the Use of Health Services: Evidence from Peru</span>
+        <span class="la">with Erika Quevedo</span>
+        <div class="award">★ 2022 Ashok Kotwal Prize for Best Senior Thesis, Universidad de Piura</div>
+      </div>
+      <span class="chip">Senior Thesis</span>
+    </li>
+  </ul>
+
+  <footer class="footer">
+    <div>© 2026 Brayan A. Condori</div>
+    <div class="socials">
+      <a href="mailto:alexcluque@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/alexcluque/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/bracluque" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://x.com/bracluque" target="_blank" rel="noopener">X</a>
+      <a href="https://bsky.app/profile/bracluque.bsky.social" target="_blank" rel="noopener">Bluesky</a>
     </div>
+  </footer>
+</main>
 
-    <div class="site-page">
-
-        <!-- Section 1: Hero -->
-        <div class="site-section">
-            <div class="site-section-inner">
-                <div class="site-section-label">Academic Work</div>
-                <h1 class="site-h1">Research</h1>
-            </div>
-        </div>
-
-        <!-- Section 2: Working Papers -->
-        <div class="site-section site-section-alt">
-            <div class="site-section-inner">
-                <div class="site-section-label">Working Papers</div>
-                <h2 class="site-h2">Working Papers</h2>
-
-                <!-- Paper 1: Land Reform -->
-                <div class="research-paper">
-                    <div class="research-paper-thumbnail">
-                        <img src="images/LR_image.png" alt="Land Reform and Income Distribution in Peru">
-                    </div>
-                    <div class="research-paper-content">
-                        <h3>Long-Term Effects of Land Reform on Perceived Income Distribution: Evidence from Peru</h3>
-                        <div class="paper-coauthors">Joint with Emiliano Bohorquez and Agust&iacute;n Deniard</div>
-                        <p class="paper-summary">This paper analyzes the long-run impact of Peru's agrarian reform on contemporary beliefs about income distribution. Using an instrumental variables strategy, we identify how historical land redistribution shaped the gap between perceived and actual economic inequality at the district level.</p>
-                        <div class="paper-presented">
-                            <strong>Presented at:</strong> 2025 Annual Meeting of the Peruvian Economic Association
-                        </div>
-                        <div class="paper-meta-row">
-                            <span class="status-badge status-working-paper">Working Paper</span>
-                            <span class="paper-available">Available upon request</span>
-                        </div>
-                        <div class="paper-meta-row">
-                            <button class="abstract-btn" onclick="toggleAbstract('abstract-1', this)">Abstract</button>
-                        </div>
-                        <div id="abstract-1" class="abstract-content">
-                            This paper analyzes the impact of Peru's agrarian reform on perceptions of income distribution. Using historical data and household surveys, an instrumental variables approach is employed to identify the causal effect of land redistribution on the gap between perceived and actual economic inequality. The results show that in areas with greater reform intensity, the absolute difference between perception and reality is more pronounced. Specifically, a 1-percentage-point increase in redistributed land reduces perceptual bias by an average of 0.127 points, indicating a tendency to underestimate one's actual position in the income distribution. Transmission mechanisms such as changes in income structure, labor formality, and perceived stability are explored, providing relevant evidence for the design of redistributive policies.
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Section 3: Work in Progress -->
-        <div class="site-section">
-            <div class="site-section-inner">
-                <div class="site-section-label">Work in Progress</div>
-                <h2 class="site-h2">Work in Progress</h2>
-
-                <!-- Paper 3: Domestic Violence -->
-                <div class="research-paper">
-                    <div class="research-paper-thumbnail">
-                        <div class="thumb-placeholder">Image coming soon</div>
-                    </div>
-                    <div class="research-paper-content">
-                        <h3>Effects of Domestic Violence Laws on Women's Economic and Social Decisions: Evidence from Peru</h3>
-                        <div class="paper-coauthors">Joint with Gustavo Acosta</div>
-                        <p class="paper-summary" style="display:none;">[Short summary to be added &mdash; 2&ndash;3 sentences describing the paper's question, methodology, and main findings.]</p>
-                        <div class="paper-meta-row">
-                            <span class="status-badge status-wip">Work in Progress</span>
-                        </div>
-                        <div class="paper-meta-row" style="display:none;">
-                            <button class="abstract-btn" onclick="toggleAbstract('abstract-3', this)">Abstract</button>
-                        </div>
-                        <div id="abstract-3" class="abstract-content">
-                            [Abstract to be added.]
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Paper 5: Beyond Mano Dura -->
-                <div class="research-paper">
-                    <div class="research-paper-thumbnail">
-                        <div class="thumb-placeholder">Image coming soon</div>
-                    </div>
-                    <div class="research-paper-content">
-                        <h3>Beyond Mano Dura: Can Information about Democratic Costs Shift Voter Preferences on Security Policies?</h3>
-                        <div class="paper-coauthors">Joint with Fernando Fernandez and Mart&iacute;n Valdivia</div>
-                        <p class="paper-summary" style="display:none;"></p>
-                        <div class="paper-meta-row">
-                            <span class="status-badge status-wip">Work in Progress</span>
-                        </div>
-                        <div class="paper-meta-row" style="display:none;">
-                            <button class="abstract-btn" onclick="toggleAbstract('abstract-5b', this)">Abstract</button>
-                        </div>
-                        <div id="abstract-5b" class="abstract-content">
-                            [Abstract to be added.]
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Paper 4: State Authority & Indigenous Resistance -->
-                <div class="research-paper">
-                    <div class="research-paper-thumbnail">
-                        <div class="thumb-placeholder">Image coming soon</div>
-                    </div>
-                    <div class="research-paper-content">
-                        <h3>State Authority, Indigenous Resistance, and Political Change in Peru</h3>
-                        <div class="paper-coauthors">Joint with Ronny Condor</div>
-                        <p class="paper-summary" style="display:none;">[Short summary to be added &mdash; 2&ndash;3 sentences describing the paper.]</p>
-                        <div class="paper-meta-row">
-                            <span class="status-badge status-wip">Work in Progress</span>
-                        </div>
-                        <div class="paper-meta-row" style="display:none;">
-                            <button class="abstract-btn" onclick="toggleAbstract('abstract-4', this)">Abstract</button>
-                        </div>
-                        <div id="abstract-4" class="abstract-content">
-                            [Abstract to be added.]
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Section 4: Other Research -->
-        <div class="site-section site-section-alt">
-            <div class="site-section-inner">
-                <div class="site-section-label">Other Research</div>
-                <h2 class="site-h2">Other Research</h2>
-
-                <!-- Paper 5: Cash Transfers -->
-                <div class="research-paper">
-                    <div class="research-paper-thumbnail">
-                        <div class="thumb-placeholder">Image coming soon</div>
-                    </div>
-                    <div class="research-paper-content">
-                        <h3>The Impact of Cash Transfers on the Use of Health Services: Evidence from Peru</h3>
-                        <div class="paper-coauthors">Joint with Erika Quevedo</div>
-                        <p class="paper-summary">This study examines the effects of unconditional cash transfers on the utilization of medical and pharmaceutical services during the COVID-19 crisis in Peru, using propensity score matching to identify households with comparable observable characteristics.</p>
-                        <div class="paper-meta-row">
-                            <span class="status-badge status-other">Senior Thesis</span>
-                            <span class="paper-award">&#9733; 2022 Ashok Kotwal Prize for Best Senior Thesis, Universidad de Piura</span>
-                        </div>
-                        <div class="paper-meta-row">
-                            <button class="abstract-btn" onclick="toggleAbstract('abstract-5', this)">Abstract</button>
-                        </div>
-                        <div id="abstract-5" class="abstract-content">
-                            This study examines the effects of unconditional cash transfers on the utilization of medical and pharmaceutical services. At the height of the COVID-19 crisis, the Peruvian government introduced cash transfers to alleviate the socioeconomic burden on the most vulnerable households. Using data from the 2021 Peruvian Household Survey, we apply a causal inference approach based on propensity score matching, which allows for the identification of households with comparable observable characteristics. Our findings suggest that the cash transfers did not significantly influence spending patterns. These results provide valuable insights into the effectiveness of cash transfer policies during periods of adversity, with implications for the design of social and economic protection policies in crisis contexts.
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="site-footer"><div class="site-footer-inner"><span class="site-footer-brand">Brayan A. Condori</span><div class="site-footer-links"><a href="mailto:alexcluque@gmail.com">Email</a><a href="https://www.linkedin.com/in/alexcluque/" target="_blank">LinkedIn</a><a href="https://github.com/bracluque" target="_blank">GitHub</a><a href="https://x.com/bracluque" target="_blank">X</a><a href="https://bsky.app/profile/bracluque.bsky.social" target="_blank">Bluesky</a></div></div><p style="margin-top:.75rem">&copy; 2026 Brayan A. Condori</p></div>
-
-    </div>
-
-    <script src="script.js"></script>
+<script>
+  // Inline abstract toggle
+  document.querySelectorAll('[data-toggle]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = document.getElementById(btn.dataset.toggle);
+      if(!target) return;
+      var open = !target.hasAttribute('hidden') ? false : true;
+      if(open){ target.removeAttribute('hidden'); btn.textContent = '— Hide abstract'; }
+      else    { target.setAttribute('hidden',''); btn.textContent = '+ Read abstract'; }
+    });
+  });
+</script>
 </body>
 </html>

@@ -1,68 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Brayan A. Condori</title>
-    <meta name="description" content="Curriculum Vitae of Brayan A. Condori, Research Fellow at GRADE and the Wyss Academy for Nature.">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CV — Brayan A. Condori</title>
+<meta name="description" content="Curriculum Vitae — Brayan A. Condori." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- Top Navigation Bar -->
-    <div class="top-nav">
-        <div class="nav-container">
-            <a href="index.html" class="nav-brand">Brayan A. Condori</a>
-            <div style="display: flex; align-items: center;">
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-                <div class="nav-links" id="navLinks">
-                    <a href="index.html">Home</a>
-                    <a href="research.html">Research</a>
-                    <a href="resources.html">Resources</a>
-                    <a href="personal.html">Personal</a>
-                    <a href="cv.html" class="active">CV</a>
-                    <a href="egap-linter.html">EGAP Linter</a>
-                </div>
-                <button class="theme-toggle" onclick="toggleTheme()" title="Switch to Dark Mode">
-                    <span class="theme-icon">●</span>
-                </button>
-            </div>
-        </div>
+<header class="navbar"><div class="navbar-inner">
+  <a class="nav-name" href="index.html">BRAYAN A. CONDORI</a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="research.html">Research</a>
+    <a href="personal.html">Personal</a>
+    <a class="active" href="cv.html">CV</a>
+  </nav>
+</div></header>
+
+<main class="container">
+  <header class="page-header between">
+    <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
+      <h1 class="page-title">CV</h1>
+      <span class="page-note">· UPDATED MAY 2026</span>
     </div>
-
-    <div class="site-page">
-
-        <div class="site-section">
-            <div class="site-section-inner">
-                <div class="site-section-label">Curriculum Vitae</div>
-                <h1 class="site-h1">CV</h1>
-                <a href="docs/CV_Condori_Brayan.pdf" download class="btn-primary">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                    </svg>
-                    Download PDF
-                </a>
-            </div>
-        </div>
-
-        <div class="site-section site-section-alt">
-            <div class="site-section-inner">
-                <div class="cv-embed-container">
-                    <embed src="docs/CV_Condori_Brayan.pdf"
-                           type="application/pdf"
-                           width="100%"
-                           height="850px"
-                           title="Brayan A. Condori - Curriculum Vitae" />
-                </div>
-                <p style="margin-top: 20px; text-align: center; font-size: 0.9rem; color: var(--text-tertiary); font-family: 'Source Sans 3', sans-serif;">
-                    If the PDF does not display, <a href="docs/CV_Condori_Brayan.pdf" target="_blank" style="color: var(--accent-color);">click here to open it</a>.
-                </p>
-            </div>
-        </div>
-
-        <div class="site-footer"><div class="site-footer-inner"><span class="site-footer-brand">Brayan A. Condori</span><div class="site-footer-links"><a href="mailto:alexcluque@gmail.com">Email</a><a href="https://www.linkedin.com/in/alexcluque/" target="_blank">LinkedIn</a><a href="https://github.com/bracluque" target="_blank">GitHub</a><a href="https://x.com/bracluque" target="_blank">X</a><a href="https://bsky.app/profile/bracluque.bsky.social" target="_blank">Bluesky</a></div></div><p style="margin-top:.75rem">&copy; 2026 Brayan A. Condori</p></div>
-
+    <div class="cv-actions">
+      <a class="btn-primary" href="docs/CV_Condori_Brayan.pdf" download>↓ Download PDF</a>
+      <a class="btn-ghost" href="docs/CV_Condori_Brayan.pdf" target="_blank" rel="noopener">Open in new tab</a>
     </div>
+  </header>
 
-    <script src="script.js"></script>
+  <p class="fallback">If the PDF does not display below, <a href="docs/CV_Condori_Brayan.pdf" target="_blank" rel="noopener">click here to open it</a>.</p>
+
+  <div class="embed">
+    <div class="embed-bar">
+      <span class="embed-file">CV_Condori_Brayan.pdf</span>
+      <span class="embed-meta">PDF · May 2026</span>
+    </div>
+    <iframe src="docs/CV_Condori_Brayan.pdf" title="CV"></iframe>
+  </div>
+
+  <footer class="footer">
+    <div>© 2026 Brayan A. Condori</div>
+    <div class="socials">
+      <a href="mailto:alexcluque@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/alexcluque/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/bracluque" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://x.com/bracluque" target="_blank" rel="noopener">X</a>
+      <a href="https://bsky.app/profile/bracluque.bsky.social" target="_blank" rel="noopener">Bluesky</a>
+    </div>
+  </footer>
+</main>
 </body>
 </html>
