@@ -8,7 +8,7 @@
   :root {
     --bg: #eef1ef;
     --bg-raised: #f8f9f7;
-    --bg-sidebar: #e7ebe7;
+    --bg-sidebar: #dee4dd;
     --ink: #1c211d;
     --ink-muted: #52584f;
     --ink-faint: #5a6055;
@@ -26,7 +26,7 @@
   :root[data-theme="dark"] {
     --bg: #141815;
     --bg-raised: #1a1f1b;
-    --bg-sidebar: #10130f;
+    --bg-sidebar: #1b2118;
     --ink: #e9ece6;
     --ink-muted: #a3aa9c;
     --ink-faint: #767d70;
@@ -43,7 +43,7 @@
     :root:not([data-theme="light"]) {
       --bg: #141815;
       --bg-raised: #1a1f1b;
-      --bg-sidebar: #10130f;
+      --bg-sidebar: #1b2118;
       --ink: #e9ece6;
       --ink-muted: #a3aa9c;
       --ink-faint: #838a77;
@@ -151,6 +151,7 @@
     overflow-y: auto;
     background: var(--bg-sidebar);
     border-right: 1px solid var(--rule);
+    box-shadow: inset -6px 0 10px -8px rgba(0, 0, 0, 0.35);
     padding: 1.5rem 1rem 2rem;
   }
 
@@ -209,7 +210,7 @@
     line-height: 1.35;
   }
   .nav-link:hover { color: var(--ink); background: var(--bg-raised); }
-  .nav-link.top { font-weight: 600; color: var(--ink); }
+  .nav-link.top { font-weight: 500; color: var(--ink); }
   .nav-link.sub { padding-left: 1.4rem; font-size: 0.84rem; }
   .nav-link.active {
     color: var(--accent-ink);
@@ -660,6 +661,22 @@
         <span class="p-label">2.1 — Foundation</span>
         <h3>The codebook is the product</h3>
         <p>Before any paper touches the model, every field needs an unambiguous definition: what counts, what doesn't, how edge cases are coded, what "leave blank" means versus "not applicable." Most extraction failures aren't model failures — they're codebook gaps that the model quietly papered over with a plausible guess. Time spent tightening the codebook is the highest-leverage time in the whole project, and it's cheaper to spend before the first paper than after the five-hundredth.</p>
+
+        <div class="callout">
+          <span class="c-label">Excerpt — actual ESD content-sheet codebook</span>
+          <div class="table-scroll">
+            <table class="metrics">
+              <thead><tr><th>Field</th><th>Codes</th><th>Decision rule</th></tr></thead>
+              <tbody>
+                <tr><td class="field">Geographical location</td><td>1 Urban · 2 Rural · 3 Not specified · 4 Both</td><td>Use 3 if the paper doesn't state it clearly — don't guess from context clues</td></tr>
+                <tr><td class="field">Socioeconomic status</td><td>1 High · 2 Low · 3 Medium · 4 Not specified · 5 Both</td><td>Base it on the paper's own description (e.g., a "Title I" school → Low)</td></tr>
+                <tr><td class="field">Number of participants</td><td>Total N</td><td>Exclude the paper entirely if the treatment group is under 20</td></tr>
+                <tr><td class="field">Type of Evaluation</td><td>1 RCT · 2 Quasi-experimental · 3 Regression discontinuity · 4 Qualitative · 5 Descriptive</td><td>A cluster RCT (schools/classrooms randomized) is still coded 1 — RCT</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>And the evidence-column rule every row above is subject to: a short quote (≤15 words) plus page number — <em>"The intervention was delivered in 12 low-income public schools in Mexico City" (p. 4)</em>. Where a code follows from study design rather than a quotable line, the quote is kept and annotated: <em>"schools were randomly assigned to treatment or control" (p. 6) — cluster RCT coded as RCT</em>. This is the same codebook that produced the record in <a href="#example">§4</a>; four fields out of several dozen.</p>
+        </div>
       </section>
 
       <section class="doc-section principle" id="extract-not-calculate">
@@ -704,6 +721,11 @@
           </table>
         </div>
         <p class="table-note">Illustrative scorecard shape, not a reported result — build one like it from a piloted sample before your own run, and route anything below your threshold back into the codebook.</p>
+
+        <div class="callout">
+          <span class="c-label"><span class="badge watch">flag</span> Not done on this project</span>
+          <p>The ESD review did not run this step — no reliability pilot, no accuracy/precision/recall/F1 scorecard was produced before scaling to the full corpus. That's a gap, not a design choice, and the same honesty rule as <a href="#flags">§2.7</a> applies to the guide itself: naming the gap is better than quietly implying it happened. It should be standard practice — strongly recommended for any run of this pipeline, including a second pass at this one.</p>
+        </div>
       </section>
 
       <section class="doc-section principle" id="flags">
@@ -4240,7 +4262,7 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
 
       <section class="doc-section" id="access">
         <div class="sec-head"><span class="sec-num">§7</span><h2>What's here, what to request</h2></div>
-        <p>This page documents the method, and <a href="#example">§4</a> shows one complete, real output record — so the shape of what this produces is fully public. What isn't included: the field-by-field coding rules that define every value in that record, the orchestrator/worker prompts, the reconciliation logic, and the downstream automation used to load results into a review database. Those are IDB project materials, available on request.</p>
+        <p>This page documents the method, and <a href="#example">§4</a> shows six complete, real output records — so the shape of what this produces is fully public. A generalized, project-agnostic version of the pipeline — reconciliation logic, output template, and a blank codebook skeleton to fill in for a different review — is being built at <a href="../../tools/sr-extraction-pipeline/">/tools/sr-extraction-pipeline/</a>. What stays gated: the full ESD-specific codebook (every field, not just the excerpt above), the original orchestrator/worker prompts, and the downstream automation used to load results into a review database. Those are IDB project materials, available on request.</p>
 
         <div class="access-box">
           <p>Request the underlying skills, prompts, and codebook from either contact below.</p>
