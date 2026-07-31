@@ -4288,7 +4288,7 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
 
       <section class="doc-section" id="setup">
         <div class="sec-head"><span class="sec-num">§7</span><h2>Setting it up for your own review</h2></div>
-        <p>Cloning <a href="../../tools/sr-extraction-pipeline/">the repo</a> gets you the engine. Running it on your own review needs three things: a project folder laid out correctly, a codebook, and Claude Code. The rest of this section is those three things, in detail.</p>
+        <p>Download <a href="../../tools/sr-extraction-pipeline.zip">the ZIP</a> to get the engine — no GitHub account or git needed. Running it on your own review needs three things: a project folder laid out correctly, a codebook, and Claude Code. The rest of this section is those three things, in detail.</p>
 
         <h3>Requirements</h3>
         <div class="callout">
@@ -4323,16 +4323,16 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
         <p class="diagram-caption"><code>template/</code> is meant to be copied into your own project and edited. <code>examples/esd/</code> is read-only reference — the real thing, unedited, so a new consultant can read it directly instead of a description of it. (One redaction: the Windows username in its file paths was replaced with a placeholder before publishing — flagged inline in those files.)</p>
 
         <h3>Your project folder</h3>
-        <p>The repo is the engine. Your review lives in its own folder, separate from the repo — this is where your PDFs go in and your Markdown records come out:</p>
+        <p>The unzipped folder is the engine. Your review lives in its own folder, separate from it — this is where your PDFs go in and your Markdown records come out:</p>
         <div class="file-viewer tree-viewer">
           <div class="file-titlebar"><span class="dot"></span> my-review/</div>
-          <div class="file-body"><pre>my-review/                      ← {project_root} — a NEW folder, separate from the unzipped/cloned repo
-├── CLAUDE.md                   ← copied from the repo's CLAUDE.md, {placeholders} filled in
-├── .claude/agents/              ← copied whole from the repo's .claude/agents/, unchanged
+          <div class="file-body"><pre>my-review/                      ← {project_root} — a NEW folder, separate from the folder you unzipped
+├── CLAUDE.md                   ← copied from the unzipped CLAUDE.md, {placeholders} filled in
+├── .claude/agents/              ← copied whole from the unzipped .claude/agents/, unchanged
 │   ├── reviewer-a-worker.md
 │   ├── reviewer-b-worker.md
 │   └── reconciler-worker.md
-├── prompts/                     ← copied whole from the repo's prompts/, unchanged (3 files)
+├── prompts/                     ← copied whole from the unzipped prompts/, unchanged (3 files)
 ├── papers/                      ← {input_dir} — your source PDFs, flat, one file per paper
 │   ├── 0001_smith2019.pdf
 │   ├── 0002_johnson2020.pdf
@@ -4349,13 +4349,13 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
         <p class="diagram-caption">PDFs go in flat under <code>papers/</code> — nothing else reads from or writes to that folder. Everything the pipeline produces lands under <code>output/</code>: both reviewers' independent drafts in their own subfolders as an audit trail, and the final reconciled record at the top level — that top-level <code>{ID}.md</code> is the file you actually use for analysis.</p>
 
         <h3>The codebook: one Markdown file</h3>
-        <p>Format is fixed: Markdown. Not JSON, not YAML, not a spreadsheet — the workers read it as instructions, the same way they read every other file in this repo. Start from <code>template/SKILL_codebook.md</code>, copy it to <code>codebook/SKILL_codebook.md</code> inside your project folder, and fill it in there. That copy — not the template in the repo — is what <code>{codebook_path}</code> in your <code>CLAUDE.md</code> points to.</p>
+        <p>Format is fixed: Markdown. Not JSON, not YAML, not a spreadsheet — the workers read it as instructions, the same way they read every other file in this folder. Start from <code>template/SKILL_codebook.md</code>, copy it to <code>codebook/SKILL_codebook.md</code> inside your project folder, and fill it in there. That copy — not the template in the unzipped folder — is what <code>{codebook_path}</code> in your <code>CLAUDE.md</code> points to.</p>
 
         <h3>Step by step</h3>
         <ol>
-          <li><strong>Get the repo onto your machine</strong> — <code>git clone</code> it anywhere on disk, or if you're not set up with GitHub, just <a href="../../tools/sr-extraction-pipeline.zip">download the ZIP</a> and unzip it. No git required either way.</li>
+          <li><strong>Download <a href="../../tools/sr-extraction-pipeline.zip">the ZIP</a> and unzip it</strong> anywhere on disk. No GitHub account, no git — just a folder.</li>
           <li><strong>Create your project folder</strong> with the layout above: <code>papers/</code>, <code>codebook/</code>, <code>output/</code>.</li>
-          <li><strong>Copy the engine in</strong> — <code>CLAUDE.md</code>, <code>.claude/agents/</code>, and <code>prompts/</code> from the repo into your project folder.</li>
+          <li><strong>Copy the engine in</strong> — <code>CLAUDE.md</code>, <code>.claude/agents/</code>, and <code>prompts/</code> from the unzipped folder into your project folder.</li>
           <li><strong>Fill in the four path placeholders</strong> in your copy of <code>CLAUDE.md</code>: <code>{project_root}</code>, <code>{input_dir}</code>, <code>{codebook_path}</code>, <code>{output_dir}</code>.</li>
           <li><strong>Drop your PDFs into <code>papers/</code></strong>, one file per paper.</li>
           <li><strong>Draft the codebook</strong> at <code>codebook/SKILL_codebook.md</code> — see below for briefing Claude to write the first draft.</li>
