@@ -4,6 +4,8 @@ The orchestrator + subagent extraction pipeline described in the guide at [**/gu
 
 Everything here is self-contained: the generalized, project-agnostic template (`template/`) for adapting this to a new review, and the complete, real, unedited IDB Extended School Day pipeline (`examples/esd/`) — full codebook, orchestrator prompts, and worker definitions, exactly as run in production.
 
+**Not familiar with git or GitHub?** [Download the ZIP](../sr-extraction-pipeline.zip) instead of cloning — unzip it and you have the same folder described below.
+
 ## Structure
 
 ```
