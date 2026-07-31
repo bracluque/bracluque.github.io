@@ -22,13 +22,13 @@ Each stage runs in its own Claude Code session. Separate top-level sessions are 
 
 | What | Where |
 |------|-------|
-| Project root | `C:\Users\bracl\Dropbox\IDB` |
-| Input PDFs | `C:\Users\bracl\Dropbox\IDB\Paper\ESD` |
-| Agent files | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent` |
-| Output root | `C:\Users\bracl\Dropbox\IDB\Output\ESD` |
-| Reviewer A drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerA\{ID}.md` |
-| Reviewer B drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB\{ID}.md` |
-| Final consolidated | `C:\Users\bracl\Dropbox\IDB\Output\ESD\{ID}.md` |
+| Project root | `C:\Users\<you>\Dropbox\IDB` |
+| Input PDFs | `C:\Users\<you>\Dropbox\IDB\Paper\ESD` |
+| Agent files | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent` |
+| Output root | `C:\Users\<you>\Dropbox\IDB\Output\ESD` |
+| Reviewer A drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerA\{ID}.md` |
+| Reviewer B drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerB\{ID}.md` |
+| Final consolidated | `C:\Users\<you>\Dropbox\IDB\Output\ESD\{ID}.md` |
 
 ---
 

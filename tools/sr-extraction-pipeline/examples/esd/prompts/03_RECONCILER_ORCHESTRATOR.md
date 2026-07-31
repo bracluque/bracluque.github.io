@@ -11,12 +11,12 @@ Run this only AFTER both A and B have drafts for the papers you want to finalize
 
 | What | Where |
 |------|-------|
-| Input PDFs | `C:\Users\bracl\Dropbox\IDB\Paper\ESD` |
-| Reviewer A drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerA\` |
-| Reviewer B drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB\` |
-| Final output | `C:\Users\bracl\Dropbox\IDB\Output\ESD\` (top level) |
-| Issues log | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_RECONCILER_ISSUES.md` |
-| Skills folder | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
+| Input PDFs | `C:\Users\<you>\Dropbox\IDB\Paper\ESD` |
+| Reviewer A drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerA\` |
+| Reviewer B drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerB\` |
+| Final output | `C:\Users\<you>\Dropbox\IDB\Output\ESD\` (top level) |
+| Issues log | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_RECONCILER_ISSUES.md` |
+| Skills folder | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
 | Worker subagent | `.claude\agents\reconciler-worker.md` (auto-loaded) |
 
 ---
@@ -79,14 +79,14 @@ Papers in this batch:
 5. ID: {ID5}
 
 File locations:
-- Reviewer A drafts: C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerA\{ID}.md
-- Reviewer B drafts: C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB\{ID}.md
-- Source PDFs: C:\Users\bracl\Dropbox\IDB\Paper\ESD
-- Final output: C:\Users\bracl\Dropbox\IDB\Output\ESD\{ID}.md
+- Reviewer A drafts: C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerA\{ID}.md
+- Reviewer B drafts: C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerB\{ID}.md
+- Source PDFs: C:\Users\<you>\Dropbox\IDB\Paper\ESD
+- Final output: C:\Users\<you>\Dropbox\IDB\Output\ESD\{ID}.md
 
 Skills to follow:
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_reconciliation.md
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_output.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_reconciliation.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_output.md
 
 The PDF is the arbiter for substantive disagreements. Never split the difference on numeric values.
 

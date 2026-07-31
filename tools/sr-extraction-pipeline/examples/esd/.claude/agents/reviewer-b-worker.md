@@ -18,9 +18,9 @@ The orchestrator will hand you a list of paper IDs (and the corresponding PDF fi
 
 | What | Where |
 |------|-------|
-| Input PDFs | `C:\Users\bracl\Dropbox\IDB\Paper\ESD` |
-| Your output | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB\{ID}.md` |
-| Skills | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
+| Input PDFs | `C:\Users\<you>\Dropbox\IDB\Paper\ESD` |
+| Your output | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerB\{ID}.md` |
+| Skills | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
 
 ## Core rules
 

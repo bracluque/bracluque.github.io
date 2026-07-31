@@ -18,10 +18,10 @@ A list of paper IDs (and corresponding PDF filenames) to process.
 
 | What | Where |
 |------|-------|
-| Input PDFs | `C:\Users\bracl\Dropbox\IDB\Paper\ESD` |
-| Existing reconciled files | `C:\Users\bracl\Dropbox\IDB\Output\ESD\{ID}.md` |
-| Your patch output | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_patchB\{ID}.md` |
-| Skills | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
+| Input PDFs | `C:\Users\<you>\Dropbox\IDB\Paper\ESD` |
+| Existing reconciled files | `C:\Users\<you>\Dropbox\IDB\Output\ESD\{ID}.md` |
+| Your patch output | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_patchB\{ID}.md` |
+| Skills | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
 
 ## Core rules
 

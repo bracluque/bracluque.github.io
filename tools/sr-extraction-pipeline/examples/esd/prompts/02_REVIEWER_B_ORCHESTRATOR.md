@@ -11,9 +11,9 @@ You are the **Reviewer B orchestrator**. You dispatch small chunks of papers to 
 
 | What | Where |
 |------|-------|
-| Input PDFs | `C:\Users\bracl\Dropbox\IDB\Paper\ESD` |
-| Reviewer B output folder | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB\` |
-| Skills folder | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
+| Input PDFs | `C:\Users\<you>\Dropbox\IDB\Paper\ESD` |
+| Reviewer B output folder | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerB\` |
+| Skills folder | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
 | Worker subagent | `.claude\agents\reviewer-b-worker.md` (auto-loaded) |
 
 Create `_reviewerB\` if it doesn't exist.
@@ -22,7 +22,7 @@ Create `_reviewerB\` if it doesn't exist.
 
 ## Step 1 — Inventory
 
-1. List all PDFs in `C:\Users\bracl\Dropbox\IDB\Paper\ESD`.
+1. List all PDFs in `C:\Users\<you>\Dropbox\IDB\Paper\ESD`.
 2. Extract IDs from filenames.
 3. List all `.md` files in `Output\ESD\_reviewerB\`.
 4. Compute remaining: PDFs whose `{ID}.md` does NOT yet exist (or exists but is empty).
@@ -70,12 +70,12 @@ Papers in this batch:
 8. ID: {ID8} | Filename: {filename8}
 
 Skills to follow:
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_content_extraction.md
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_results_extraction.md
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_output.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_content_extraction.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_results_extraction.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_output.md
 
-Input PDFs live in: C:\Users\bracl\Dropbox\IDB\Paper\ESD
-Output directory: C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB\
+Input PDFs live in: C:\Users\<you>\Dropbox\IDB\Paper\ESD
+Output directory: C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerB\
 
 Do not read anything in _reviewerA or Output\ESD\*.md. You are an independent reviewer. Do not try to guess what Reviewer A might have coded — extract fresh from the PDF.
 

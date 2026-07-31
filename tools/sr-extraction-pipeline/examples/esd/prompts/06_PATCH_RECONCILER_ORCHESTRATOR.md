@@ -11,12 +11,12 @@ The Patch Reconciler reads both patch drafts (A and B), resolves disagreements, 
 
 | What | Where |
 |------|-------|
-| Patch A drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_patchA\` |
-| Patch B drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_patchB\` |
-| Reconciled patch files | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_patch\` |
-| Final files | `C:\Users\bracl\Dropbox\IDB\Output\ESD\` (top level) |
-| Skills | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
-| Issues log | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_PATCH_RECONCILER_ISSUES.md` |
+| Patch A drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_patchA\` |
+| Patch B drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_patchB\` |
+| Reconciled patch files | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_patch\` |
+| Final files | `C:\Users\<you>\Dropbox\IDB\Output\ESD\` (top level) |
+| Skills | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
+| Issues log | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_PATCH_RECONCILER_ISSUES.md` |
 | Worker subagent | `.claude\agents\patch-reconciler-worker.md` |
 
 Before anything, make sure `_patch\` exists. Create it if not.
@@ -82,16 +82,16 @@ Papers in this batch:
 5. ID: {ID5} | Filename: {filename5}
 
 Skills to follow:
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_patch_fields.md
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_patch_output.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_patch_fields.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_patch_output.md
 
 Paths:
-- Patch A drafts: C:\Users\bracl\Dropbox\IDB\Output\ESD\_patchA\
-- Patch B drafts: C:\Users\bracl\Dropbox\IDB\Output\ESD\_patchB\
-- Reconciled patch output: C:\Users\bracl\Dropbox\IDB\Output\ESD\_patch\
-- Final files to update: C:\Users\bracl\Dropbox\IDB\Output\ESD\
-- Input PDFs: C:\Users\bracl\Dropbox\IDB\Paper\ESD
-- Issues log: C:\Users\bracl\Dropbox\IDB\Output\ESD\_PATCH_RECONCILER_ISSUES.md
+- Patch A drafts: C:\Users\<you>\Dropbox\IDB\Output\ESD\_patchA\
+- Patch B drafts: C:\Users\<you>\Dropbox\IDB\Output\ESD\_patchB\
+- Reconciled patch output: C:\Users\<you>\Dropbox\IDB\Output\ESD\_patch\
+- Final files to update: C:\Users\<you>\Dropbox\IDB\Output\ESD\
+- Input PDFs: C:\Users\<you>\Dropbox\IDB\Paper\ESD
+- Issues log: C:\Users\<you>\Dropbox\IDB\Output\ESD\_PATCH_RECONCILER_ISSUES.md
 
 When done, return only your compact batch-complete summary. Do not return file contents.
 ```

@@ -18,12 +18,12 @@ The orchestrator will hand you a list of paper IDs that are ready for reconcilia
 
 | What | Where |
 |------|-------|
-| Input PDFs | `C:\Users\bracl\Dropbox\IDB\Paper\ESD` |
-| Reviewer A drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerA\{ID}.md` |
-| Reviewer B drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB\{ID}.md` |
-| Final output | `C:\Users\bracl\Dropbox\IDB\Output\ESD\{ID}.md` (top level, no subfolder) |
-| Skills | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
-| Issues log | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_RECONCILER_ISSUES.md` |
+| Input PDFs | `C:\Users\<you>\Dropbox\IDB\Paper\ESD` |
+| Reviewer A drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerA\{ID}.md` |
+| Reviewer B drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerB\{ID}.md` |
+| Final output | `C:\Users\<you>\Dropbox\IDB\Output\ESD\{ID}.md` (top level, no subfolder) |
+| Skills | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
+| Issues log | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_RECONCILER_ISSUES.md` |
 
 ## Workflow per paper
 

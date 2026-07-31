@@ -4297,7 +4297,7 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
     ├── excerpt.md                   ← same 4-field excerpt as this guide
     └── sample-output/5cbd47b5.md    ← 1 real, complete extraction record</pre></div>
         </div>
-        <p class="diagram-caption">Everything under <code>template/</code> is meant to be copied and edited. <code>examples/esd/</code> is the opposite — read-only, unedited, exactly as it ran; it's there to show a new consultant the real thing rather than a description of it.</p>
+        <p class="diagram-caption">Everything under <code>template/</code> is meant to be copied and edited. <code>examples/esd/</code> is the opposite — read-only, unedited, exactly as it ran; it's there to show a new consultant the real thing rather than a description of it. One redaction: the Windows username in file paths (<code>C:\Users\bracl\...</code>) was replaced with <code>C:\Users\&lt;you&gt;\...</code> throughout before publishing — flagged at the top of <code>CLAUDE.md</code> and <code>HOW_TO_RUN.txt</code> themselves. Nothing else was changed.</p>
 
         <h3>Point the paths</h3>
         <p>Open <code>CLAUDE.md</code> and replace <code>{project_root}</code>, <code>{input_dir}</code>, and <code>{output_dir}</code> with your actual folders — where your PDFs live, and where drafts and finals should get written. That's the only thing in <code>CLAUDE.md</code> that's project-specific; the orchestrator/worker discipline underneath it is already generic.</p>

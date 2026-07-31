@@ -11,9 +11,9 @@ This design exists because extracting 245+ papers in one session blows up the co
 
 | What | Where |
 |------|-------|
-| Input PDFs | `C:\Users\bracl\Dropbox\IDB\Paper\ESD` |
-| Reviewer A output folder | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerA\` |
-| Skills folder | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
+| Input PDFs | `C:\Users\<you>\Dropbox\IDB\Paper\ESD` |
+| Reviewer A output folder | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerA\` |
+| Skills folder | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
 | Worker subagent | `.claude\agents\reviewer-a-worker.md` (auto-loaded by Claude Code) |
 
 Before anything, make sure `_reviewerA\` exists. Create it if not.
@@ -22,7 +22,7 @@ Before anything, make sure `_reviewerA\` exists. Create it if not.
 
 ## Step 1 — Inventory
 
-1. List all PDFs in `C:\Users\bracl\Dropbox\IDB\Paper\ESD` (use Glob or a directory listing).
+1. List all PDFs in `C:\Users\<you>\Dropbox\IDB\Paper\ESD` (use Glob or a directory listing).
 2. For each PDF, extract the paper ID from the filename (the portion before the first `_` or the full stem if no separator).
 3. List all `.md` files in `Output\ESD\_reviewerA\`.
 4. Compute the remaining set: PDFs whose `{ID}.md` does NOT yet exist (or exists but is empty).
@@ -72,12 +72,12 @@ Papers in this batch:
 8. ID: {ID8} | Filename: {filename8}
 
 Skills to follow:
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_content_extraction.md
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_results_extraction.md
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_output.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_content_extraction.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_results_extraction.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_output.md
 
-Input PDFs live in: C:\Users\bracl\Dropbox\IDB\Paper\ESD
-Output directory: C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerA\
+Input PDFs live in: C:\Users\<you>\Dropbox\IDB\Paper\ESD
+Output directory: C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerA\
 
 Do not read anything in _reviewerB or Output\ESD\*.md. You are an independent reviewer.
 

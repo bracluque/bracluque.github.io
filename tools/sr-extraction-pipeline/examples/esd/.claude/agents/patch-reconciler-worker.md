@@ -18,13 +18,13 @@ A list of paper IDs ready for patch reconciliation (both `_patchA` and `_patchB`
 
 | What | Where |
 |------|-------|
-| Input PDFs | `C:\Users\bracl\Dropbox\IDB\Paper\ESD` |
-| Patch A drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_patchA\{ID}.md` |
-| Patch B drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_patchB\{ID}.md` |
-| Reconciled patch files | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_patch\{ID}.md` |
-| Final files to update | `C:\Users\bracl\Dropbox\IDB\Output\ESD\{ID}.md` |
-| Skills | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
-| Issues log | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_PATCH_RECONCILER_ISSUES.md` |
+| Input PDFs | `C:\Users\<you>\Dropbox\IDB\Paper\ESD` |
+| Patch A drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_patchA\{ID}.md` |
+| Patch B drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_patchB\{ID}.md` |
+| Reconciled patch files | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_patch\{ID}.md` |
+| Final files to update | `C:\Users\<you>\Dropbox\IDB\Output\ESD\{ID}.md` |
+| Skills | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
+| Issues log | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_PATCH_RECONCILER_ISSUES.md` |
 
 ## Workflow per paper
 

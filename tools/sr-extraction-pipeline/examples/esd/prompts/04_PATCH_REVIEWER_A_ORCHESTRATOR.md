@@ -11,10 +11,10 @@ This patch stage adds new fields (ESD intervention, tutoring, teacher training, 
 
 | What | Where |
 |------|-------|
-| Input PDFs | `C:\Users\bracl\Dropbox\IDB\Paper\ESD` |
-| Existing reconciled files | `C:\Users\bracl\Dropbox\IDB\Output\ESD\` (top level) |
-| Patch A output folder | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_patchA\` |
-| Skills | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
+| Input PDFs | `C:\Users\<you>\Dropbox\IDB\Paper\ESD` |
+| Existing reconciled files | `C:\Users\<you>\Dropbox\IDB\Output\ESD\` (top level) |
+| Patch A output folder | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_patchA\` |
+| Skills | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
 | Worker subagent | `.claude\agents\patch-reviewer-a-worker.md` |
 
 Before anything, make sure `_patchA\` exists. Create it if not.
@@ -72,12 +72,12 @@ Papers in this batch:
 8. ID: {ID8} | Filename: {filename8}
 
 Skills to follow:
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_patch_fields.md
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_patch_output.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_patch_fields.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_patch_output.md
 
-Existing reconciled files: C:\Users\bracl\Dropbox\IDB\Output\ESD\
-Input PDFs: C:\Users\bracl\Dropbox\IDB\Paper\ESD
-Output directory: C:\Users\bracl\Dropbox\IDB\Output\ESD\_patchA\
+Existing reconciled files: C:\Users\<you>\Dropbox\IDB\Output\ESD\
+Input PDFs: C:\Users\<you>\Dropbox\IDB\Paper\ESD
+Output directory: C:\Users\<you>\Dropbox\IDB\Output\ESD\_patchA\
 
 Do NOT read anything in _patchB\ or _patch\. You are an independent reviewer.
 

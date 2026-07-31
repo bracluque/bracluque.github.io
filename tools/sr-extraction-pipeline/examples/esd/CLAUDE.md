@@ -1,6 +1,8 @@
 # CLAUDE.md — ESD Systematic Review Extraction
 
-> **Placement:** This file belongs at `C:\Users\bracl\Dropbox\IDB\CLAUDE.md` (the Claude Code project root). Claude Code auto-loads it. A reference copy also lives at `sr-esd-extraction-agent\CLAUDE.md`.
+> **Note:** Everything below is the real, unedited file this project ran on, except the Windows username in file paths — `C:\Users\bracl\...` has been replaced with `C:\Users\<you>\...` throughout `examples/esd/` before publishing. No other content, path structure, or wording has been changed.
+
+> **Placement:** This file belongs at `C:\Users\<you>\Dropbox\IDB\CLAUDE.md` (the Claude Code project root). Claude Code auto-loads it. A reference copy also lives at `sr-esd-extraction-agent\CLAUDE.md`.
 
 This project extracts data from ~245 academic PDFs for the **Extended School Day (ESD)** systematic review. It uses a three-stage, orchestrator + subagent design to avoid context-window limits when processing a large corpus.
 
@@ -28,13 +30,13 @@ Worker definitions live in `.claude\agents\`. Claude Code auto-loads them when t
 
 | What | Where |
 |------|-------|
-| Project root | `C:\Users\bracl\Dropbox\IDB` |
-| Input PDFs | `C:\Users\bracl\Dropbox\IDB\Paper\ESD` |
-| Agent files | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent` |
-| Output root | `C:\Users\bracl\Dropbox\IDB\Output\ESD` |
-| Reviewer A drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerA\` |
-| Reviewer B drafts | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB\` |
-| Final consolidated | `C:\Users\bracl\Dropbox\IDB\Output\ESD\` (top level) |
+| Project root | `C:\Users\<you>\Dropbox\IDB` |
+| Input PDFs | `C:\Users\<you>\Dropbox\IDB\Paper\ESD` |
+| Agent files | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent` |
+| Output root | `C:\Users\<you>\Dropbox\IDB\Output\ESD` |
+| Reviewer A drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerA\` |
+| Reviewer B drafts | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerB\` |
+| Final consolidated | `C:\Users\<you>\Dropbox\IDB\Output\ESD\` (top level) |
 
 Create any output folders that don't exist before writing.
 

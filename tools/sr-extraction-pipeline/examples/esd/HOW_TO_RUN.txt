@@ -3,6 +3,11 @@
   (Orchestrator + Subagent design, for ~245 papers)
 ================================================================
 
+NOTE: This is the real, unedited file this project ran on, except
+the Windows username in file paths — C:\Users\bracl\... has been
+replaced with C:\Users\<you>\... throughout examples/esd/ before
+publishing. No other content, path structure, or wording changed.
+
 Short version: three Claude Code sessions, one per stage, in order.
 Each session is an orchestrator that dispatches 5-paper chunks to
 worker subagents. Orchestrator context stays light, so one session
@@ -13,8 +18,8 @@ can get through hundreds of papers.
 ----------------------------------------------------------------
 
 1. Unzip the package so you have:
-     C:\Users\bracl\Dropbox\IDB\CLAUDE.md
-     C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\
+     C:\Users\<you>\Dropbox\IDB\CLAUDE.md
+     C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\
        ├── CLAUDE.md (reference copy)
        ├── README.md
        ├── HOW_TO_RUN.txt  (this file)
@@ -23,16 +28,16 @@ can get through hundreds of papers.
        └── skills\          (extraction rules)
 
 2. Put your PDFs at:
-     C:\Users\bracl\Dropbox\IDB\Paper\ESD
+     C:\Users\<you>\Dropbox\IDB\Paper\ESD
 
 3. These folders will be created automatically, but you can make
    them in advance if you like:
-     C:\Users\bracl\Dropbox\IDB\Output\ESD
-     C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerA
-     C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB
+     C:\Users\<you>\Dropbox\IDB\Output\ESD
+     C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerA
+     C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerB
 
 4. Open Claude Code and point it at:
-     C:\Users\bracl\Dropbox\IDB
+     C:\Users\<you>\Dropbox\IDB
 
    The project root must contain CLAUDE.md and the .claude folder
    so Claude Code auto-loads the subagent definitions.
@@ -120,16 +125,16 @@ you get maybe 1-3.
 ----------------------------------------------------------------
 
 Count PDFs in input folder:
-   dir C:\Users\bracl\Dropbox\IDB\Paper\ESD\*.pdf /b | find /c /v ""
+   dir C:\Users\<you>\Dropbox\IDB\Paper\ESD\*.pdf /b | find /c /v ""
 
 Count A drafts:
-   dir C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerA\*.md /b | find /c /v ""
+   dir C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerA\*.md /b | find /c /v ""
 
 Count B drafts:
-   dir C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB\*.md /b | find /c /v ""
+   dir C:\Users\<you>\Dropbox\IDB\Output\ESD\_reviewerB\*.md /b | find /c /v ""
 
 Count finals:
-   dir C:\Users\bracl\Dropbox\IDB\Output\ESD\*.md /b | find /c /v ""
+   dir C:\Users\<you>\Dropbox\IDB\Output\ESD\*.md /b | find /c /v ""
 
 Or just ask Claude in a fresh session:
    "What stage are we on? Count the files in each output folder."

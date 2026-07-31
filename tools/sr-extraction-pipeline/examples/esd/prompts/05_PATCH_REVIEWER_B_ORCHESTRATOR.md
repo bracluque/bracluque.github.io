@@ -11,10 +11,10 @@ This patch stage runs **independently from Patch Reviewer A**. Run it in a separ
 
 | What | Where |
 |------|-------|
-| Input PDFs | `C:\Users\bracl\Dropbox\IDB\Paper\ESD` |
-| Existing reconciled files | `C:\Users\bracl\Dropbox\IDB\Output\ESD\` (top level) |
-| Patch B output folder | `C:\Users\bracl\Dropbox\IDB\Output\ESD\_patchB\` |
-| Skills | `C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
+| Input PDFs | `C:\Users\<you>\Dropbox\IDB\Paper\ESD` |
+| Existing reconciled files | `C:\Users\<you>\Dropbox\IDB\Output\ESD\` (top level) |
+| Patch B output folder | `C:\Users\<you>\Dropbox\IDB\Output\ESD\_patchB\` |
+| Skills | `C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\` |
 | Worker subagent | `.claude\agents\patch-reviewer-b-worker.md` |
 
 Before anything, make sure `_patchB\` exists. Create it if not.
@@ -72,12 +72,12 @@ Papers in this batch:
 8. ID: {ID8} | Filename: {filename8}
 
 Skills to follow:
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_patch_fields.md
-- C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_patch_output.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\SKILL_patch_fields.md
+- C:\Users\<you>\Dropbox\IDB\sr-esd-extraction-agent\skills\TEMPLATE_patch_output.md
 
-Existing reconciled files: C:\Users\bracl\Dropbox\IDB\Output\ESD\
-Input PDFs: C:\Users\bracl\Dropbox\IDB\Paper\ESD
-Output directory: C:\Users\bracl\Dropbox\IDB\Output\ESD\_patchB\
+Existing reconciled files: C:\Users\<you>\Dropbox\IDB\Output\ESD\
+Input PDFs: C:\Users\<you>\Dropbox\IDB\Paper\ESD
+Output directory: C:\Users\<you>\Dropbox\IDB\Output\ESD\_patchB\
 
 Do NOT read anything in _patchA\ or _patch\. You are an independent reviewer.
 
