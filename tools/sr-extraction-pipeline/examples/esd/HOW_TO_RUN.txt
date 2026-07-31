@@ -1,0 +1,218 @@
+================================================================
+  HOW TO RUN — ESD SYSTEMATIC REVIEW EXTRACTION
+  (Orchestrator + Subagent design, for ~245 papers)
+================================================================
+
+Short version: three Claude Code sessions, one per stage, in order.
+Each session is an orchestrator that dispatches 5-paper chunks to
+worker subagents. Orchestrator context stays light, so one session
+can get through hundreds of papers.
+
+----------------------------------------------------------------
+ STEP 0 — ONE-TIME SETUP
+----------------------------------------------------------------
+
+1. Unzip the package so you have:
+     C:\Users\bracl\Dropbox\IDB\CLAUDE.md
+     C:\Users\bracl\Dropbox\IDB\sr-esd-extraction-agent\
+       ├── CLAUDE.md (reference copy)
+       ├── README.md
+       ├── HOW_TO_RUN.txt  (this file)
+       ├── .claude\agents\  (worker subagent definitions)
+       ├── prompts\         (orchestrator prompts)
+       └── skills\          (extraction rules)
+
+2. Put your PDFs at:
+     C:\Users\bracl\Dropbox\IDB\Paper\ESD
+
+3. These folders will be created automatically, but you can make
+   them in advance if you like:
+     C:\Users\bracl\Dropbox\IDB\Output\ESD
+     C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerA
+     C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB
+
+4. Open Claude Code and point it at:
+     C:\Users\bracl\Dropbox\IDB
+
+   The project root must contain CLAUDE.md and the .claude folder
+   so Claude Code auto-loads the subagent definitions.
+
+----------------------------------------------------------------
+ STEP 1 — REVIEWER A
+----------------------------------------------------------------
+
+Open Claude Code. Start a FRESH session. Paste:
+
+   Read sr-esd-extraction-agent/prompts/01_REVIEWER_A_ORCHESTRATOR.md
+   and follow it.
+
+What happens:
+  - The orchestrator lists all PDFs in Paper\ESD
+  - Identifies which ones still need processing
+  - Dispatches 5-paper chunks to the reviewer-a-worker subagent
+  - Each worker has its own fresh context, writes 5 markdowns to
+    _reviewerA\, returns a compact summary (a small table)
+  - The orchestrator logs the summary and dispatches the next chunk
+  - Because the orchestrator never reads PDF contents, its context
+    stays small — one session should handle all ~245 papers
+
+If the orchestrator does stop (for any reason), just start a fresh
+session and paste the same command. Skip logic handles resumption.
+
+----------------------------------------------------------------
+ STEP 2 — REVIEWER B
+----------------------------------------------------------------
+
+Start a FRESH session. (Critical: do not continue from A's session.
+Separate sessions are what keeps A and B independent.) Paste:
+
+   Read sr-esd-extraction-agent/prompts/02_REVIEWER_B_ORCHESTRATOR.md
+   and follow it.
+
+Same pattern as Step 1, but saves to _reviewerB\ and the workers
+refuse to look at _reviewerA\.
+
+You can actually start Step 2 before Step 1 is fully finished — the
+Reconciler only needs BOTH drafts to be ready for a given paper.
+But for clean bookkeeping I recommend finishing A, then doing B.
+
+----------------------------------------------------------------
+ STEP 3 — RECONCILER
+----------------------------------------------------------------
+
+Start a FRESH session. Paste:
+
+   Read sr-esd-extraction-agent/prompts/03_RECONCILER_ORCHESTRATOR.md
+   and follow it.
+
+What happens:
+  - Orchestrator lists A drafts, B drafts, and existing finals
+  - Papers with BOTH drafts and NO final → "ready to reconcile"
+  - Papers with only one draft → logged to _RECONCILER_ISSUES.md
+    (don't reconcile, come back after re-running the missing side)
+  - Dispatches 3-paper chunks to reconciler-worker
+  - Each worker reads both drafts, re-reads the PDF for
+    substantive disagreements, writes Output\ESD\{ID}.md with
+    a Reconciliation Report appended
+
+The file you use for analysis is Output\ESD\{ID}.md at the top
+level. A and B drafts stay in subfolders as an audit trail.
+
+----------------------------------------------------------------
+ WHY THIS WORKS WHEN THE PREVIOUS VERSION DIDN'T
+----------------------------------------------------------------
+
+Previous version: one session extracted all papers itself. After
+~5 detailed extractions the context was full.
+
+This version: the orchestrator session does NOT extract papers
+itself. It dispatches 5-paper chunks to workers, each of which
+has a fresh context. Workers write to disk and return only a
+small summary (1 table row per paper + counts). The orchestrator's
+context grows by ~20-30 lines per chunk, not thousands.
+
+Practical effect: one orchestrator session should handle 200+
+papers without hitting limits. Instead of 50+ session restarts,
+you get maybe 1-3.
+
+----------------------------------------------------------------
+ HOW TO CHECK PROGRESS
+----------------------------------------------------------------
+
+Count PDFs in input folder:
+   dir C:\Users\bracl\Dropbox\IDB\Paper\ESD\*.pdf /b | find /c /v ""
+
+Count A drafts:
+   dir C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerA\*.md /b | find /c /v ""
+
+Count B drafts:
+   dir C:\Users\bracl\Dropbox\IDB\Output\ESD\_reviewerB\*.md /b | find /c /v ""
+
+Count finals:
+   dir C:\Users\bracl\Dropbox\IDB\Output\ESD\*.md /b | find /c /v ""
+
+Or just ask Claude in a fresh session:
+   "What stage are we on? Count the files in each output folder."
+
+----------------------------------------------------------------
+ SPEED — DEFAULTS AND HOW TO TUNE
+----------------------------------------------------------------
+
+By default, each orchestrator dispatches in parallel waves:
+
+  Reviewer A:  4 workers per wave x 8 papers each = 32 papers/wave
+  Reviewer B:  4 workers per wave x 8 papers each = 32 papers/wave
+  Reconciler:  3 workers per wave x 5 papers each = 15 papers/wave
+
+For 240 papers: ~8 waves to finish a reviewer stage. Roughly
+6-10x faster than sequential single-worker dispatch.
+
+To go FASTER (if your account tier allows):
+   At the end of your orchestrator command, add:
+   "Use 6 parallel workers per wave."
+
+To go SLOWER (if you hit rate-limit errors):
+   "Drop to 2 parallel workers per wave."
+
+To run fully SEQUENTIAL (debugging, or to watch progress
+linearly):
+   "Run sequentially, one worker at a time."
+
+Trade-offs of going more parallel:
+  + Faster wall-clock time
+  - Risk of API rate limits at high tiers
+  - Workers writing to disk simultaneously (low contention since
+    each writes to its own {ID}.md, but possible)
+  - Progress log is interleaved across the wave, not linear
+
+Trade-offs of going more sequential:
+  + Cleaner progress log
+  + Lower rate-limit risk
+  - Much slower wall-clock
+
+----------------------------------------------------------------
+ COMMON ISSUES
+----------------------------------------------------------------
+
+Q: Orchestrator starts extracting papers itself instead of
+   dispatching to workers.
+A: It didn't read CLAUDE.md or the orchestrator prompt carefully.
+   Interrupt and paste:
+      "Stop extracting directly. You are the orchestrator, not a
+      worker. Re-read sr-esd-extraction-agent/prompts/0X_*.md and
+      dispatch to the worker subagent via the Task tool."
+
+Q: Worker processes only 2-3 papers out of a 5-paper batch and
+   stops.
+A: Rare, but re-run the orchestrator — skip logic picks up the
+   unfinished ones. If it keeps happening, reduce chunk size to 3
+   in the orchestrator prompt.
+
+Q: Reconciler is missing pairs (only A or only B exists).
+A: Check Output\ESD\_RECONCILER_ISSUES.md. For each listed ID,
+   re-run the missing-side reviewer. Skip logic means only the
+   missing IDs get processed. Then re-run the reconciler.
+
+Q: Claude Code says it can't find the subagents.
+A: Make sure the .claude\agents\ folder is at the project root
+   (or inside sr-esd-extraction-agent — Claude Code looks in both).
+   Restart Claude Code if you just added them.
+
+Q: Reviewer B is cross-referencing Reviewer A's files.
+A: Start a NEW top-level session for B. Do not continue from A's
+   session. The orchestrator definition forbids cross-reading, but
+   a shared session can still leak context through the model's
+   memory.
+
+Q: Final file has [NOT FOUND — flag] rows.
+A: The reviewers and the reconciler couldn't find a supporting
+   quote. Open the PDF and fill manually, or ask Claude in a
+   targeted session: "For paper {ID}, find a quote supporting
+   the value in field X."
+
+Q: The Reconciler is copying A's values when A and B disagree
+   instead of checking the PDF.
+A: Interrupt. Remind it: "The PDF is the arbiter. Re-read the
+   PDF for every substantive disagreement."
+
+================================================================

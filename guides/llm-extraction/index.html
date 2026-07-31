@@ -566,7 +566,7 @@
   </button>
   <a class="brand" href="#top"><span class="mark">◆</span> Coding at Scale</a>
   <div class="topbar-spacer"></div>
-  <a class="cta-btn" href="#access">Request materials</a>
+  <a class="cta-btn" href="../../tools/sr-extraction-pipeline/">Get the tool</a>
 </div>
 
 <div class="backdrop" id="backdrop"></div>
@@ -604,13 +604,13 @@
           <li><a class="nav-link top" href="#case-study" data-nav>Case study</a></li>
           <li><a class="nav-link top" href="#fit" data-nav>When this fits</a></li>
           <li><a class="nav-link top" href="#setup" data-nav>Setting it up</a></li>
-          <li><a class="nav-link top" href="#access" data-nav>What's public</a></li>
+          <li><a class="nav-link top" href="#access" data-nav>Get the tool</a></li>
         </ul>
       </div>
     </nav>
 
     <div class="sidebar-foot">
-      <p>Guide only — the codebook, prompts, and scripts are IDB project materials.</p>
+      <p>Guide, template, and the complete real ESD pipeline are all self-contained here.</p>
     </div>
   </aside>
 
@@ -623,7 +623,7 @@
         <p class="dek">You are not running a script. You are hiring a very fast, very confident research assistant who has never done this exact task before — and you need to manage them like one: with a codebook, blind double-coding, adjudication, and measured agreement, not blind trust.</p>
         <div class="meta-row">
           <span class="tag case">Case study — IDB Extended School Day Review</span>
-          <span class="tag">Guide only — pipeline available on request</span>
+          <span class="tag">Guide + full pipeline, self-contained</span>
         </div>
       </header>
 
@@ -656,8 +656,8 @@
             <div class="spec-body"><p>Teams with a large corpus, fields that have a clear codeable answer, and time to pilot before running the full set — see <a href="#fit">§6</a> for the full fit criteria.</p></div>
           </div>
           <div class="spec-row">
-            <div class="spec-label">Gated</div>
-            <div class="spec-body"><p>This guide and the worked example are public. The coding-rule files, orchestrator/worker prompts, and scripts that produce this output are IDB project materials — see <a href="#access">§8</a>.</p></div>
+            <div class="spec-label">Access</div>
+            <div class="spec-body"><p>Everything is here — this guide, the generalized template, and the complete real ESD pipeline (full codebook, prompts, worker definitions), self-contained at one link — see <a href="#access">§8</a>.</p></div>
           </div>
         </div>
 
@@ -689,7 +689,7 @@
               </tbody>
             </table>
           </div>
-          <p>And the evidence-column rule every row above is subject to: a short quote (≤15 words) plus page number — <em>"The intervention was delivered in 12 low-income public schools in Mexico City" (p. 4)</em>. Where a code follows from study design rather than a quotable line, the quote is kept and annotated: <em>"schools were randomly assigned to treatment or control" (p. 6) — cluster RCT coded as RCT</em>. This is the same codebook that produced the record in <a href="#example">§4</a>; four fields out of several dozen.</p>
+          <p>And the evidence-column rule every row above is subject to: a short quote (≤15 words) plus page number — <em>"The intervention was delivered in 12 low-income public schools in Mexico City" (p. 4)</em>. Where a code follows from study design rather than a quotable line, the quote is kept and annotated: <em>"schools were randomly assigned to treatment or control" (p. 6) — cluster RCT coded as RCT</em>. This is the same codebook that produced the record in <a href="#example">§4</a>; four fields out of several dozen — the <a href="../../tools/sr-extraction-pipeline/examples/esd/skills/SKILL_content_extraction.md">full codebook</a> is unabridged in the tool.</p>
         </div>
       </section>
 
@@ -4290,11 +4290,14 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
 │   ├── SKILL_codebook.md          ← blank codebook skeleton — this is what you fill in
 │   ├── SKILL_reconciliation.md    ← adjudication logic, already generic, no editing needed
 │   └── TEMPLATE_output.md         ← the output record shape
-└── examples/esd/                ← the real ESD project, as a worked reference
-    ├── excerpt.md                  ← 4 real filled-in codebook fields
-    └── sample-output/5cbd47b5.md   ← 1 real, complete extraction record</pre></div>
+└── examples/esd/                ← the real ESD project, complete and unedited
+    ├── CLAUDE.md, HOW_TO_RUN.txt    ← the actual files this pipeline ran on
+    ├── .claude/agents/, prompts/    ← all 6 real worker + orchestrator files
+    ├── skills/                      ← the FULL real codebook, every field
+    ├── excerpt.md                   ← same 4-field excerpt as this guide
+    └── sample-output/5cbd47b5.md    ← 1 real, complete extraction record</pre></div>
         </div>
-        <p class="diagram-caption">Everything under <code>template/</code> is meant to be copied and edited. Nothing under <code>.claude/agents/</code> or <code>prompts/</code> should need touching beyond the path placeholders in <code>CLAUDE.md</code>.</p>
+        <p class="diagram-caption">Everything under <code>template/</code> is meant to be copied and edited. <code>examples/esd/</code> is the opposite — read-only, unedited, exactly as it ran; it's there to show a new consultant the real thing rather than a description of it.</p>
 
         <h3>Point the paths</h3>
         <p>Open <code>CLAUDE.md</code> and replace <code>{project_root}</code>, <code>{input_dir}</code>, and <code>{output_dir}</code> with your actual folders — where your PDFs live, and where drafts and finals should get written. That's the only thing in <code>CLAUDE.md</code> that's project-specific; the orchestrator/worker discipline underneath it is already generic.</p>
@@ -4325,11 +4328,11 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
       </section>
 
       <section class="doc-section" id="access">
-        <div class="sec-head"><span class="sec-num">§8</span><h2>What's here, what to request</h2></div>
-        <p>This page documents the method, and <a href="#example">§4</a> shows six complete, real output records — so the shape of what this produces is fully public. A generalized, project-agnostic version of the pipeline — reconciliation logic, output template, and a blank codebook skeleton to fill in for a different review — is being built at <a href="../../tools/sr-extraction-pipeline/">/tools/sr-extraction-pipeline/</a>. What stays gated: the full ESD-specific codebook (every field, not just the excerpt above), the original orchestrator/worker prompts, and the downstream automation used to load results into a review database. Those are IDB project materials, available on request.</p>
+        <div class="sec-head"><span class="sec-num">§8</span><h2>Get the whole thing</h2></div>
+        <p>Nothing on this page is a summary of materials kept elsewhere. Everything is at <a href="../../tools/sr-extraction-pipeline/">/tools/sr-extraction-pipeline/</a>: the generalized, project-agnostic template for adapting this to a new review, <strong>and</strong> the complete, real, unedited ESD pipeline — every field of the codebook, all six orchestrator prompts, all six worker subagent definitions, exactly as they ran in production. Nothing is redacted or simplified for the write-up; <a href="#example">§4</a>'s worked examples are pulled from the same files.</p>
 
         <div class="access-box">
-          <p>Request the underlying skills, prompts, and codebook from either contact below.</p>
+          <p>Questions about adapting this to your own review — reach either contact below.</p>
           <ul class="contact-list">
             <li>Brayan A. Condori<span class="role">Consultant</span></li>
             <li>Ariana Grossi<span class="role">Project Lead, Inter-American Development Bank</span></li>
@@ -4338,7 +4341,7 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
       </section>
 
       <footer class="page-foot">
-        Built for the IDB Extended School Day Systematic Review. This guide describes a general method — the specific field lists, coding schemes, and prompts shown here are illustrative, not the production codebook.
+        Built for the IDB Extended School Day Systematic Review. The illustrative reliability scorecard in §2.6 is a template, not a reported result — everything else linked from this page, including the codebook and prompts in <a href="../../tools/sr-extraction-pipeline/examples/esd/">examples/esd/</a>, is the real, unedited production material.
       </footer>
 
     </div>
