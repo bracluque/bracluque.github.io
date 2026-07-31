@@ -307,6 +307,19 @@
   .group-intro { color: var(--ink-muted); margin-bottom: 1.6rem; }
 
   p { margin: 0 0 1.05rem; }
+  .doc-section > ol, .doc-section > p + ol {
+    margin: 0 0 1.05rem;
+    padding-left: 1.3rem;
+  }
+  .doc-section > ol li {
+    margin-bottom: 0.55rem;
+    padding-left: 0.3rem;
+  }
+  .doc-section > ol li::marker {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
   p.lead { font-size: 1.05rem; }
   strong { font-weight: 700; color: var(--ink); }
   em.term { font-style: italic; }
@@ -620,7 +633,7 @@
       <header class="hero">
         <p class="eyebrow">A guide for research teams</p>
         <h1 class="serif">Coding at Scale: LLM-Assisted Extraction for Systematic Reviews</h1>
-        <p class="dek">You are not running a script. You are hiring a very fast, very confident research assistant who has never done this exact task before — and you need to manage them like one: with a codebook, blind double-coding, adjudication, and measured agreement, not blind trust.</p>
+        <p class="dek">Treat the model like a new research assistant, not a script: it needs a codebook, blind double-coding, adjudication, and measured agreement. Skip any of those and you're trusting output nobody checked.</p>
         <div class="meta-row">
           <span class="tag case">Case study — IDB Extended School Day Review</span>
           <span class="tag">Guide + full pipeline, self-contained</span>
@@ -637,11 +650,11 @@
           </div>
           <div class="spec-row">
             <div class="spec-label">Why</div>
-            <div class="spec-body"><p>An LLM is fast but not trustworthy by default — it states a wrong number as confidently as a right one. Treat it as an unsupervised coder: it needs a codebook, blind double-coding, adjudication, and a measured reliability score, or you get confidently wrong data at scale.</p></div>
+            <div class="spec-body"><p>An LLM states a wrong number as confidently as a right one. Treat it as an unsupervised coder: it needs a codebook, blind double-coding, adjudication, and a measured reliability score, or errors compound silently at scale.</p></div>
           </div>
           <div class="spec-row">
             <div class="spec-label">Input</div>
-            <div class="spec-body"><p>The source PDFs; a field-by-field codebook someone on the review team writes first (definitions, coding schemes, edge cases); and an LLM environment capable of running subagents — Claude Code or equivalent. Without that last piece, the orchestrator/worker split in <a href="#orchestrator">§2.9</a> doesn't apply.</p></div>
+            <div class="spec-body"><p>Source PDFs, a codebook (one Markdown file, written before any extraction — see <a href="#setup">§7</a>), and <strong>Claude Code</strong>. Not "an LLM environment" generically: the orchestrator/worker split in <a href="#orchestrator">§2.9</a> runs on Claude Code's subagent dispatch specifically, and that's not something you can swap in a different chat interface for.</p></div>
           </div>
           <div class="spec-row">
             <div class="spec-label">Process</div>
@@ -649,7 +662,7 @@
           </div>
           <div class="spec-row">
             <div class="spec-label">Output</div>
-            <div class="spec-body"><p>One Markdown record per paper, evidence quotes inline (see the <a href="#example">worked example</a>). A human then either pastes it into the review's master sheet, or uses it as an independent baseline to cross-check another consultant's manual extraction of the same paper. It can also be exported semi-automatically into a target spreadsheet format — faster, but still budget time for verification.</p></div>
+            <div class="spec-body"><p>One Markdown record per paper, evidence quotes inline (<a href="#example">§4</a>). Paste it into the review's master sheet, or use it as an independent baseline against a consultant's manual extraction of the same paper. It can also export semi-automatically into a spreadsheet — faster, but still budget time to verify it.</p></div>
           </div>
           <div class="spec-row">
             <div class="spec-label">Who it's for</div>
@@ -661,14 +674,13 @@
           </div>
         </div>
 
-        <p class="lead">Systematic reviews increasingly need structured data pulled out of hundreds of PDFs — sample sizes, effect sizes, p-values, study design, population characteristics. Doing that by hand doesn't scale past a few dozen papers without months of research-assistant time. A large language model can do the transcription work in a fraction of that time.</p>
-        <p>But fast is not the same as trustworthy. An LLM will produce a plausible-looking number whether or not the paper actually supports it, and it will do so with the same confident tone whether it's right or wrong. Treating that output as ground truth is the fastest way to fill a dataset with numbers that <em class="term">look</em> correct.</p>
-        <p>This guide starts from a different premise: you are outsourcing coding work to a coder you cannot supervise in real time. That coder needs exactly the scaffolding you'd put around any research assistant doing the same job — a precise codebook, independent double-coding, a reconciliation step, and a measured reliability score before you trust it at scale. Skip any one of those and you have a fast way to get confidently wrong numbers into your dataset.</p>
+        <p class="lead">Systematic reviews need structured data — sample sizes, effect sizes, p-values, study design — pulled out of hundreds of PDFs. Doing that by hand doesn't scale past a few dozen papers without months of research-assistant time; an LLM does the transcription in a fraction of that time, but only if it's managed like the unsupervised coder it is.</p>
+        <p>That management is the rest of this guide: a codebook, blind double-coding, adjudication, and a measured reliability score, all before you trust the output at the full corpus.</p>
       </section>
 
       <section class="doc-section" id="principles-head">
         <div class="sec-head"><span class="sec-num">§2</span><h2>Design principles</h2></div>
-        <p class="group-intro">Nine principles, in the order they actually get used: write the codebook, extract without inferring, require evidence, code twice blind, reconcile against the source, measure agreement, flag honestly, keep auditing by hand, and manage context so the pipeline can run at scale.</p>
+        <p class="group-intro">Nine principles, in the order they get used: write the codebook, extract without inferring, require evidence, code twice blind, reconcile against the source, measure agreement, flag honestly, audit by hand, manage context for scale.</p>
       </section>
 
       <section class="doc-section principle core" id="codebook">
@@ -709,7 +721,7 @@
         <span class="p-label">2.4 — Independence</span>
         <h3>Code blind, and code twice</h3>
         <p>Run two independent extraction passes over every paper, each with zero visibility into the other's answers — the same logic as dual independent screening in a human-run systematic review. Where the two agree, you have real signal. Where they disagree, you've found precisely the ambiguous cases that deserve a closer look, not a coin flip or a tiebreak by whichever ran first.</p>
-        <p>The two independent coders don't have to both be models. The same blind-comparison logic works model-vs-human: run the pipeline over a paper a consultant has already coded by hand, without either side seeing the other's answers, and reconcile the two. Used this way, the pipeline isn't a replacement for the human coder — it's an independent check on them.</p>
+        <p>The two independent coders don't have to both be models. Run the pipeline over a paper a consultant already coded by hand, without either side seeing the other's answers, and reconcile the two — now the pipeline checks the human coder instead of replacing them.</p>
       </section>
 
       <section class="doc-section principle core" id="reconcile">
@@ -4271,39 +4283,79 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
             </ul>
           </div>
         </div>
-        <p>On that last point: this is not token-cheap. Independent double-coding plus reconciliation across hundreds of papers runs a lot of model calls — model choice and billing plan both affect how that lands. The case study in <a href="#case-study">§5</a> ran on a flat-rate Claude Code subscription rather than metered API billing, which made the cost predictable regardless of corpus size; on a pay-per-token plan, budget for it explicitly before committing to the full corpus.</p>
+        <p>On that last point: this isn't token-cheap. Double-coding plus reconciliation across hundreds of papers runs a lot of model calls, and your billing plan changes how that lands. The case study in <a href="#case-study">§5</a> ran on a flat-rate Claude Code subscription, which made cost predictable regardless of corpus size; on pay-per-token API billing, budget for it before committing to the full run.</p>
       </section>
 
       <section class="doc-section" id="setup">
         <div class="sec-head"><span class="sec-num">§7</span><h2>Setting it up for your own review</h2></div>
-        <p>Cloning <a href="../../tools/sr-extraction-pipeline/">the repo</a> gets you the engine. Getting it running for your own review is really two jobs: pointing the paths at your files, and writing the codebook. Claude can do most of both for you — but only if you brief it the same way you'd brief a new research assistant, not just hand it a topic name.</p>
+        <p>Cloning <a href="../../tools/sr-extraction-pipeline/">the repo</a> gets you the engine. Running it on your own review needs three things: a project folder laid out correctly, a codebook, and Claude Code. The rest of this section is those three things, in detail.</p>
 
-        <h3>Folder structure</h3>
+        <h3>Requirements</h3>
+        <div class="callout">
+          <span class="c-label">Claude Code — required, not optional</span>
+          <p>The pipeline dispatches subagents through Claude Code's Task tool (<code>.claude/agents/</code>). ChatGPT, a raw API script, and other coding assistants don't expose an equivalent — <a href="#orchestrator">§2.9</a>'s orchestrator/worker split doesn't run without it. You need Claude Code installed, plus a Claude subscription or API access to run it against (see <a href="#fit">§6</a> for what that costs at scale).</p>
+        </div>
+
+        <h3>Repo layout</h3>
         <div class="file-viewer tree-viewer">
           <div class="file-titlebar"><span class="dot"></span> sr-extraction-pipeline/</div>
           <div class="file-body"><pre>sr-extraction-pipeline/
-├── CLAUDE.md                  ← orchestrator/worker rules; has {placeholders} for your paths
+├── CLAUDE.md                  ← orchestrator/worker rules, {placeholders} for your paths
 ├── HOW_TO_RUN.md              ← the run guide, stage by stage
-├── .claude/agents/            ← worker subagent definitions (auto-loaded by Claude Code)
-├── prompts/                   ← orchestrator prompts, one per stage — what you paste to start each stage
+├── .claude/agents/            ← worker subagent definitions
+├── prompts/                   ← orchestrator prompts, one per stage
 ├── template/
-│   ├── SKILL_codebook.md          ← blank codebook skeleton — this is what you fill in
-│   ├── SKILL_reconciliation.md    ← adjudication logic, already generic, no editing needed
+│   ├── SKILL_codebook.md          ← blank codebook skeleton — copy this, don't edit it in place
+│   ├── SKILL_reconciliation.md    ← adjudication logic, already generic
 │   └── TEMPLATE_output.md         ← the output record shape
 └── examples/esd/                ← the real ESD project, complete and unedited
     ├── CLAUDE.md, HOW_TO_RUN.txt    ← the actual files this pipeline ran on
     ├── .claude/agents/, prompts/    ← all 6 real worker + orchestrator files
-    ├── skills/                      ← the FULL real codebook, every field
-    ├── excerpt.md                   ← same 4-field excerpt as this guide
+    ├── skills/                      ← the full real codebook, every field
     └── sample-output/5cbd47b5.md    ← 1 real, complete extraction record</pre></div>
         </div>
-        <p class="diagram-caption">Everything under <code>template/</code> is meant to be copied and edited. <code>examples/esd/</code> is the opposite — read-only, unedited, exactly as it ran; it's there to show a new consultant the real thing rather than a description of it. One redaction: the Windows username in file paths (<code>C:\Users\bracl\...</code>) was replaced with <code>C:\Users\&lt;you&gt;\...</code> throughout before publishing — flagged at the top of <code>CLAUDE.md</code> and <code>HOW_TO_RUN.txt</code> themselves. Nothing else was changed.</p>
+        <p class="diagram-caption"><code>template/</code> is meant to be copied into your own project and edited. <code>examples/esd/</code> is read-only reference — the real thing, unedited, so a new consultant can read it directly instead of a description of it. (One redaction: the Windows username in its file paths was replaced with a placeholder before publishing — flagged inline in those files.)</p>
 
-        <h3>Point the paths</h3>
-        <p>Open <code>CLAUDE.md</code> and replace <code>{project_root}</code>, <code>{input_dir}</code>, and <code>{output_dir}</code> with your actual folders — where your PDFs live, and where drafts and finals should get written. That's the only thing in <code>CLAUDE.md</code> that's project-specific; the orchestrator/worker discipline underneath it is already generic.</p>
+        <h3>Your project folder</h3>
+        <p>The repo is the engine. Your review lives in its own folder, separate from the repo — this is where your PDFs go in and your Markdown records come out:</p>
+        <div class="file-viewer tree-viewer">
+          <div class="file-titlebar"><span class="dot"></span> my-review/</div>
+          <div class="file-body"><pre>my-review/                      ← {project_root} — anywhere on disk
+├── CLAUDE.md                   ← copied from the repo, {placeholders} filled in
+├── .claude/agents/              ← copied from the repo
+├── prompts/                     ← copied from the repo
+├── papers/                      ← {input_dir} — your source PDFs, flat, one file per paper
+│   ├── 0001_smith2019.pdf
+│   ├── 0002_johnson2020.pdf
+│   └── ...
+├── codebook/
+│   └── SKILL_codebook.md        ← {codebook_path} — your filled-in codebook (Markdown)
+└── output/                      ← {output_dir} — everything the pipeline writes
+    ├── _reviewerA/
+    │   └── {ID}.md                  ← Reviewer A's independent draft, one per paper
+    ├── _reviewerB/
+    │   └── {ID}.md                  ← Reviewer B's independent draft, one per paper
+    └── {ID}.md                      ← final reconciled record, one per paper</pre></div>
+        </div>
+        <p class="diagram-caption">PDFs go in flat under <code>papers/</code> — nothing else reads from or writes to that folder. Everything the pipeline produces lands under <code>output/</code>: both reviewers' independent drafts in their own subfolders as an audit trail, and the final reconciled record at the top level — that top-level <code>{ID}.md</code> is the file you actually use for analysis.</p>
+
+        <h3>The codebook: one Markdown file</h3>
+        <p>Format is fixed: Markdown. Not JSON, not YAML, not a spreadsheet — the workers read it as instructions, the same way they read every other file in this repo. Start from <code>template/SKILL_codebook.md</code>, copy it to <code>codebook/SKILL_codebook.md</code> inside your project folder, and fill it in there. That copy — not the template in the repo — is what <code>{codebook_path}</code> in your <code>CLAUDE.md</code> points to.</p>
+
+        <h3>Step by step</h3>
+        <ol>
+          <li><strong>Clone the repo</strong> anywhere on disk.</li>
+          <li><strong>Create your project folder</strong> with the layout above: <code>papers/</code>, <code>codebook/</code>, <code>output/</code>.</li>
+          <li><strong>Copy the engine in</strong> — <code>CLAUDE.md</code>, <code>.claude/agents/</code>, and <code>prompts/</code> from the repo into your project folder.</li>
+          <li><strong>Fill in the four path placeholders</strong> in your copy of <code>CLAUDE.md</code>: <code>{project_root}</code>, <code>{input_dir}</code>, <code>{codebook_path}</code>, <code>{output_dir}</code>.</li>
+          <li><strong>Drop your PDFs into <code>papers/</code></strong>, one file per paper.</li>
+          <li><strong>Draft the codebook</strong> at <code>codebook/SKILL_codebook.md</code> — see below for briefing Claude to write the first draft.</li>
+          <li><strong>Open Claude Code at your project root.</strong> It needs <code>CLAUDE.md</code> and <code>.claude/agents/</code> present to auto-load the subagents.</li>
+          <li><strong>Run the three stages</strong>, each in a fresh session: paste "Read prompts/01_REVIEWER_A_ORCHESTRATOR.md and follow it," then the same for stage 2 and stage 3. <code>HOW_TO_RUN.md</code> has the full detail — parallelism tuning, progress checks, what to do when a session stalls.</li>
+        </ol>
 
         <h3>Let Claude draft the codebook — but brief it like an RA</h3>
-        <p>This is <a href="#codebook">§2.1</a> one level up: you're now asking an LLM to write the LLM's own instructions, and the failure mode is identical. A vague ask produces a plausible-sounding but ungrounded codebook, for exactly the same reason a vague codebook produces plausible-sounding but ungrounded extractions — nothing forces the model to ground itself in what your papers actually say.</p>
+        <p>This is <a href="#codebook">§2.1</a> one level up: you're asking an LLM to write the LLM's own instructions, and the failure mode is identical. A vague ask produces a plausible-sounding but ungrounded codebook, for the same reason a vague codebook produces plausible-sounding but ungrounded extractions — nothing forces the model to ground itself in what your papers actually say.</p>
 
         <div class="fit-grid">
           <div class="fit-col bad">
@@ -4319,12 +4371,12 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
           <div class="fit-col good">
             <h3>Specific prompt</h3>
             <p>"I'm running a systematic review on workplace mentorship programs and their effect on retention and promotion rates. Our inclusion criteria: [paste the real ones]. I've attached three papers from the corpus — an RCT, a quasi-experiment, and a descriptive study — so you can see the range of designs.</p>
-            <p>Using <code>template/SKILL_codebook.md</code> as the shape, draft <code>SKILL_codebook.md</code>: our inclusion/exclusion codes, our outcome taxonomy (based on what these three papers actually measure), our intervention typology, and a decision rule for every field — the same way <code>examples/esd/excerpt.md</code> shows one. Don't fill in real values yet. Show me the skeleton first; we'll pilot it against paper #1 before touching the rest of the corpus."</p>
+            <p>Using <code>template/SKILL_codebook.md</code> as the shape, draft <code>codebook/SKILL_codebook.md</code>: our inclusion/exclusion codes, our outcome taxonomy (based on what these three papers actually measure), our intervention typology, and a decision rule for every field — the same way <code>examples/esd/excerpt.md</code> shows one. Don't fill in real values yet. Show me the skeleton first; we'll pilot it against paper #1 before touching the rest of the corpus."</p>
           </div>
         </div>
 
         <h3>Pilot before you scale</h3>
-        <p>Once the draft codebook exists, don't point it at the full corpus yet. Run it against one paper, read the output, and check whether the fields actually make sense against real text — then run the reliability pilot from <a href="#measure-agreement">§2.6</a> on a small sample before committing to the full run. Draft codebook → one-paper test → reliability pilot → full corpus. Skipping straight from "Claude wrote a codebook" to "run all 300 papers" is how a vague first draft turns into 300 confidently wrong records instead of one correctable one.</p>
+        <p>Draft codebook → one-paper test → reliability pilot (<a href="#measure-agreement">§2.6</a>) → full corpus. Don't skip from "Claude wrote a codebook" straight to running the whole corpus — read the one-paper output against the real text first, then check agreement on a small sample. That order is what turns a bad first draft into one correctable paper instead of three hundred wrong ones.</p>
       </section>
 
       <section class="doc-section" id="access">
