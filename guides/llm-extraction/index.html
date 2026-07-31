@@ -76,6 +76,15 @@
   }
   .mono { font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace; }
 
+  code {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+
   a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
   a:hover { color: var(--accent); }
   a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -390,6 +399,8 @@
   .fit-col.good h3 { color: var(--verify); }
   .fit-col.bad h3 { color: var(--accent-ink); }
   .fit-col ul { margin: 0; padding-left: 1.1rem; font-size: 0.9rem; }
+  .fit-col p { font-size: 0.9rem; margin-bottom: 0.6rem; }
+  .fit-col code { font-size: 0.85rem; }
   .fit-col li { margin-bottom: 0.4rem; }
 
   /* ---------- At-a-glance spec grid ---------- */
@@ -462,6 +473,8 @@
     overflow: auto;
     background: var(--bg-raised);
   }
+  .file-viewer.tree-viewer .file-body { max-height: none; }
+  .file-viewer.tree-viewer pre { white-space: pre; }
   .file-viewer pre {
     margin: 0;
     padding: 1.1rem 1.3rem;
@@ -590,6 +603,7 @@
           <li><a class="nav-link top" href="#example" data-nav>Worked example</a></li>
           <li><a class="nav-link top" href="#case-study" data-nav>Case study</a></li>
           <li><a class="nav-link top" href="#fit" data-nav>When this fits</a></li>
+          <li><a class="nav-link top" href="#setup" data-nav>Setting it up</a></li>
           <li><a class="nav-link top" href="#access" data-nav>What's public</a></li>
         </ul>
       </div>
@@ -643,7 +657,7 @@
           </div>
           <div class="spec-row">
             <div class="spec-label">Gated</div>
-            <div class="spec-body"><p>This guide and the worked example are public. The coding-rule files, orchestrator/worker prompts, and scripts that produce this output are IDB project materials — see <a href="#access">§7</a>.</p></div>
+            <div class="spec-body"><p>This guide and the worked example are public. The coding-rule files, orchestrator/worker prompts, and scripts that produce this output are IDB project materials — see <a href="#access">§8</a>.</p></div>
           </div>
         </div>
 
@@ -4260,8 +4274,58 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
         <p>On that last point: this is not token-cheap. Independent double-coding plus reconciliation across hundreds of papers runs a lot of model calls — model choice and billing plan both affect how that lands. The case study in <a href="#case-study">§5</a> ran on a flat-rate Claude Code subscription rather than metered API billing, which made the cost predictable regardless of corpus size; on a pay-per-token plan, budget for it explicitly before committing to the full corpus.</p>
       </section>
 
+      <section class="doc-section" id="setup">
+        <div class="sec-head"><span class="sec-num">§7</span><h2>Setting it up for your own review</h2></div>
+        <p>Cloning <a href="../../tools/sr-extraction-pipeline/">the repo</a> gets you the engine. Getting it running for your own review is really two jobs: pointing the paths at your files, and writing the codebook. Claude can do most of both for you — but only if you brief it the same way you'd brief a new research assistant, not just hand it a topic name.</p>
+
+        <h3>Folder structure</h3>
+        <div class="file-viewer tree-viewer">
+          <div class="file-titlebar"><span class="dot"></span> sr-extraction-pipeline/</div>
+          <div class="file-body"><pre>sr-extraction-pipeline/
+├── CLAUDE.md                  ← orchestrator/worker rules; has {placeholders} for your paths
+├── HOW_TO_RUN.md              ← the run guide, stage by stage
+├── .claude/agents/            ← worker subagent definitions (auto-loaded by Claude Code)
+├── prompts/                   ← orchestrator prompts, one per stage — what you paste to start each stage
+├── template/
+│   ├── SKILL_codebook.md          ← blank codebook skeleton — this is what you fill in
+│   ├── SKILL_reconciliation.md    ← adjudication logic, already generic, no editing needed
+│   └── TEMPLATE_output.md         ← the output record shape
+└── examples/esd/                ← the real ESD project, as a worked reference
+    ├── excerpt.md                  ← 4 real filled-in codebook fields
+    └── sample-output/5cbd47b5.md   ← 1 real, complete extraction record</pre></div>
+        </div>
+        <p class="diagram-caption">Everything under <code>template/</code> is meant to be copied and edited. Nothing under <code>.claude/agents/</code> or <code>prompts/</code> should need touching beyond the path placeholders in <code>CLAUDE.md</code>.</p>
+
+        <h3>Point the paths</h3>
+        <p>Open <code>CLAUDE.md</code> and replace <code>{project_root}</code>, <code>{input_dir}</code>, and <code>{output_dir}</code> with your actual folders — where your PDFs live, and where drafts and finals should get written. That's the only thing in <code>CLAUDE.md</code> that's project-specific; the orchestrator/worker discipline underneath it is already generic.</p>
+
+        <h3>Let Claude draft the codebook — but brief it like an RA</h3>
+        <p>This is <a href="#codebook">§2.1</a> one level up: you're now asking an LLM to write the LLM's own instructions, and the failure mode is identical. A vague ask produces a plausible-sounding but ungrounded codebook, for exactly the same reason a vague codebook produces plausible-sounding but ungrounded extractions — nothing forces the model to ground itself in what your papers actually say.</p>
+
+        <div class="fit-grid">
+          <div class="fit-col bad">
+            <h3>Vague prompt</h3>
+            <p>"Make a codebook for my systematic review on workplace mentorship programs."</p>
+            <ul>
+              <li>No inclusion criteria to ground exclusion codes</li>
+              <li>No example papers — fields get invented from the topic name alone</li>
+              <li>No reference to the template shape, so the output may not match what the pipeline expects</li>
+              <li>No instruction to stop and check before scaling up</li>
+            </ul>
+          </div>
+          <div class="fit-col good">
+            <h3>Specific prompt</h3>
+            <p>"I'm running a systematic review on workplace mentorship programs and their effect on retention and promotion rates. Our inclusion criteria: [paste the real ones]. I've attached three papers from the corpus — an RCT, a quasi-experiment, and a descriptive study — so you can see the range of designs.</p>
+            <p>Using <code>template/SKILL_codebook.md</code> as the shape, draft <code>SKILL_codebook.md</code>: our inclusion/exclusion codes, our outcome taxonomy (based on what these three papers actually measure), our intervention typology, and a decision rule for every field — the same way <code>examples/esd/excerpt.md</code> shows one. Don't fill in real values yet. Show me the skeleton first; we'll pilot it against paper #1 before touching the rest of the corpus."</p>
+          </div>
+        </div>
+
+        <h3>Pilot before you scale</h3>
+        <p>Once the draft codebook exists, don't point it at the full corpus yet. Run it against one paper, read the output, and check whether the fields actually make sense against real text — then run the reliability pilot from <a href="#measure-agreement">§2.6</a> on a small sample before committing to the full run. Draft codebook → one-paper test → reliability pilot → full corpus. Skipping straight from "Claude wrote a codebook" to "run all 300 papers" is how a vague first draft turns into 300 confidently wrong records instead of one correctable one.</p>
+      </section>
+
       <section class="doc-section" id="access">
-        <div class="sec-head"><span class="sec-num">§7</span><h2>What's here, what to request</h2></div>
+        <div class="sec-head"><span class="sec-num">§8</span><h2>What's here, what to request</h2></div>
         <p>This page documents the method, and <a href="#example">§4</a> shows six complete, real output records — so the shape of what this produces is fully public. A generalized, project-agnostic version of the pipeline — reconciliation logic, output template, and a blank codebook skeleton to fill in for a different review — is being built at <a href="../../tools/sr-extraction-pipeline/">/tools/sr-extraction-pipeline/</a>. What stays gated: the full ESD-specific codebook (every field, not just the excerpt above), the original orchestrator/worker prompts, and the downstream automation used to load results into a review database. Those are IDB project materials, available on request.</p>
 
         <div class="access-box">
