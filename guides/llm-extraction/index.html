@@ -4302,8 +4302,14 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
           <div class="file-body"><pre>sr-extraction-pipeline/
 ├── CLAUDE.md                  ← orchestrator/worker rules, {placeholders} for your paths
 ├── HOW_TO_RUN.md              ← the run guide, stage by stage
-├── .claude/agents/            ← worker subagent definitions
-├── prompts/                   ← orchestrator prompts, one per stage
+├── .claude/agents/            ← the three worker subagent definitions
+│   ├── reviewer-a-worker.md
+│   ├── reviewer-b-worker.md
+│   └── reconciler-worker.md
+├── prompts/                   ← the three orchestrator prompts
+│   ├── 01_REVIEWER_A_ORCHESTRATOR.md
+│   ├── 02_REVIEWER_B_ORCHESTRATOR.md
+│   └── 03_RECONCILER_ORCHESTRATOR.md
 ├── template/
 │   ├── SKILL_codebook.md          ← blank codebook skeleton — copy this, don't edit it in place
 │   ├── SKILL_reconciliation.md    ← adjudication logic, already generic
@@ -4320,10 +4326,13 @@ Table IV, Panel B, column (4), p. 1386 — OLS pooled: -0.008 (0.016); not stati
         <p>The repo is the engine. Your review lives in its own folder, separate from the repo — this is where your PDFs go in and your Markdown records come out:</p>
         <div class="file-viewer tree-viewer">
           <div class="file-titlebar"><span class="dot"></span> my-review/</div>
-          <div class="file-body"><pre>my-review/                      ← {project_root} — anywhere on disk
-├── CLAUDE.md                   ← copied from the repo, {placeholders} filled in
-├── .claude/agents/              ← copied from the repo
-├── prompts/                     ← copied from the repo
+          <div class="file-body"><pre>my-review/                      ← {project_root} — a NEW folder, separate from the unzipped/cloned repo
+├── CLAUDE.md                   ← copied from the repo's CLAUDE.md, {placeholders} filled in
+├── .claude/agents/              ← copied whole from the repo's .claude/agents/, unchanged
+│   ├── reviewer-a-worker.md
+│   ├── reviewer-b-worker.md
+│   └── reconciler-worker.md
+├── prompts/                     ← copied whole from the repo's prompts/, unchanged (3 files)
 ├── papers/                      ← {input_dir} — your source PDFs, flat, one file per paper
 │   ├── 0001_smith2019.pdf
 │   ├── 0002_johnson2020.pdf

@@ -10,10 +10,16 @@ Everything here is self-contained: the generalized, project-agnostic template (`
 
 ```
 sr-extraction-pipeline/
-├── CLAUDE.md                  ← generic orchestrator/worker rules (placeholder)
-├── HOW_TO_RUN.md              ← run guide (placeholder)
-├── .claude/agents/            ← worker subagent definitions (placeholder)
-├── prompts/                   ← orchestrator prompts, one per stage (placeholder)
+├── CLAUDE.md                  ← generic orchestrator/worker rules, {placeholders} for your paths
+├── HOW_TO_RUN.md              ← run guide, stage by stage
+├── .claude/agents/            ← the three worker subagent definitions
+│   ├── reviewer-a-worker.md
+│   ├── reviewer-b-worker.md
+│   └── reconciler-worker.md
+├── prompts/                   ← the three orchestrator prompts, one per stage
+│   ├── 01_REVIEWER_A_ORCHESTRATOR.md
+│   ├── 02_REVIEWER_B_ORCHESTRATOR.md
+│   └── 03_RECONCILER_ORCHESTRATOR.md
 ├── template/                  ← the reusable, project-agnostic pieces
 │   ├── SKILL_codebook.md          ← blank codebook skeleton to fill in per review
 │   ├── SKILL_reconciliation.md    ← adjudication logic (already mostly generic)
